@@ -6,7 +6,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
 {
     public class WordCompositeRoot : MonoBehaviour
     {
-        [SerializeField] private WordCellController _wordCellController;
+        [SerializeField] private WordCellController _wordCellControllerPrefab;
         [SerializeField] private Transform _parent;
         [field:SerializeField] public WordController WordController { get; private set; }
 
@@ -16,7 +16,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
 
             for (int i = 0; i < countCells; i++)
             {
-                WordCellController wordCellController = Instantiate(_wordCellController, _parent);
+                WordCellController wordCellController = Instantiate(_wordCellControllerPrefab, _parent);
                 wordCellController.Initialize(WordController);
                 wordCellControllers.Add(wordCellController);
             }

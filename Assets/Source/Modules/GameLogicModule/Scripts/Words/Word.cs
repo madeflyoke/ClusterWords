@@ -18,7 +18,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
         }
 
         public List<Cluster<char>> WordClusters { get; private set; }
-        public int Count => WordClusters.Sum(x => x.ClusterItems.Count);
+        public int CellsCount => WordClusters.Sum(x => x.ClusterItems.Count);
         public void AddCluster(Cluster<char> cluster)
         {
             WordClusters.Add(cluster);

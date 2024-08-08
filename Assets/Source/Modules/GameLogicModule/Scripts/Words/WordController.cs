@@ -69,7 +69,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
             _clusters.Add(cluster, clustersIndex);
             RegenerateCurrentWord();
             
-            if (_wordModel.CurrentWord.Count == _wordCellControllers.Count)
+            if (_wordModel.CurrentWord.CellsCount == _wordCellControllers.Count)
             {
                 WordCreated?.Invoke(this);
             }

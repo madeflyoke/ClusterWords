@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parent: {fileID: 4883868619370480553}
-  _clusterItemCompositeRoot: {fileID: 7632990732960794073, guid: 23eb62d756779b549b105af1e6d0b6ce, type: 3}
+  _clusterItemCompositeRootPrefab: {fileID: -1716744856291246621, guid: af640fb8499baa5438c5fffeb94a79b8, type: 3}
 --- !u!114 &6641232805462039952
 MonoBehaviour:
   m_ObjectHideFlags: 0
