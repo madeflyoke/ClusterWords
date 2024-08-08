@@ -32,7 +32,16 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
         
         public void AnimateWordCells(Cluster<char> cluster, int startIndex)
         {
-            for (var i = 0; i < cluster.ClusterItems.Count; i++) _wordCellControllers[i + startIndex].StartAnimate();
+            for (var i = 0; i < cluster.ClusterItems.Count; i++) 
+                _wordCellControllers[i + startIndex].StartAnimate();
+        }
+
+        public Vector3 GetAveragePositionBetweenCells(Cluster<char> cluster, int startIndex)
+        {
+            var finalPos = _wordCellControllers[0].transform.position;
+            finalPos.x = _wordCellControllers.GetRange(startIndex, cluster.ClusterItems.Count)
+                .Average(x => x.transform.position.x);
+            return finalPos;
         }
 
         public void StopAnimateCells()

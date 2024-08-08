@@ -614,7 +614,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parent: {fileID: 457918688192750902}
   _dragParent: {fileID: 7192510680216509238}
-  _clusterCompositeRoot: {fileID: -668650587151410438, guid: 6e4d5ed61a1286e4584d9fee62fcedd8, type: 3}
+  _clusterCompositeRoot: {fileID: 3914778372771735916, guid: 3331ab9ac395dbc47bf8c8e48e208495, type: 3}
 --- !u!114 &7046531841786314846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -627,7 +627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0588bfcdadfe35946ade77694104009d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wordCompositeRoot: {fileID: 3864316653153724853, guid: dbd39e53fca7b5a40ad9f55109e23c8e, type: 3}
+  _wordCompositeRoot: {fileID: 5689006133605024757, guid: fe85f0b93cfee0542a5ac2a20eefd8d9, type: 3}
   _wordsSpawnArea: {fileID: 8576558534480749433}
 --- !u!224 &7192510680216509238 stripped
 RectTransform:

@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using Source.Modules.GameLogicModule.Scripts.Clusters.ClusterItem;
 using Source.Modules.GameLogicModule.Scripts.Words;
 using Source.Modules.GameLogicModule.Scripts.Words.WordCells;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Zenject;
 
 namespace Source.Modules.GameLogicModule.Scripts.Clusters
@@ -19,14 +21,21 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
 
         private ClusterModel _clusterModel;
         private Canvas _canvas;
+        private GraphicRaycaster _raycaster;
         private ClusterSpawner _clusterSpawner;
         private WordController _previousWordController;
         private SoundPlayer _soundPlayer;
+
+        private List<ClusterItemCompositeRoot> _relatedClusterItems;
+        private List<RaycastResult> _cachedRaycastResults;
+        private RectTransform _startClusterPoint;
       
         [Inject]
         private void Construct(Canvas canvas, ClusterSpawner clusterSpawner,SoundPlayer soundPlayer)
         {
             _canvas = canvas;
+            _raycaster = _canvas.GetComponent<GraphicRaycaster>();
+            _cachedRaycastResults = new();
             _clusterSpawner = clusterSpawner;
             _soundPlayer = soundPlayer;
         }
@@ -34,7 +43,8 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
         public void Init(ClusterModel clusterModel)
         {
             _clusterModel = clusterModel;
-            _clusterItemSpawner.SpawnClusterItems(clusterModel.Cluster);
+            _relatedClusterItems = _clusterItemSpawner.SpawnClusterItems(clusterModel.Cluster);
+            _startClusterPoint = _relatedClusterItems[0].transform as RectTransform;
         }
 
         public Cluster<char> GetCluster()
@@ -55,7 +65,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
             
             _clusterModel.MoveCluster(eventData.delta/ _canvas.scaleFactor);
             
-            GameObject currentGameObject = eventData.pointerCurrentRaycast.gameObject;
+            GameObject currentGameObject = RaycastCheckForCell();
             
             if (currentGameObject != null &&
                 currentGameObject.TryGetComponent(out WordCellController wordCellController))
@@ -84,13 +94,15 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
         public void OnEndDrag(PointerEventData eventData)
         {
             EndDrag?.Invoke(this);
-            GameObject currentGameObject = eventData.pointerCurrentRaycast.gameObject;
+            GameObject currentGameObject = RaycastCheckForCell();;
             if (currentGameObject != null &&
                 currentGameObject.TryGetComponent(out WordCellController wordCellController) &&
                 wordCellController.CanAddCluster(this))
             {
                 wordCellController.AddCluster(this);
-                _clusterModel.UpdatePosition(wordCellController.transform.position);
+                
+                _clusterModel.UpdatePosition(wordCellController.WordController.GetAveragePositionBetweenCells(_clusterModel.Cluster,
+                    wordCellController.GetCellIndex()));
                 _clusterModel.SetParent(_clusterSpawner.DraggedClustersParent);
                 _clusterView.SetViewInCell();
                 _soundPlayer.PlaySound(SoundType.SetClusterInCellSound);
@@ -101,6 +113,18 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
                 _clusterView.EndDrag();
             }
 
+        }
+
+        private GameObject RaycastCheckForCell()
+        {
+            _cachedRaycastResults.Clear();
+            PointerEventData pointerData = new PointerEventData(EventSystem.current)
+            {
+                position = _startClusterPoint.position
+            };
+            
+            _raycaster.Raycast(pointerData, _cachedRaycastResults);
+            return _cachedRaycastResults[0].gameObject;
         }
     }
 }
