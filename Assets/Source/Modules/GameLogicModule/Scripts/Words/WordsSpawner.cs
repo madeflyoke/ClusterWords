@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Source.Modules.GameLogicModule.Scripts.Words
 {
@@ -13,12 +14,14 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
             List<WordCompositeRoot> wordCompositeRoots = new(); 
             foreach (Word levelDataWord in words)
             {
-                WordCompositeRoot wordCompositeRoot = Instantiate(_wordCompositeRoot, _wordsSpawnArea.GetCorrespondingWordParent(levelDataWord.CellsCount));
+                var spawnParent = _wordsSpawnArea.GetCorrespondingWordParent(levelDataWord.CellsCount);
+                WordCompositeRoot wordCompositeRoot = Instantiate(_wordCompositeRoot, spawnParent);
                 wordCompositeRoot.Composite(levelDataWord.CellsCount);
                 wordCompositeRoots.Add(wordCompositeRoot);
             }
-
+            LayoutRebuilder.ForceRebuildLayoutImmediate(_wordsSpawnArea.transform as RectTransform);
             return wordCompositeRoots;
         }
+        
     }
 }

@@ -124,7 +124,12 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
             };
             
             _raycaster.Raycast(pointerData, _cachedRaycastResults);
-            return _cachedRaycastResults[0].gameObject;
+            if (_cachedRaycastResults.Count>0)
+            {
+                return _cachedRaycastResults[0].gameObject;
+            }
+
+            return null;
         }
     }
 }
