@@ -19,21 +19,12 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
 
         public override void InstallBindings()
         {
-            List<LevelModel> levelData = new List<LevelModel>
-            {
-                new LevelModel(new List<string>()
-                {
-                    "КЛ|АС|ТЕР",
-                    "КЛАС|ТЕР",
-                    "КЛ|АСТ|ЕР",
-                }),
-            };
-        
             string path = Path.Combine(Application.persistentDataPath, "data.json");
             
             _levelData = new ();
-            List<LevelModel> levelModels = new LevelModelReader(levelData).ReadData(path);
-            _levelData.SetWords(GenerateWords(levelModels[0]));
+            List<LevelModel> levelModels = new LevelModelReader().ReadData(path); 
+            _levelData.SetWords(CreateWords(levelModels[0]));
+            
             Container.Bind<ClusterSpawner>().FromInstance(_clusterSpawner).AsSingle();
             Container.Bind<WordsSpawner>().FromInstance(_wordsSpawner).AsSingle();
             Container.Bind<WordsHandler>().FromInstance(_wordsHandler).AsSingle();
@@ -48,23 +39,74 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
             _wordsHandler.Initialize(wordControllers);
         }
 
-        private List<Word> GenerateWords(LevelModel levelModel)
+        private List<Word> CreateWords(LevelModel levelModel)
         {
             List<Word> result = new();
             foreach (var levelModelWord in levelModel.Words)
             {
-                List<Cluster<char>> clusters = GetWord(levelModelWord, levelModel.Separator);
+                List<Cluster<char>> clusters = SeparateWordByClusters(levelModelWord);
                 result.Add(new Word(clusters));
             }
-         
-
+            
             return result;
         }
         
-        public List<Cluster<char>> GetWord(string word,string separator)
+        private List<Cluster<char>> SeparateWordByClusters(string word) //it just works
         {
+            #region ClustersAlgorithm
+
+            List<string> clusters = new List<string>();
+            
+            int index = 0;
+            int wordLength = word.Length;
+
+            while (index < wordLength)
+            {
+                int remainingLength = wordLength - index;
+               
+                if (remainingLength == 1)
+                {
+                    break;
+                }
+       
+                List<int> validClusterSizes = new List<int>();
+          
+                var maxClusterSize = 4;
+                var minClusterSize = 2;
+          
+                for (int i = minClusterSize; i <= maxClusterSize; i++)
+                {
+                    if (remainingLength >=i && wordLength!=i)
+                    {
+                        validClusterSizes.Add(i);
+                    }
+                }
+            
+                if (validClusterSizes.Count > 0)
+                {
+                    int clusterSize = validClusterSizes[Random.Range(0,validClusterSizes.Count)];
+
+                    if (remainingLength - clusterSize == 1 && validClusterSizes.Count > 1)
+                    {
+                        validClusterSizes.Remove(clusterSize);
+                        clusterSize = validClusterSizes[Random.Range(0,validClusterSizes.Count)];
+                    }
+
+                    clusters.Add(word.Substring(index, clusterSize));
+                    index += clusterSize;
+                }
+            }
+
+            if (clusters.Count > 0 && index < wordLength)
+            {
+                clusters[^1] += word.Substring(index);
+            }
+
+
+            #endregion
+            
             List<Cluster<char>> tempWordClusters = new List<Cluster<char>>();
-            foreach (var clusterData in word.Split(separator))
+            foreach (var clusterData in clusters)
             {
                 Cluster<char> cluster = new Cluster<char>();
                 foreach (var value in clusterData)

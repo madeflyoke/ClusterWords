@@ -6,20 +6,15 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
 {
     public class LevelModelReader
     {
-        private readonly List<LevelModel> _defaultData;
-
-        public LevelModelReader(List<LevelModel> defaultData)
-        {
-            _defaultData = defaultData;
-        }
-
+        private readonly List<LevelModel> _data;
+        
         public List<LevelModel> ReadData(string path)
         {
             if (File.Exists(path) == false)
             {
-                string json = JsonConvert.SerializeObject(_defaultData, Formatting.Indented);
+                string json = JsonConvert.SerializeObject(_data, Formatting.Indented);
                 File.WriteAllText(path, json);
-                return _defaultData;
+                return _data;
             }
             string readAllText = File.ReadAllText(path);
             List<LevelModel> deserializeObject = JsonConvert.DeserializeObject<List<LevelModel>>(readAllText);

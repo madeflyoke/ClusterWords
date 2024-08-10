@@ -14,6 +14,5 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
         }
 
         [field: SerializeField] public List<string> Words { get; private set; }
-        [JsonIgnore] public string Separator { get; private set; } = "|";
     }
 }
