@@ -1,0 +1,17 @@
+{
+    "name": "EditorModule",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0be354a7de6d4f440b79d1011c21b5aa",
+        "GUID:f24cf67903b27ae498b3069ecc30cc11"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

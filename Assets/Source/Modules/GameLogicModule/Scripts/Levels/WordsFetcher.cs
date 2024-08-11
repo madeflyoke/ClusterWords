@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 
 namespace Source.Modules.GameLogicModule.Scripts.Levels
 {
-    public class WordsFetcher
+    public class WordsFetcher : IDisposable
     {
-        private const string WORDS_RESOURCE_NAME = "WordsFinal";
+        public const string WORDS_RESOURCE_NAME = "Words";
 
-        private Dictionary<int, List<string>> _wordsMap;
-
+        private readonly Dictionary<int, List<string>> _wordsMap;
+        
         public WordsFetcher()
         {
             _wordsMap = new Dictionary<int, List<string>>();
@@ -17,14 +20,11 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
     
             if (textAsset != null)
             {
-                string fileContent = textAsset.text;
+                WordsModel deserializedObject = JsonConvert.DeserializeObject<WordsModel>(textAsset.text);
                 
-                var words = fileContent.Split(Environment.NewLine, System.StringSplitOptions.RemoveEmptyEntries);
-
-                for (var index = 0; index < words.Length; index++)
+                var words = deserializedObject.Words;
+                foreach (var word in words)
                 {
-                    var word = words[index];
-
                     if (_wordsMap.ContainsKey(word.Length)==false)
                     {
                         _wordsMap.Add(word.Length, new List<string>());
@@ -34,8 +34,13 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
                 }
             }
         }
+
+        public List<string> GetAllWords()
+        {
+            return _wordsMap.Values.SelectMany(x=>x).ToList();
+        }
         
-        public List<string> FetchWords(List<WordsRequestData> requestDatas)
+        public List<string> GetWords(List<WordsRequestData> requestDatas)
         {
             var finalList = new List<string>();
             foreach (var data in requestDatas)
@@ -45,6 +50,10 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
             }
 
             return finalList;
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

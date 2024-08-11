@@ -168,14 +168,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _readonly_wordsValidationDatas:
   - LettersCount: 4
-    WordsCount: 73
+    WordsCount: 72
   - LettersCount: 5
     WordsCount: 86
   - LettersCount: 6
     WordsCount: 109
   - LettersCount: 7
     WordsCount: 67
-  _readonly_totalWordsCount: 335
+  _readonly_totalWordsCount: 334
 --- !u!1 &1326516060
 GameObject:
   m_ObjectHideFlags: 0

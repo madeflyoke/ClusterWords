@@ -20,7 +20,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
         public override void InstallBindings()
         {
             _levelData = new ();
-            var rawWords = new WordsFetcher().FetchWords(new List<WordsRequestData>()
+            var rawWords = new WordsFetcher().GetWords(new List<WordsRequestData>()
             {
                 new WordsRequestData(4,3),
                 new WordsRequestData(5,5),
