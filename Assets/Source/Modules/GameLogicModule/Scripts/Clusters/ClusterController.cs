@@ -109,7 +109,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
             }
             else
             {
-                _clusterModel.SetParent(_clusterSpawner.ClustersContainerParent);
+                _clusterModel.SetParent(_clusterSpawner.AvailableClustersParent);
                 _clusterView.EndDrag();
             }
 
