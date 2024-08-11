@@ -16,6 +16,8 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
         public event Action<ClusterController> EndDrag;
         public event Action<ClusterController> Drag;
 
+        public Transform Parent => _clusterView.transform;
+        
         [SerializeField] private ClusterView _clusterView;
         [SerializeField] private ClusterItemSpawner _clusterItemSpawner;
 

@@ -7,7 +7,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
         [SerializeField] private ClusterController _clusterController;
         public void Init(Cluster<char> cluster)
         {
-            _clusterController.Init(new ClusterModel(cluster, _clusterController.transform as RectTransform));
+            _clusterController.Init(new ClusterModel(cluster, _clusterController.Parent as RectTransform));
         }
     }
 }
