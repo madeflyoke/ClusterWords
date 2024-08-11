@@ -19,11 +19,15 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
 
         public override void InstallBindings()
         {
-            string path = Path.Combine(Application.persistentDataPath, "data.json");
-            
             _levelData = new ();
-            List<LevelModel> levelModels = new LevelModelReader().ReadData(path); 
-            _levelData.SetWords(CreateWords(levelModels[0]));
+            var rawWords = new WordsFetcher().FetchWords(new List<WordsRequestData>()
+            {
+                new WordsRequestData(4,3),
+                new WordsRequestData(5,5),
+                new WordsRequestData(6,2),
+                new WordsRequestData(7,1),
+            }); 
+            _levelData.SetWords(CreateWords(rawWords));
             
             Container.Bind<ClusterSpawner>().FromInstance(_clusterSpawner).AsSingle();
             Container.Bind<WordsSpawner>().FromInstance(_wordsSpawner).AsSingle();
@@ -39,10 +43,10 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
             _wordsHandler.Initialize(wordControllers);
         }
 
-        private List<Word> CreateWords(LevelModel levelModel)
+        private List<Word> CreateWords(List<string> rawWords)
         {
             List<Word> result = new();
-            foreach (var levelModelWord in levelModel.Words)
+            foreach (var levelModelWord in rawWords)
             {
                 List<Cluster<char>> clusters = SeparateWordByClusters(levelModelWord);
                 result.Add(new Word(clusters));

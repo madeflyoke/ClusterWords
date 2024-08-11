@@ -5,56 +5,49 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using EasyButtons;
+using ModestTree;
+using Source.Modules.GameLogicModule.Scripts.Levels;
 using UnityEngine;
 
 namespace Source.Helpers
 {
     public class WordsValidator : MonoBehaviour
     {
-        [SerializeField] private List<WordsValidationData> _readonly_wordsValidationDatas;
+        [SerializeField] private List<WordsRequestData> _readonly_wordsValidationDatas;
         [SerializeField] private int _readonly_totalWordsCount;
 
         #region WordsValidationAndRecreationRegion
 
         [Button]
-        void ValidateRawFile(string wordsFileName)
+        void ValidateRawFile(string rawFileName)
         {
-            TextAsset textAsset = Resources.Load<TextAsset>(wordsFileName);
-        
-            if (textAsset != null)
-            {
-                string fileContent = textAsset.text;
+            string cleanFileContent = GetCleanWordsContent(rawFileName);
 
-                var originWordsCount = fileContent.Split("\n").Length;
+            var originWordsCount = cleanFileContent.Split(Environment.NewLine, System.StringSplitOptions.RemoveEmptyEntries).Length;
                 
-                string processedContent = RemoveLinesWithShortQuotedWords(fileContent);
-                processedContent = RemoveRepeatedWords(processedContent);
+            string processedContent = ValidateWordsLength(cleanFileContent);
+            processedContent = ValidateRepeats(processedContent);
 
-                if (originWordsCount!=processedContent.Split("\n").Length)
-                {
-                    Debug.LogWarning("Changes were made, words removed: "+(originWordsCount-processedContent.Split("\n").Length));
-                }
-             
-
-                SaveProcessedFile(processedContent, wordsFileName);
-            }
-            else
+            if (originWordsCount!=processedContent.Split(Environment.NewLine, System.StringSplitOptions.RemoveEmptyEntries).Length)
             {
-                Debug.LogError("File not found!");
+                Debug.LogWarning("Changes were made, words removed: "+(originWordsCount-processedContent.Split(Environment.NewLine).Length));
             }
+            
+            SaveProcessedFile(processedContent, rawFileName);
         }
 
-        string RemoveLinesWithShortQuotedWords(string content)
+        string ValidateWordsLength(string content)
         {
-            return Regex.Replace(content, @"^.*?\""(\w{1,3}|\w{8,})\"".*$\n?", "", RegexOptions.Multiline);
+            var lines = content.Split(Environment.NewLine, System.StringSplitOptions.RemoveEmptyEntries);
+            return Array.FindAll(lines, line => Regex.IsMatch(line, @"^\w{4,7}$")).Join(Environment.NewLine);
         }
 
-        string RemoveRepeatedWords(string content)
+        string ValidateRepeats(string content)
         {
-            var lines = content.Split('\n');
+            var lines = content.Split(Environment.NewLine, System.StringSplitOptions.RemoveEmptyEntries);
             var uniqueWords = new HashSet<string>(lines);
        
-            return string.Join("\n", uniqueWords);
+            return string.Join(Environment.NewLine, uniqueWords);
         }
     
         void SaveProcessedFile(string content, string fileName)
@@ -69,55 +62,58 @@ namespace Source.Helpers
         
         #region WordsCountRegion
 
-        [Serializable]
-        public class WordsValidationData
-        {
-            public int LettersCount;
-            public int WordsCount;
-
-            public WordsValidationData(int lettersCount, int wordsCount)
-            {
-                LettersCount = lettersCount;
-                WordsCount = wordsCount;
-            }
-        }
-
+        
         [Button]
         public void FillWordsData(string wordsFileName)
         {
-            _readonly_wordsValidationDatas = new List<WordsValidationData>();
-    
-            TextAsset textAsset = Resources.Load<TextAsset>(wordsFileName);
-    
-            if (textAsset != null)
+            _readonly_wordsValidationDatas = new List<WordsRequestData>();
+            
+            var cleanWords = GetCleanWordsContent(wordsFileName).Split(Environment.NewLine, System.StringSplitOptions.RemoveEmptyEntries);
+                
+            for (var index = 0; index < cleanWords.Length; index++)
             {
-                string fileContent = textAsset.text;
-
-                var lines = fileContent.Split(new[] { '\n', '\r' }, System.StringSplitOptions.RemoveEmptyEntries);
-
-                foreach (var line in lines)
+                var finalWord = cleanWords[index];
+                    
+                var dataBlock = _readonly_wordsValidationDatas.FirstOrDefault(x => x.LettersCount == finalWord.Length);
+                if (dataBlock == null)
                 {
-                    var words = line.Replace("\"", "").Replace(",", "").Split(new[] { ' ' }, System.StringSplitOptions.RemoveEmptyEntries);
-
-                    foreach (var word in words)
-                    {
-                        var dataBlock = _readonly_wordsValidationDatas.FirstOrDefault(x => x.LettersCount == word.Length);
-                        if (dataBlock == null)
-                        {
-                            _readonly_wordsValidationDatas.Add(new WordsValidationData(word.Length, 1));
-                        }
-                        else
-                        {
-                            dataBlock.WordsCount++;
-                        }
-                    }
+                    _readonly_wordsValidationDatas.Add(new WordsRequestData(finalWord.Length, 1));
+                }
+                else
+                {
+                    dataBlock.WordsCount++;
                 }
             }
-
+            
             _readonly_totalWordsCount = _readonly_wordsValidationDatas.Sum(x => x.WordsCount);
         }
         
         #endregion
+        
+        private string GetCleanWordsContent(string wordsFileName)
+        {
+            TextAsset textAsset = Resources.Load<TextAsset>(wordsFileName);
+            if (textAsset!=null)
+            {
+                var rawContent = textAsset.text;
+
+                var lines = rawContent.Split(Environment.NewLine, System.StringSplitOptions.RemoveEmptyEntries);
+                for (var index = 0; index < lines.Length; index++)
+                {
+                    lines[index] = lines[index].Replace("\"", "").Replace(",", "");
+                    if (Regex.IsMatch(lines[index], @"[^a-zA-Z]") == false)
+                    {
+                        lines[index] = string.Empty;
+                        continue;
+                    }
+                }
+
+                lines = lines.Where(x => string.IsNullOrEmpty(x) == false).ToArray();
+                return string.Join(Environment.NewLine, lines);
+            }
+
+            return null;
+        }
     }
 }
 

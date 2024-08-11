@@ -133,8 +133,8 @@ GameObject:
   - component: {fileID: 60789533}
   - component: {fileID: 60789534}
   m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
+  m_Name: EDITOR_WordsValidator
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,10 +172,10 @@ MonoBehaviour:
   - LettersCount: 5
     WordsCount: 86
   - LettersCount: 6
-    WordsCount: 110
+    WordsCount: 109
   - LettersCount: 7
-    WordsCount: 68
-  _readonly_totalWordsCount: 337
+    WordsCount: 67
+  _readonly_totalWordsCount: 335
 --- !u!1 &1326516060
 GameObject:
   m_ObjectHideFlags: 0
