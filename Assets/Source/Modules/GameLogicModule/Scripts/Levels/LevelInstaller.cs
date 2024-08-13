@@ -10,6 +10,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
 {
     public class LevelInstaller : MonoInstaller
     {
+        [SerializeField] private LevelsConfig _levelsConfig;
         [SerializeField] private ClusterSpawner _clusterSpawner;
         [SerializeField] private WordsSpawner _wordsSpawner;
         [SerializeField] private WordsHandler _wordsHandler;
@@ -20,13 +21,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
         public override void InstallBindings()
         {
             _levelWordsHolder = new ();
-            var rawWords = new WordsFetcher().GetWords(new List<WordsRequestData>()
-            {
-                new WordsRequestData(4,3),
-                new WordsRequestData(5,5),
-                new WordsRequestData(6,2),
-                new WordsRequestData(7,1),
-            }); 
+            var rawWords = new WordsFetcher().GetWords(_levelsConfig.GetLevelData(0).WordsRequests); 
             _levelWordsHolder.SetWords(CreateWords(rawWords));
             
             Container.Bind<ClusterSpawner>().FromInstance(_clusterSpawner).AsSingle();

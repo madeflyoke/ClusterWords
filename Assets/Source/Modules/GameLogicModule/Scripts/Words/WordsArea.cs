@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,25 +6,26 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
 {
     public class WordsArea : MonoBehaviour
     {
-        [SerializeField] private List<WordsBlock> _wordsBlocks;
+        public const int MAX_WORDS_PER_BLOCK = 6;
         
-        public Transform GetCorrespondingWordParent(int cellsCount)
+        [SerializeField] private UIElementsBlock _blockPrefab;
+        private List<UIElementsBlock> _currentBlocksMap;
+
+        private void Awake()
         {
-            var block = _wordsBlocks.FirstOrDefault(x => x.CharsCapacity == cellsCount);
+            _currentBlocksMap = new List<UIElementsBlock>();
+        }
+        
+        public Transform GetCorrespondingWordParent(int charsCount)
+        {
+            UIElementsBlock block = _currentBlocksMap.FirstOrDefault(x => x.Capacity == charsCount
+                                                                          && x.transform.childCount < MAX_WORDS_PER_BLOCK);
             if (block==null)
             {
-                Debug.LogError("Incorrect cells count in word!");
-                return null;
+                block = Instantiate(_blockPrefab, transform).Initialize(charsCount);
+                _currentBlocksMap.Add(block);
             }
-            block.WordsParent.gameObject.SetActive(true);
-            return block.WordsParent;
-        }
-
-        [Serializable]
-        public class WordsBlock
-        {
-            public int CharsCapacity;
-            public Transform WordsParent;
+            return block.transform;
         }
     }
 }

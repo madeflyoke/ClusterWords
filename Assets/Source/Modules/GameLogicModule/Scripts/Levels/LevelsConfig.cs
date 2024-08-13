@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Source.Modules.GameLogicModule.Scripts.Levels
 {
     [CreateAssetMenu(fileName = "LevelsConfig", menuName = "Levels/LevelsConfig")]
-    public class LevelsConfig : ScriptableObject
+    public class LevelsConfig : SerializedScriptableObject
     {
         [SerializeField] private List<LevelData> _levelDatas;
 
@@ -19,12 +20,16 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
 
         private void OnValidate()
         {
+            var index = 0;
             foreach (var levelData in _levelDatas)
             {
                 if (levelData.WordsRequests.Sum(x=>x.LettersCount)>GameConstants.MAX_GAME_FIELD_SIZE_LETTERS)
                 {
                     Debug.LogError("Level data has too much letters to fit screen size, id: "+levelData.Id);
                 }
+
+                levelData.Id = index;
+                index++;
             }
         }
 

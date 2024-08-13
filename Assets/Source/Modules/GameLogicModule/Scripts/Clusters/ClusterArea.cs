@@ -9,27 +9,27 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
 {
     public class ClusterArea : MonoBehaviour
     {
-        [SerializeField] private GameObject _wordsBlockPrefab;
-        [SerializeField] private int _wordsBlockCapacity = 5;
-        private List<GameObject> _currentWordsBlocks;
+        private const int MAX_CLUSTERS_PER_BLOCK = 5;
+
+        [SerializeField] private UIElementsBlock _blockPrefab;
+        private List<UIElementsBlock> _currentBlocks;
 
         private void Awake()
         {
-            _currentWordsBlocks = new List<GameObject>();
+            _currentBlocks = new List<UIElementsBlock>();
             
             transform.ObserveEveryValueChanged(x => x.transform.childCount)
                 .Subscribe(_ => LayoutRebuilder.ForceRebuildLayoutImmediate(transform as RectTransform))
                 .AddTo(this);
-
         }
 
         public Transform GetAvailableClusterParent()
         {
-            var availableBlock = _currentWordsBlocks.FirstOrDefault(x => x.transform.childCount < _wordsBlockCapacity);
+            UIElementsBlock availableBlock = _currentBlocks.FirstOrDefault(x => x.transform.childCount < x.Capacity);
             if (availableBlock==null)
             {
-                availableBlock =Instantiate(_wordsBlockPrefab, transform);
-                _currentWordsBlocks.Add(availableBlock);
+                availableBlock =Instantiate(_blockPrefab, transform).Initialize(MAX_CLUSTERS_PER_BLOCK);
+                _currentBlocks.Add(availableBlock);
             }
 
             return availableBlock.transform;

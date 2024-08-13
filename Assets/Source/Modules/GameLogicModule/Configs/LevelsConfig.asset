@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 576e6b5c2ec8d27438de1ea752565765, type: 3}
   m_Name: LevelsConfig
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   _levelDatas:
   - Id: 0
     WordsRequests:
@@ -19,5 +28,17 @@ MonoBehaviour:
       WordsCount: 6
     - LettersCount: 4
       WordsCount: 6
-  - Id: 0
-    WordsRequests: []
+    - LettersCount: 5
+      WordsCount: 6
+    - LettersCount: 5
+      WordsCount: 6
+  - Id: 1
+    WordsRequests:
+    - LettersCount: 4
+      WordsCount: 6
+    - LettersCount: 5
+      WordsCount: 6
+    - LettersCount: 6
+      WordsCount: 6
+    - LettersCount: 7
+      WordsCount: 6

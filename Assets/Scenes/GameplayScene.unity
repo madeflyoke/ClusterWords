@@ -732,6 +732,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameDialog
       objectReference: {fileID: 0}
+    - target: {fileID: 7373233511535796130, guid: 2c285150040e72e43aea105591dbf458, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -805,6 +809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b5d21323958428e98b781024bf252b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _levelsConfig: {fileID: 11400000, guid: 4d7f8d10e714097489a52da76a518fa4, type: 2}
   _clusterSpawner: {fileID: 6557065559082656410}
   _wordsSpawner: {fileID: 7046531841786314846}
   _wordsHandler: {fileID: 3123366779164709755}
