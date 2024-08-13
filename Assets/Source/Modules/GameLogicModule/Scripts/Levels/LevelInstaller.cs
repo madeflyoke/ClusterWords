@@ -15,11 +15,11 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
         [SerializeField] private WordsHandler _wordsHandler;
         [SerializeField] private Canvas _canvas;
 
-        private LevelData _levelData;
+        private LevelWordsHolder _levelWordsHolder;
 
         public override void InstallBindings()
         {
-            _levelData = new ();
+            _levelWordsHolder = new ();
             var rawWords = new WordsFetcher().GetWords(new List<WordsRequestData>()
             {
                 new WordsRequestData(4,3),
@@ -27,19 +27,19 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
                 new WordsRequestData(6,2),
                 new WordsRequestData(7,1),
             }); 
-            _levelData.SetWords(CreateWords(rawWords));
+            _levelWordsHolder.SetWords(CreateWords(rawWords));
             
             Container.Bind<ClusterSpawner>().FromInstance(_clusterSpawner).AsSingle();
             Container.Bind<WordsSpawner>().FromInstance(_wordsSpawner).AsSingle();
             Container.Bind<WordsHandler>().FromInstance(_wordsHandler).AsSingle();
-            Container.Bind<LevelData>().FromInstance(_levelData).AsSingle();
+            Container.Bind<LevelWordsHolder>().FromInstance(_levelWordsHolder).AsSingle();
             Container.Bind<Canvas>().FromInstance(_canvas).AsSingle();
         }
 
         public override void Start()
         {
-            _clusterSpawner.SpawnClusters(_levelData.Words);
-            List<WordController> wordControllers = _wordsSpawner.SpawnWords(_levelData.Words).Select(x => x.WordController).ToList();
+            _clusterSpawner.SpawnClusters(_levelWordsHolder.Words);
+            List<WordController> wordControllers = _wordsSpawner.SpawnWords(_levelWordsHolder.Words).Select(x => x.WordController).ToList();
             _wordsHandler.Initialize(wordControllers);
         }
 

@@ -15,16 +15,16 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
         
         [SerializeField] private Button _validateGame;
         
-        private LevelData _levelData;
+        private LevelWordsHolder _levelWordsHolder;
         private SignalBus _signalBus;
         private List<WordController> _wordControllers;
 
         public IReadOnlyCollection<Word> GuessesWords => _guessedWords.AsReadOnly();
         
         [Inject]
-        private void Construct(LevelData levelData,SignalBus signalBus)
+        private void Construct(LevelWordsHolder levelWordsHolder,SignalBus signalBus)
         {
-            _levelData = levelData;
+            _levelWordsHolder = levelWordsHolder;
             _signalBus = signalBus;
         }
         
@@ -44,7 +44,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
 
         private void OnValidateGameClick()
         {
-            if (_guessedWordsControllers.Count != _levelData.Words.Count) return;
+            if (_guessedWordsControllers.Count != _levelWordsHolder.Words.Count) return;
             
 
             _signalBus.Fire<LvlCompleteSignal>();
@@ -52,7 +52,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
         
         private void OnWordChanged(WordController wordController)
         {
-            if (_levelData.Words.Contains(wordController.GetCurrentWord())) return;
+            if (_levelWordsHolder.Words.Contains(wordController.GetCurrentWord())) return;
             
             if (_guessedWordsControllers.Contains(wordController))
             {
@@ -63,7 +63,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
 
         private void OnWordCreated(WordController wordController)
         {
-            if (_levelData.Words.Contains(wordController.GetCurrentWord()))
+            if (_levelWordsHolder.Words.Contains(wordController.GetCurrentWord()))
             {
                 _guessedWords.Add(wordController.GetCurrentWord());
                 _guessedWordsControllers.Add(wordController);

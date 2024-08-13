@@ -1,16 +1,12 @@
-﻿using System.Collections.Generic;
-using Source.Modules.GameLogicModule.Scripts.Words;
+using System;
+using System.Collections.Generic;
 
 namespace Source.Modules.GameLogicModule.Scripts.Levels
 {
+    [Serializable]
     public class LevelData
     {
-        private List<Word> _words = new List<Word>();
-        public IReadOnlyCollection<Word> Words => _words.AsReadOnly();
-        public void SetWords(List<Word> words)
-        {
-            _words = words;
-        }
-   
+        public int Id;
+        public List<WordsRequestData> WordsRequests;
     }
 }
