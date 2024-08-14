@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ae0302f911aa37d4d9e9aac3707eb673, type: 3}
+  m_Sprite: {fileID: 21300000, guid: db9f1aa27b360724394222c2949935c9, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -370,7 +370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _image: {fileID: 8633305509625732600}
   _beginDragScale: {x: 1.1, y: 1.1}
-  _endDragScale: {x: 0.7, y: 0.7}
+  _endDragScale: {x: 0.9, y: 0.9}
   _inCellScale: {x: 1, y: 1}
 --- !u!114 &-8915116239971126766
 MonoBehaviour:
