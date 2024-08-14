@@ -54,6 +54,12 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
             return _clusterModel.Cluster;
         }
 
+        public void SetActiveState(bool isActive)
+        {
+            enabled = isActive;
+            _clusterView.SetViewState(isActive);
+        }
+        
         public void OnBeginDrag(PointerEventData eventData)
         {
             BeginDrag?.Invoke(this);

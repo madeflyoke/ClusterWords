@@ -67,6 +67,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
             {
                 _guessedWords.Add(wordController.GetCurrentWord());
                 _guessedWordsControllers.Add(wordController);
+                wordController.MarkAsCompleted();
             }
         }
     }

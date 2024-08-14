@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.Utilities;
 using Source.Modules.GameLogicModule.Scripts.Clusters;
 using Source.Modules.GameLogicModule.Scripts.Words.WordCells;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
     {
         public event Action<WordController> WordCreated;
         public event Action<WordController> WordChanged;
-        private readonly Dictionary<Cluster<char>, List<int>> _clusters = new();
+        private readonly Dictionary<ClusterController, List<int>> _clusters = new();
         
         [SerializeField] private WordView _wordView;
         private List<WordCellController> _wordCellControllers;
@@ -62,11 +63,13 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
             return true;
         }
 
-        public void AddCluster(Cluster<char> cluster, int index)
+        public void AddCluster(ClusterController clusterController, int index)
         {
+            var cluster = clusterController.GetCluster();
+            
             if (CanAddCluster(cluster, index) == false) return;
 
-            if (_clusters.ContainsKey(cluster)) RemoveCluster(cluster);
+            if (_clusters.ContainsKey(clusterController)) RemoveCluster(clusterController);
 
             List<int> clustersIndex = new(cluster.ClusterItems.Count);
             for (int i = index, j = 0; j < cluster.ClusterItems.Count; i++, j++)
@@ -75,7 +78,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
                 clustersIndex.Add(i);
             }
 
-            _clusters.Add(cluster, clustersIndex);
+            _clusters.Add(clusterController, clustersIndex);
             RegenerateCurrentWord();
             
             if (_wordModel.CurrentWord.CellsCount == _wordCellControllers.Count)
@@ -84,22 +87,34 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
             }
         }
 
-        public void RemoveCluster(Cluster<char> cluster)
+        public void RemoveCluster(ClusterController clusterController)
         {
+            var cluster = clusterController.GetCluster();
             for (var i = 0; i < cluster.ClusterItems.Count; i++)
-                _wordCellControllers[_clusters[cluster][i]].UpdateCellItem(null);
+                _wordCellControllers[_clusters[clusterController][i]].UpdateCellItem(null);
             
-            _clusters.Remove(cluster);
+            _clusters.Remove(clusterController);
             
             RegenerateCurrentWord();
+        }
+
+        public void MarkAsCompleted()
+        {
+            _wordView.SetViewState(true);
+            _clusters.Keys.ForEach(x => x.SetActiveState(false));
         }
 
         private void RegenerateCurrentWord()
         {
             _wordModel.CurrentWord.WordClusters.Clear();
             foreach (var keyValuePair in _clusters.OrderBy(x => x.Value[0]))
-                _wordModel.CurrentWord.AddCluster(keyValuePair.Key);
+                _wordModel.CurrentWord.AddCluster(keyValuePair.Key.GetCluster());
             WordChanged?.Invoke(this);
+        }
+
+        private class WordModel
+        {
+            public Word CurrentWord { get; private set; } = new Word();
         }
     }
 }

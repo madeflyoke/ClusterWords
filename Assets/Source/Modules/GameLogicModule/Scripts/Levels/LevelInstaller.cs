@@ -21,7 +21,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
         public override void InstallBindings()
         {
             _levelWordsHolder = new ();
-            var rawWords = new WordsFetcher().GetWords(_levelsConfig.GetLevelData(0).WordsRequests); 
+            var rawWords = new WordsFetcher().GetWords(_levelsConfig.GetLevelData(1).WordsRequests); 
             _levelWordsHolder.SetWords(CreateWords(rawWords));
             
             Container.Bind<ClusterSpawner>().FromInstance(_clusterSpawner).AsSingle();

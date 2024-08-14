@@ -57,14 +57,14 @@ namespace Source.Modules.GameLogicModule.Scripts.Words.WordCells
             
             _linkedClusterController = clusterController;
             _linkedClusterController.BeginDrag += OnLinkedClusterBeginDrag;
-            WordController.AddCluster(clusterController.GetCluster(), _wordCellModel.CellIndex);
+            WordController.AddCluster(clusterController, _wordCellModel.CellIndex);
         }
 
         private void RemoveCluster(ClusterController clusterController)
         {
             _linkedClusterController.BeginDrag -= OnLinkedClusterBeginDrag;
             _linkedClusterController = null;
-            WordController.RemoveCluster(clusterController.GetCluster());
+            WordController.RemoveCluster(clusterController);
         }
 
         private void OnLinkedClusterBeginDrag(ClusterController obj)

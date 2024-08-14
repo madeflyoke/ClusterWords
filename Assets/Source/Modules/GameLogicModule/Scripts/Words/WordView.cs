@@ -4,12 +4,12 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
 {
     public class WordView : MonoBehaviour
     {
-      
-    }
+        [SerializeField] private GameObject _completedWordBg;
 
-    public class WordModel
-    {
-        public Word CurrentWord { get; private set; } = new Word();
-
+        public void SetViewState(bool isWordCompleted)
+        {
+            _completedWordBg.SetActive(isWordCompleted);
+        }
     }
+    
 }

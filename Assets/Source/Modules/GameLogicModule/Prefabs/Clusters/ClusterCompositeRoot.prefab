@@ -368,7 +368,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37306fbb438847eeafe019f665c4e0cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _image: {fileID: 8633305509625732600}
+  _draggablePart: {fileID: 8633305509625732600}
+  _background: {fileID: 4235713057890016693}
   _beginDragScale: {x: 1.1, y: 1.1}
   _endDragScale: {x: 0.9, y: 0.9}
   _inCellScale: {x: 1, y: 1}
