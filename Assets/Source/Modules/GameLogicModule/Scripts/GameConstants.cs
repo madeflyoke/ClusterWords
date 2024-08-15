@@ -7,6 +7,7 @@ namespace Source.Modules.GameLogicModule.Scripts
         public const int MIN_LETTERS_COUNT = 4;
         public const int MAX_LETTERS_COUNT = 7;
 
-        public const int MAX_GAME_FIELD_SIZE_LETTERS = 22; //4-5-6-7 letters words blocks
+        public const int MAX_WORD_FIELD_SIZE_LETTERS = 22; //4-5-6-7 letters words blocks
+        public const int MAX_CLUSTERS_FIELD_SIZE_LETTERS = 65; //4-5-6-7 letters words blocks
     }
 }

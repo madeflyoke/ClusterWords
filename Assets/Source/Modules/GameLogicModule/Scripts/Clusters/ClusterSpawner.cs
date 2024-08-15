@@ -11,16 +11,21 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
         [SerializeField] private Transform _dragParent;
         [SerializeField] private ClusterCompositeRoot _clusterCompositeRoot;
 
-        public Transform AvailableClustersParent => _clusterArea.GetAvailableClusterParent();
         public Transform DraggedClustersParent => _dragParent;
 
         public void SpawnClusters(IEnumerable<Word> words)
         {
             foreach (Cluster<char> wordCluster in words.SelectMany(x=>x.WordClusters.ShuffledCopy()).ShuffledCopy())
             {
-                ClusterCompositeRoot clusterCompositeRoot = Instantiate(_clusterCompositeRoot, _clusterArea.GetAvailableClusterParent());
+                ClusterCompositeRoot clusterCompositeRoot = Instantiate(_clusterCompositeRoot,
+                    _clusterArea.GetAvailableClusterParent());
                 clusterCompositeRoot.Init(wordCluster);
             }
+        }
+
+        public Transform GetAvailableClusterParent()
+        {
+            return _clusterArea.GetAvailableClusterParent();
         }
     }
 }

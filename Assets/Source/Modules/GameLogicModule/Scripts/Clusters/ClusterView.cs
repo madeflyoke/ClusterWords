@@ -24,19 +24,16 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
         
         public void BeginDrag()
         {
-            _draggablePart.raycastTarget = false;
             transform.DOScale(_beginDragScale, 0.3f);
         }
 
         public void SetViewInCell()
         {
             transform.DOScale(_inCellScale, 0.3f);
-            _draggablePart.raycastTarget = true;
         }
         
         public void EndDrag()
         {
-            _draggablePart.raycastTarget = true;
             transform.DOScale(_endDragScale, 0.3f);
         }
     }

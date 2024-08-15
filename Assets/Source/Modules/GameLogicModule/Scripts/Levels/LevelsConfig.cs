@@ -23,7 +23,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
             var index = 0;
             foreach (var levelData in _levelDatas)
             {
-                if (levelData.WordsRequests.Sum(x=>x.LettersCount)>GameConstants.MAX_GAME_FIELD_SIZE_LETTERS)
+                if (levelData.WordsRequests.Sum(x=>x.LettersCount)>GameConstants.MAX_WORD_FIELD_SIZE_LETTERS)
                 {
                     Debug.LogError("Level data has too much letters to fit screen size, id: "+levelData.Id);
                 }

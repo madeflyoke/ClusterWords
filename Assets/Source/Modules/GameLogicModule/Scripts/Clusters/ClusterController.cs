@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Source.Modules.GameLogicModule.Scripts.Clusters.ClusterItem;
 using Source.Modules.GameLogicModule.Scripts.Words;
 using Source.Modules.GameLogicModule.Scripts.Words.WordCells;
@@ -117,7 +118,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
             }
             else
             {
-                _clusterModel.SetParent(_clusterSpawner.AvailableClustersParent);
+                _clusterModel.SetParent(_clusterSpawner.GetAvailableClusterParent());
                 _clusterView.EndDrag();
             }
 
@@ -134,10 +135,23 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
             _raycaster.Raycast(pointerData, _cachedRaycastResults);
             if (_cachedRaycastResults.Count>0)
             {
-                return _cachedRaycastResults[0].gameObject;
+                var target = _cachedRaycastResults.FirstOrDefault(x => x.gameObject.layer != gameObject.layer).gameObject;
+                if (target!=null)
+                {
+                    return target;
+                }
             }
 
             return null;
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (_startClusterPoint!=null)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawSphere(_startClusterPoint.position, 20f);
+            }
         }
     }
 }

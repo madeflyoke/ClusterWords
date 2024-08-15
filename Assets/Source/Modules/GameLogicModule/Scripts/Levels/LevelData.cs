@@ -16,13 +16,23 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
         #endif
         public List<WordsRequestData> WordsRequests;
         
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
 
         [ReadOnly, ShowInInspector] public int EDITOR_TotalWordsCount => WordsRequests.Sum(x => x.WordsCount);
 
+        [ReadOnly, ShowInInspector,GUIColor(nameof(ValidatedLetterCountColor))]
+        public int EDITOR_TotalLettersCount => WordsRequests.Sum(x => x.LettersCount * x.WordsCount);
+
         private Color ValidatedColor()
         {
-            return (WordsRequests.Sum(x => x.LettersCount) > GameConstants.MAX_GAME_FIELD_SIZE_LETTERS)
+            return (WordsRequests.Sum(x => x.LettersCount) > GameConstants.MAX_WORD_FIELD_SIZE_LETTERS)
+                ? Color.red
+                : Color.white;
+        }
+
+        private Color ValidatedLetterCountColor()
+        {
+            return  WordsRequests.Sum(x=>x.LettersCount * x.WordsCount) >GameConstants.MAX_CLUSTERS_FIELD_SIZE_LETTERS
                 ? Color.red
                 : Color.white;
         }

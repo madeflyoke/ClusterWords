@@ -9,21 +9,21 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
         public const int MAX_WORDS_PER_BLOCK = 6;
         
         [SerializeField] private UIElementsBlock _blockPrefab;
-        private List<UIElementsBlock> _currentBlocksMap;
+        private List<UIElementsBlock> _currentBlocks;
 
         private void Awake()
         {
-            _currentBlocksMap = new List<UIElementsBlock>();
+            _currentBlocks = new List<UIElementsBlock>();
         }
         
         public Transform GetCorrespondingWordParent(int charsCount)
         {
-            UIElementsBlock block = _currentBlocksMap.FirstOrDefault(x => x.Capacity == charsCount
+            UIElementsBlock block = _currentBlocks.FirstOrDefault(x => x.Capacity == charsCount
                                                                           && x.transform.childCount < MAX_WORDS_PER_BLOCK);
             if (block==null)
             {
                 block = Instantiate(_blockPrefab, transform).Initialize(charsCount);
-                _currentBlocksMap.Add(block);
+                _currentBlocks.Add(block);
             }
             return block.transform;
         }
