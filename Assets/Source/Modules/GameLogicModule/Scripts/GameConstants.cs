@@ -11,6 +11,6 @@ namespace Source.Modules.GameLogicModule.Scripts
         public const int MAX_LETTERS_COUNT = 7;
 
         public const int MAX_WORD_FIELD_SIZE_LETTERS = 22; //max width of words area
-        public const int MAX_CLUSTERS_FIELD_SIZE_LETTERS = 24; //max width of clusters area
+        public const int MAX_CLUSTERS_FIELD_SIZE_LETTERS = 60; //max chars of clusters area
     }
 }

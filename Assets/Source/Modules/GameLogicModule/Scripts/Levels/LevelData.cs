@@ -32,7 +32,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
 
         private Color ValidatedLetterCountColor()
         {
-            return  WordsRequests.Sum(x=>x.LettersCount * x.WordsCount) >GameConstants.MAX_CLUSTERS_FIELD_SIZE_LETTERS
+            return  WordsRequests.Sum(x=>x.LettersCount * x.WordsCount) > GameConstants.MAX_CLUSTERS_FIELD_SIZE_LETTERS
                 ? Color.red
                 : Color.white;
         }
