@@ -69,11 +69,8 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
                 }
        
                 List<int> validClusterSizes = new List<int>();
-          
-                var maxClusterSize = 4;
-                var minClusterSize = 2;
-          
-                for (int i = minClusterSize; i <= maxClusterSize; i++)
+                
+                for (int i = GameConstants.MIN_CLUSTER_SIZE; i <= GameConstants.MAX_CLUSTER_SIZE; i++)
                 {
                     if (remainingLength >=i && wordLength!=i)
                     {
