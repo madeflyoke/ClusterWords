@@ -12,11 +12,14 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
     {
         public event Action<WordController> WordCreated;
         public event Action<WordController> WordChanged;
+
+        public bool IsEmpty => _clusters.Keys.Count == 0;
+        public int CellsCount => _wordCellControllers.Count;
+        
         private readonly Dictionary<ClusterController, List<int>> _clusters = new();
         
         [SerializeField] private WordView _wordView;
         private List<WordCellController> _wordCellControllers;
-        
         private WordModel _wordModel;
         
         public void Initialize(List<WordCellController> wordCellControllers)
@@ -29,6 +32,16 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
             }
         }
 
+        public List<Cluster<char>> GetCurrentClusters()
+        {
+            return _clusters.Keys.Select(x => x.GetCluster()).ToList();
+        }
+
+        public WordCellController GetClosestEmptyCell()
+        {
+            return _wordCellControllers.FirstOrDefault(x => x.IsEmptyCell());
+        }
+        
         public Word GetCurrentWord() => _wordModel.CurrentWord;
         
         public void AnimateWordCells(Cluster<char> cluster, int startIndex)
@@ -102,6 +115,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
         {
             _wordView.SetViewState(true);
             _clusters.Keys.ForEach(x => x.SetActiveState(false));
+            enabled = false;
         }
 
         private void RegenerateCurrentWord()

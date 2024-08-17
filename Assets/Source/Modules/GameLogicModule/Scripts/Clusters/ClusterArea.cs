@@ -22,19 +22,6 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
                 .AddTo(this);
         }
         
-        // public Transform GetCorrespondingClusterParent(int clusterLength)
-        // {
-        //     UIElementsBlock block = _currentBlocks.FirstOrDefault(x => x.Capacity == clusterLength
-        //                                                                && x.transform.childCount < MAX_CLUSTERS_PER_BLOCK);
-        //     if (block==null)
-        //     {
-        //         block = Instantiate(_blockPrefab, transform).Initialize(clusterLength, 7f);
-        //         _currentBlocks.Add(block);
-        //     }
-        //     return block.transform;
-        // }
-        
-
         public Transform GetAvailableClusterParent()
         {
             UIElementsBlock availableBlock = _currentBlocks.FirstOrDefault(x => x.transform.childCount < x.Capacity);

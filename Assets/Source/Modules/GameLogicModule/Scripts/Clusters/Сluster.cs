@@ -27,6 +27,11 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
         
         public bool Equals(Cluster<T> other)
         {
+            if (other==null || other.ClusterItems.Count!=ClusterItems.Count)
+            {
+                return false;
+            }
+            
             for (var i = 0; i < ClusterItems.Count; i++)
             {
                 if (ClusterItems[i].Value.Equals(other.ClusterItems[i].Value) == false)

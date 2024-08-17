@@ -11,6 +11,6 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
         {
             _words = words;
         }
-   
+
     }
 }

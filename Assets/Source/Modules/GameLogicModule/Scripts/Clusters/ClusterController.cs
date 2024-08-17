@@ -18,6 +18,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
         public event Action<ClusterController> Drag;
 
         public Transform Parent => _clusterView.transform;
+        public bool IsAddedToWord { get; private set; }
         
         [SerializeField] private ClusterView _clusterView;
         [SerializeField] private ClusterItemSpawner _clusterItemSpawner;
@@ -108,20 +109,26 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
                 currentGameObject.TryGetComponent(out WordCellController wordCellController) &&
                 wordCellController.CanAddCluster(this))
             {
-                wordCellController.AddCluster(this);
-                
-                _clusterModel.UpdatePosition(wordCellController.WordController.GetAveragePositionBetweenCells(_clusterModel.Cluster,
-                    wordCellController.GetCellIndex()));
-                _clusterModel.SetParent(_clusterSpawner.DraggedClustersParent);
-                _clusterView.SetViewInCell();
-                _soundPlayer.PlaySound(SoundType.SetClusterInCellSound);
+                SetClusterToWordController(wordCellController);
             }
             else
             {
+                IsAddedToWord = false;
                 _clusterModel.SetParent(_clusterSpawner.GetAvailableClusterParent());
                 _clusterView.EndDrag();
             }
+        }
 
+        public void SetClusterToWordController(WordCellController wordCellController)
+        {
+            IsAddedToWord = true;
+            wordCellController.AddCluster(this);
+            
+            _clusterModel.UpdatePosition(wordCellController.WordController.GetAveragePositionBetweenCells(_clusterModel.Cluster,
+                wordCellController.GetCellIndex()));
+            _clusterModel.SetParent(_clusterSpawner.DraggedClustersParent);
+            _clusterView.SetViewInCell();
+            _soundPlayer.PlaySound(SoundType.SetClusterInCellSound);
         }
 
         private GameObject RaycastCheckForCell()

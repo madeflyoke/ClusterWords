@@ -14,12 +14,13 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
         private readonly List<Word> _guessedWords = new();
         
         [SerializeField] private Button _validateGame;
-        
-        private LevelWordsHolder _levelWordsHolder;
-        private SignalBus _signalBus;
-        private List<WordController> _wordControllers;
 
+        private LevelWordsHolder _levelWordsHolder;
+        private List<WordController> _wordControllers;
+        private SignalBus _signalBus;
+        
         public IReadOnlyCollection<Word> GuessesWords => _guessedWords.AsReadOnly();
+        public IReadOnlyCollection<WordController> WordControllers => _wordControllers.AsReadOnly();
         
         [Inject]
         private void Construct(LevelWordsHolder levelWordsHolder,SignalBus signalBus)

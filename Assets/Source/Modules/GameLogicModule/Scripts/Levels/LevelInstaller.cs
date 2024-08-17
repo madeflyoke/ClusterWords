@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Source.Modules.GameLogicModule.Scripts.Clusters;
 using Source.Modules.GameLogicModule.Scripts.Words;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
         [SerializeField] private ClusterSpawner _clusterSpawner;
         [SerializeField] private WordsSpawner _wordsSpawner;
         [SerializeField] private WordsHandler _wordsHandler;
+        [SerializeField] private HintController _hintController;
         [SerializeField] private Canvas _canvas;
 
         private LevelWordsHolder _levelWordsHolder;
@@ -22,6 +24,17 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
         {
             _levelWordsHolder = new ();
             var rawWords = new WordsFetcher().GetWords(_levelsConfig.GetLevelData(0).WordsRequests); 
+            
+#if UNITY_EDITOR
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append("Spawned words: ");
+            foreach (var word in rawWords)
+            {
+                stringBuilder.Append(" "+word+" ");
+            }
+            Debug.LogWarning(stringBuilder);
+#endif
+            
             _levelWordsHolder.SetWords(CreateWords(rawWords));
             
             Container.Bind<ClusterSpawner>().FromInstance(_clusterSpawner).AsSingle();
@@ -29,13 +42,19 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
             Container.Bind<WordsHandler>().FromInstance(_wordsHandler).AsSingle();
             Container.Bind<LevelWordsHolder>().FromInstance(_levelWordsHolder).AsSingle();
             Container.Bind<Canvas>().FromInstance(_canvas).AsSingle();
+            Container.Bind<HintController>().FromInstance(_hintController).AsSingle();
         }
 
         public override void Start()
         {
-            _clusterSpawner.SpawnClusters(_levelWordsHolder.Words);
-            List<WordController> wordControllers = _wordsSpawner.SpawnWords(_levelWordsHolder.Words).Select(x => x.WordController).ToList();
+            List<ClusterController> clusterControllers = _clusterSpawner.SpawnClusters(_levelWordsHolder.Words)
+                .Select(x=>x.ClusterController).ToList();
+            
+            List<WordController> wordControllers = _wordsSpawner.SpawnWords(_levelWordsHolder.Words)
+                .Select(x => x.WordController).ToList();
+            
             _wordsHandler.Initialize(wordControllers);
+            _hintController.Initialize(clusterControllers);
         }
 
         private List<Word> CreateWords(List<string> rawWords)

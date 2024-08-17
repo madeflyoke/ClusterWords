@@ -24,17 +24,11 @@ MonoBehaviour:
   _levelDatas:
   - Id: 0
     WordsRequests:
-    - LettersCount: 7
-      WordsCount: 6
-    - LettersCount: 7
-      WordsCount: 3
-  - Id: 1
-    WordsRequests:
     - LettersCount: 4
-      WordsCount: 6
+      WordsCount: 2
     - LettersCount: 5
-      WordsCount: 6
+      WordsCount: 2
     - LettersCount: 6
-      WordsCount: 6
+      WordsCount: 2
     - LettersCount: 7
-      WordsCount: 6
+      WordsCount: 2

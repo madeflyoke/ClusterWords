@@ -263,6 +263,7 @@ GameObject:
   - component: {fileID: 8963648913743531601}
   - component: {fileID: 3607913669884945492}
   - component: {fileID: 8604024872737651054}
+  - component: {fileID: 951579608662839917}
   m_Layer: 5
   m_Name: WordsArea
   m_TagString: Untagged
@@ -287,7 +288,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.33744448}
   m_AnchorMax: {x: 1, y: 0.88900006}
   m_AnchoredPosition: {x: 0, y: 0.70199585}
-  m_SizeDelta: {x: 0, y: -2.5159988}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3607913669884945492
 MonoBehaviour:
@@ -328,6 +329,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blockPrefab: {fileID: 1775022636374306531, guid: 3afbf91d03d8c5e43b952d9a5e52bf62, type: 3}
+--- !u!114 &951579608662839917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2423997053843641326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 2
 --- !u!1 &4433793755759115103
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,8 +548,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2743202296039989869}
+  - component: {fileID: 5974553441168536133}
   m_Layer: 5
-  m_Name: GameDialog
+  m_Name: GamePlayPart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -564,6 +580,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5974553441168536133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6076897815842584349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bb91db532daee442ba16e3a2f5db07c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7235778744239885193
 GameObject:
   m_ObjectHideFlags: 0
