@@ -35,18 +35,18 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
         private RectTransform _startClusterPoint;
       
         [Inject]
-        private void Construct(Canvas canvas, ClusterSpawner clusterSpawner,SoundPlayer soundPlayer)
+        private void Construct(SoundPlayer soundPlayer)
         {
-            _canvas = canvas;
             _raycaster = _canvas.GetComponent<GraphicRaycaster>();
             _cachedRaycastResults = new();
-            _clusterSpawner = clusterSpawner;
             _soundPlayer = soundPlayer;
         }
         
-        public void Init(ClusterModel clusterModel)
+        public void Init(ClusterModel clusterModel, ClusterSpawner clusterSpawner, Canvas relatedCanvas)
         {
+            _canvas = relatedCanvas;
             _clusterModel = clusterModel;
+            _clusterSpawner = clusterSpawner;
             _relatedClusterItems = _clusterItemSpawner.SpawnClusterItems(clusterModel.Cluster);
             _startClusterPoint = _relatedClusterItems[0].transform as RectTransform;
         }

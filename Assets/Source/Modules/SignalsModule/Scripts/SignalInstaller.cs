@@ -6,9 +6,9 @@ namespace Source.Modules.SignalsModule.Scripts
     {
         public override void InstallBindings()
         {
-            Container.DeclareSignal<LvlCompleteSignal>();
+            Container.DeclareSignal<LevelCompleteSignal>();
             Container.DeclareSignal<MoveToMainMenuSignal>();
-            Container.DeclareSignal<LvlStartSignal>();
+            Container.DeclareSignal<LevelStartSignal>();
             SignalBusInstaller.Install(Container);
         }
     }

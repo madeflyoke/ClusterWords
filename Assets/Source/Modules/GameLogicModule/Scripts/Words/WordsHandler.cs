@@ -13,7 +13,6 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
         private readonly List<WordController> _guessedWordsControllers = new();
         private readonly List<Word> _guessedWords = new();
         
-        [SerializeField] private Button _validateGame;
 
         private LevelWordsHolder _levelWordsHolder;
         private List<WordController> _wordControllers;
@@ -34,7 +33,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
             _wordControllers = wordControllers;
             _wordControllers.ForEach(x=>x.WordCreated += OnWordCreated);
             _wordControllers.ForEach(x => x.WordChanged += OnWordChanged);
-            _validateGame.onClick.AddListener(OnValidateGameClick);
+           // _validateGame.onClick.AddListener(OnValidateGameClick);
         }
 
         private void OnDestroy()
@@ -48,7 +47,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
             if (_guessedWordsControllers.Count != _levelWordsHolder.Words.Count) return;
             
 
-            _signalBus.Fire<LvlCompleteSignal>();
+            _signalBus.Fire<LevelCompleteSignal>();
         }
         
         private void OnWordChanged(WordController wordController)

@@ -1,6 +1,6 @@
 ﻿namespace Source.Modules.SignalsModule.Scripts
 {
-    public struct LvlStartSignal
+    public struct LevelCompleteSignal
     {
         
     }

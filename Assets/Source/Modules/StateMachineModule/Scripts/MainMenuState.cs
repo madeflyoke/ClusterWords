@@ -1,6 +1,6 @@
 ﻿using Source.Modules.DialogModule.Scripts;
-using Source.Modules.GameLogicModule.Scripts;
 using Source.Modules.SignalsModule.Scripts;
+using Source.Modules.StateMachineModule.Scripts.Interfaces;
 using Zenject;
 
 namespace Source.Modules.StateMachineModule.Scripts
@@ -21,17 +21,17 @@ namespace Source.Modules.StateMachineModule.Scripts
         {
             _stateMachine = stateMachine;
             _dialogService.ShowDialog<MainMenuDialog>();
-            _signalBus.Subscribe<LvlStartSignal>(OnLvlStartSignal);
+            _signalBus.Subscribe<LevelStartSignal>(OnLevelStartSignal);
         }
 
         public void Exit()
         {
-            _signalBus.Unsubscribe<LvlStartSignal>(OnLvlStartSignal);
+            _signalBus.Unsubscribe<LevelStartSignal>(OnLevelStartSignal);
         }
 
-        private void OnLvlStartSignal()
+        private void OnLevelStartSignal(LevelStartSignal signal)
         {
-            _stateMachine.SwitchState<LoadingState>();
+            _stateMachine.SwitchState<LoadingToGameplayState>();
         }
     }
 }

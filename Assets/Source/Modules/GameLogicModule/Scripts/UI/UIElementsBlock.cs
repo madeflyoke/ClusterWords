@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Modules.GameLogicModule.Scripts
+namespace Source.Modules.GameLogicModule.Scripts.UI
 {
     public class UIElementsBlock : MonoBehaviour
     {

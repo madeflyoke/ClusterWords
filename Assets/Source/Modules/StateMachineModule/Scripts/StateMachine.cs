@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Source.Modules.StateMachineModule.Scripts.Interfaces;
 using UnityEngine;
 using Zenject;
 

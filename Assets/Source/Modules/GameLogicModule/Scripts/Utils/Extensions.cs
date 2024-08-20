@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Source.Modules.GameLogicModule.Scripts
+namespace Source.Modules.GameLogicModule.Scripts.Utils
 {
-    public static class ArrayExtensions
+    public static class Extensions
     {
         public static List<T> ShuffledCopy<T>(this IEnumerable<T> list)
         {

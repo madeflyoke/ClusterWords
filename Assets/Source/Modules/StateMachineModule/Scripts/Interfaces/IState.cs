@@ -1,4 +1,4 @@
-﻿namespace Source.Modules.StateMachineModule.Scripts
+﻿namespace Source.Modules.StateMachineModule.Scripts.Interfaces
 {
     public interface IState
     {

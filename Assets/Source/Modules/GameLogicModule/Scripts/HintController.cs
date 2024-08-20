@@ -18,17 +18,16 @@ namespace Source.Modules.GameLogicModule.Scripts
         private List<ClusterController> _clusterControllers;
 
         [Inject]
-        public void Construct(WordsHandler wordsHandler, LevelWordsHolder levelWordsHolder)
+        public void Construct(LevelWordsHolder levelWordsHolder, WordsHandler wordsHandler)
         {
-            _wordsHandler = wordsHandler;
             _levelWordsHolder = levelWordsHolder;
+            _wordsHandler = wordsHandler;
         }
         
-        public void Initialize(List<ClusterController> clusterControllers)
+        public void Initialize( List<ClusterController> clusterControllers)
         {
             _clusterControllers = clusterControllers;
         }
-    
         
         [Button]
         public bool Hint()

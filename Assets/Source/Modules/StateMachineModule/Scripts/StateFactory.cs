@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using Source.Modules.StateMachineModule.Scripts.Interfaces;
+using Zenject;
 
 namespace Source.Modules.StateMachineModule.Scripts
 {

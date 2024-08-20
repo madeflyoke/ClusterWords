@@ -1,4 +1,5 @@
 ﻿using Source.Modules.SignalsModule.Scripts;
+using Source.Modules.StateMachineModule.Scripts.Interfaces;
 using UnityEngine;
 using Zenject;
 
@@ -18,13 +19,13 @@ namespace Source.Modules.StateMachineModule.Scripts
         public void Enter(StateMachine stateMachine)
         {
             _stateMachine = stateMachine;
-            _signalBus.Subscribe<LvlCompleteSignal>(OnLvlCompleteSignal);
+            _signalBus.Subscribe<LevelCompleteSignal>(OnLevelCompleteSignal);
         }
 
-        private void OnLvlCompleteSignal()
+        private void OnLevelCompleteSignal()
         {
-            _signalBus.Unsubscribe<LvlCompleteSignal>(OnLvlCompleteSignal);
-           _stateMachine.SwitchState<EndGameState>();
+            _signalBus.Unsubscribe<LevelCompleteSignal>(OnLevelCompleteSignal);
+           _stateMachine.SwitchState<LoadingToMenuState>();
         }
     }
 }

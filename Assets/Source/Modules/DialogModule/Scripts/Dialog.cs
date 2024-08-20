@@ -6,7 +6,6 @@ namespace Source.Modules.DialogModule.Scripts
 {
     public abstract class Dialog : MonoBehaviour
     {
-        [SerializeField] private float _scaleDuration;
         [SerializeField] private Button _closeButton;
 
         protected virtual void Start()
@@ -23,7 +22,7 @@ namespace Source.Modules.DialogModule.Scripts
 
         public virtual void Show()
         {
-            transform.DOScale(Vector3.one, _scaleDuration);
+           
         }
 
         public virtual void Hide()

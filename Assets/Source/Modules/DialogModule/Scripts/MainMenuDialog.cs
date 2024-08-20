@@ -41,7 +41,7 @@ namespace Source.Modules.DialogModule.Scripts
 
         private void OnStartGameButtonClick()
         {
-            _signalBus.TryFire<LvlStartSignal>();
+            _signalBus.TryFire(new LevelStartSignal(0));
             Hide();
         }
     }
