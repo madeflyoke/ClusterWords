@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Source.Modules.GameLogicModule.Scripts
+namespace Source.Modules.AudioModule.Scripts
 {
     public class SoundPlayer
     {

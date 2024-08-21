@@ -438,28 +438,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &8576558534480749433 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7647906799839513554, guid: f0a0982eba541b74186b8979757b6bab, type: 3}
-  m_PrefabInstance: {fileID: 8649660014800823924}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6ace26fb3f34194192871c9ee888356, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8576558534480749435 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 364819645355324118, guid: f0a0982eba541b74186b8979757b6bab, type: 3}
-  m_PrefabInstance: {fileID: 8649660014800823924}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bb91db532daee442ba16e3a2f5db07c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8649660014800823924
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -594,8 +572,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b5d21323958428e98b781024bf252b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hintController: {fileID: 8576558534480749435}
-  _wordsHandler: {fileID: 8576558534480749433}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

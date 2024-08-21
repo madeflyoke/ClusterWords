@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace Source.Modules.GameLogicModule.Scripts.Levels
 {
-    public class LevelWordsHolder : MonoBehaviour
+    public class LevelWordsHolder
     {
-        private List<Word> _words = new List<Word>();
+        private readonly List<Word> _words;
         public IReadOnlyCollection<Word> Words => _words.AsReadOnly();
-        public void SetWords(List<Word> words)
+
+        public LevelWordsHolder(List<Word> words)
         {
             _words = words;
         }
-
     }
 }

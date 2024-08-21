@@ -11,14 +11,14 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
     {
         [SerializeField] private ClusterArea _clusterArea;
         [SerializeField] private Transform _dragParent;
-        [SerializeField] private ClusterCompositeRoot _clusterCompositeRoot;
+        [SerializeField] private ClusterCompositeRoot _clusterCompositeRootPrefab;
 
         public Transform DraggedClustersParent => _dragParent;
-        private GameplayCanvas _relatedCanvas;
+        private Canvas _relatedCanvas;
 
         private void Awake()
         {
-            _relatedCanvas = FindObjectOfType<GameplayCanvas>();
+            _relatedCanvas = GetComponentInParent<Canvas>();
         }
 
         public List<ClusterCompositeRoot> SpawnClusters(IEnumerable<Word> words)
@@ -26,9 +26,9 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
             var clusterComposites = new List<ClusterCompositeRoot>();
             foreach (Cluster<char> wordCluster in words.SelectMany(x=>x.WordClusters.ShuffledCopy()).ShuffledCopy())
             {
-                ClusterCompositeRoot clusterCompositeRoot = Instantiate(_clusterCompositeRoot,
+                ClusterCompositeRoot clusterCompositeRoot = Instantiate(_clusterCompositeRootPrefab,
                     _clusterArea.GetAvailableClusterParent());
-                clusterCompositeRoot.Init(wordCluster, this, _relatedCanvas.Canvas);
+                clusterCompositeRoot.Init(wordCluster, this, _relatedCanvas);
                 clusterComposites.Add(clusterCompositeRoot);
             }
 

@@ -1,4 +1,5 @@
-﻿using Source.Modules.GameLogicModule.Scripts;
+﻿using Source.Modules.AudioModule.Scripts;
+using Source.Modules.GameLogicModule.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;

@@ -20,7 +20,6 @@ namespace Source.Modules.DialogModule.Scripts
             T instantiate = Object.FindObjectOfType<SceneContext>().Container
                     .InstantiatePrefab(dialog.gameObject, _dialogParent).GetComponent<T>();
              
-            instantiate.transform.localScale = Vector3.zero;
             instantiate.Show();
         }
     }

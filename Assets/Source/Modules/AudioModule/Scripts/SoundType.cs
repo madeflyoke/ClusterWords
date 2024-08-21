@@ -1,4 +1,4 @@
-﻿namespace Source.Modules.GameLogicModule.Scripts
+﻿namespace Source.Modules.AudioModule.Scripts
 {
     public enum SoundType
     {

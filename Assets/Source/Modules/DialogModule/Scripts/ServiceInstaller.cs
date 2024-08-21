@@ -8,6 +8,7 @@ namespace Source.Modules.DialogModule.Scripts
         [SerializeField] private Canvas _dialogCanvasPrefab;
         [SerializeField] private string _dialogsPath;
         private DialogService _dialogService;
+        
         public override void InstallBindings()
         {
             Canvas dialogCanvas = Instantiate(_dialogCanvasPrefab,null);

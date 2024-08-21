@@ -13,20 +13,14 @@ namespace Source.Modules.GameLogicModule.Scripts
     {
         private List<Word> LeftWords => _levelWordsHolder.Words.Except(_wordsHandler.GuessesWords).ToList();
         
-        private WordsHandler _wordsHandler;
+        [SerializeField] private WordsHandler _wordsHandler;
         private LevelWordsHolder _levelWordsHolder;
         private List<ClusterController> _clusterControllers;
-
-        [Inject]
-        public void Construct(LevelWordsHolder levelWordsHolder, WordsHandler wordsHandler)
-        {
-            _levelWordsHolder = levelWordsHolder;
-            _wordsHandler = wordsHandler;
-        }
         
-        public void Initialize( List<ClusterController> clusterControllers)
+        public void Initialize(List<ClusterController> clusterControllers, LevelWordsHolder levelWordsHolder)
         {
             _clusterControllers = clusterControllers;
+            _levelWordsHolder = levelWordsHolder;
         }
         
         [Button]

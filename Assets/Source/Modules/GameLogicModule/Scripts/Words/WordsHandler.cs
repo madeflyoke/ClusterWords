@@ -10,10 +10,11 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
 {
     public class WordsHandler : MonoBehaviour
     {
+        [SerializeField] private WordsSpawner _wordsSpawner;
+        
         private readonly List<WordController> _guessedWordsControllers = new();
         private readonly List<Word> _guessedWords = new();
         
-
         private LevelWordsHolder _levelWordsHolder;
         private List<WordController> _wordControllers;
         private SignalBus _signalBus;
@@ -22,31 +23,26 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
         public IReadOnlyCollection<WordController> WordControllers => _wordControllers.AsReadOnly();
         
         [Inject]
-        private void Construct(LevelWordsHolder levelWordsHolder,SignalBus signalBus)
+        private void Construct(SignalBus signalBus)
         {
-            _levelWordsHolder = levelWordsHolder;
             _signalBus = signalBus;
         }
         
-        public void Initialize(List<WordController> wordControllers)
+        public void Initialize(LevelWordsHolder levelWordsHolder)
         {
-            _wordControllers = wordControllers;
+            _levelWordsHolder = levelWordsHolder;
+            
+            _wordControllers = _wordsSpawner.SpawnWords(_levelWordsHolder.Words)
+                .Select(x => x.WordController).ToList();
             _wordControllers.ForEach(x=>x.WordCreated += OnWordCreated);
             _wordControllers.ForEach(x => x.WordChanged += OnWordChanged);
            // _validateGame.onClick.AddListener(OnValidateGameClick);
-        }
-
-        private void OnDestroy()
-        {
-            _wordControllers.ForEach(x=>x.WordCreated -= OnWordCreated);
-            _wordControllers.ForEach(x => x.WordChanged -= OnWordChanged);
         }
 
         private void OnValidateGameClick()
         {
             if (_guessedWordsControllers.Count != _levelWordsHolder.Words.Count) return;
             
-
             _signalBus.Fire<LevelCompleteSignal>();
         }
         
@@ -69,6 +65,12 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
                 _guessedWordsControllers.Add(wordController);
                 wordController.MarkAsCompleted();
             }
+        }
+        
+        private void OnDestroy()
+        {
+            _wordControllers.ForEach(x=>x.WordCreated -= OnWordCreated);
+            _wordControllers.ForEach(x => x.WordChanged -= OnWordChanged);
         }
     }
 }

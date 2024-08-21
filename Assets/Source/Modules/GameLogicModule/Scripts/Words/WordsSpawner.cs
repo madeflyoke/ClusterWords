@@ -6,7 +6,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
 {
     public class WordsSpawner : MonoBehaviour
     {
-        [SerializeField] private WordCompositeRoot _wordCompositeRoot;
+        [SerializeField] private WordCompositeRoot _wordCompositeRootPrefab;
         [SerializeField] private WordsArea _wordsSpawnArea;
         
         public List<WordCompositeRoot> SpawnWords(IEnumerable<Word> words)
@@ -15,7 +15,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
             foreach (Word levelDataWord in words)
             {
                 var spawnParent = _wordsSpawnArea.GetCorrespondingWordParent(levelDataWord.CellsCount);
-                WordCompositeRoot wordCompositeRoot = Instantiate(_wordCompositeRoot, spawnParent);
+                WordCompositeRoot wordCompositeRoot = Instantiate(_wordCompositeRootPrefab, spawnParent);
                 wordCompositeRoot.Composite(levelDataWord.CellsCount);
                 wordCompositeRoots.Add(wordCompositeRoot);
             }
