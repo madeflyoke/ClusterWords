@@ -10,7 +10,9 @@ namespace Source.Modules.StateMachineModule.Scripts
         public StateFactory(DiContainer container) =>
             _container = container;
 
-        public T CreateState<T>() where T : IState =>
-            _container.Resolve<T>();
+        public T CreateState<T>() where T : IState
+        {
+           return _container.Instantiate<T>();
+        }
     }
 }

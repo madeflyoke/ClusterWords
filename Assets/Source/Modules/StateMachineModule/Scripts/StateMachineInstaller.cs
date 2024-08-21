@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using Source.Modules.StateMachineModule.Scripts.Variants;
+using Zenject;
 
 namespace Source.Modules.StateMachineModule.Scripts
 {
@@ -7,10 +8,11 @@ namespace Source.Modules.StateMachineModule.Scripts
         public override void InstallBindings()
         {
             Container.Bind<StateFactory>().AsSingle().NonLazy();
-            Container.Bind<LoadingToGameplayState>().AsSingle().NonLazy();
-            Container.Bind<PlayState>().AsSingle().NonLazy();
+        //    Container.Bind<LoadingToGameplayState>().AsSingle().NonLazy();
+          //  Container.Bind<GameplayState>().AsSingle().NonLazy();
           //  Container.Bind<EndGameState>().AsSingle().NonLazy();
-            Container.Bind<MainMenuState>().AsSingle().NonLazy();
+        //    Container.Bind<MainMenuState>().AsSingle().NonLazy();
+         //   Container.Bind<BootstrapperState>().AsSingle().NonLazy();
         }
     }
 }

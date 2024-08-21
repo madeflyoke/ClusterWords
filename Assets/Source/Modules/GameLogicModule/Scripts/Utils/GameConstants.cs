@@ -2,12 +2,6 @@ namespace Source.Modules.GameLogicModule.Scripts.Utils
 {
     public static class GameConstants //calibrating depends on preferences of screen size, gameplay field, difficulty etc.
     {
-        public class Scenes
-        {
-            public const int GAMEPLAY_SCENE_INDEX = 1;
-            public const int MAIN_MENU_SCENE_INDEX = 0;
-        }
-        
         public const int MIN_CLUSTER_SIZE = 2;
         public const int MAX_CLUSTER_SIZE = 4;
         

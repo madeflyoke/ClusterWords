@@ -5,8 +5,8 @@ using System.IO;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using EasyButtons;
+using Newtonsoft.Json;
 using Source.Modules.GameLogicModule.Scripts.Levels;
-using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 

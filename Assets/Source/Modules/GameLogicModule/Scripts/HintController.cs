@@ -51,7 +51,7 @@ namespace Source.Modules.GameLogicModule.Scripts
                 }
 
                 ClusterController cluster = _clusterControllers
-                    .FirstOrDefault(x => x.enabled && x.GetCluster() == missingCluster);
+                    .FirstOrDefault(x => x.IsAddedToWord==false && x.GetCluster() == missingCluster);
 
                 if (cluster!=null)
                 {
@@ -76,7 +76,7 @@ namespace Source.Modules.GameLogicModule.Scripts
                 List<Cluster<char>> firstClusters = LeftWords.Where(x=>x.CellsCount==emptyWordController.CellsCount)
                     .Select(x=>x.WordClusters[0]).ToList();
 
-                var allClusters = _clusterControllers.Where(x => x.enabled).ToList();
+                var allClusters = _clusterControllers.Where(x => x.IsAddedToWord==false).ToList();
                 
                 foreach (var firstCluster in firstClusters)
                 {

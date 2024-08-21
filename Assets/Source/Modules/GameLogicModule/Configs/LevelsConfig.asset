@@ -25,6 +25,16 @@ MonoBehaviour:
   - Id: 0
     WordsRequests:
     - LettersCount: 4
+      WordsCount: 4
+    - LettersCount: 5
+      WordsCount: 3
+    - LettersCount: 6
+      WordsCount: 2
+    - LettersCount: 7
+      WordsCount: 2
+  - Id: 1
+    WordsRequests:
+    - LettersCount: 4
       WordsCount: 2
     - LettersCount: 5
       WordsCount: 2

@@ -38,14 +38,15 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
         [Inject]
         private void Construct(SoundPlayer soundPlayer)
         {
-            _raycaster = _canvas.GetComponent<GraphicRaycaster>();
-            _cachedRaycastResults = new();
             _soundPlayer = soundPlayer;
         }
         
-        public void Init(ClusterModel clusterModel, ClusterSpawner clusterSpawner, Canvas relatedCanvas)
+        public void Initialize(ClusterModel clusterModel, ClusterSpawner clusterSpawner, Canvas relatedCanvas)
         {
             _canvas = relatedCanvas;
+            _raycaster = _canvas.GetComponent<GraphicRaycaster>();
+            
+            _cachedRaycastResults = new();
             _clusterModel = clusterModel;
             _clusterSpawner = clusterSpawner;
             _relatedClusterItems = _clusterItemSpawner.SpawnClusterItems(clusterModel.Cluster);
@@ -130,6 +131,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
             _clusterModel.SetParent(_clusterSpawner.DraggedClustersParent);
             _clusterView.SetViewInCell();
             _soundPlayer.PlaySound(SoundType.SetClusterInCellSound);
+            wordCellController.WordController.StopAnimateCells();
         }
 
         private GameObject RaycastCheckForCell()

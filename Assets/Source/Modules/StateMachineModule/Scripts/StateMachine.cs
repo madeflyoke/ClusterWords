@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Source.Modules.StateMachineModule.Scripts.Interfaces;
+using Source.Modules.StateMachineModule.Scripts.Variants;
 using UnityEngine;
 using Zenject;
 
@@ -8,9 +9,10 @@ namespace Source.Modules.StateMachineModule.Scripts
 {
     public class StateMachine : MonoBehaviour
     {
+        public IState CurrentState { get; private set; }
+        
         private readonly Dictionary<Type, IState> _cashedStates = new();
         private StateFactory _stateFactory;
-        public IState CurrentState { get; private set; }
 
         [Inject]
         public void Construct(StateFactory stateFactory)
@@ -18,11 +20,11 @@ namespace Source.Modules.StateMachineModule.Scripts
             _stateFactory = stateFactory;
         }
 
-        private void Start()
+        public void Start()
         {
-           SwitchState<MainMenuState>();
+            SwitchState<BootstrapperState>();
         }
-
+        
         private void Update()
         {
             CurrentState.Update();

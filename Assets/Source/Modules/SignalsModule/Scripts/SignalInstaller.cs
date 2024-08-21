@@ -9,6 +9,7 @@ namespace Source.Modules.SignalsModule.Scripts
             Container.DeclareSignal<LevelCompleteSignal>();
             Container.DeclareSignal<MoveToMainMenuSignal>();
             Container.DeclareSignal<LevelStartSignal>();
+            Container.DeclareSignal<BootstrapperInitializedSignal>();
             SignalBusInstaller.Install(Container);
         }
     }
