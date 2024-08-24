@@ -29,7 +29,7 @@ namespace Source.Modules.StateMachineModule.Scripts.Variants
         private void OnLevelCompleteSignal()
         {
             _signalBus.Unsubscribe<LevelCompleteSignal>(OnLevelCompleteSignal);
-           _stateMachine.SwitchState<LoadingToMenuState>();
+           _stateMachine.SwitchState<MainMenuState>();
         }
     }
 }

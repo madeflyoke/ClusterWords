@@ -26,7 +26,7 @@ namespace Source.Modules.GameLogicModule.Scripts
         [Button]
         public bool Hint()
         {
-            return TryFindPartialWords() || TryFindEmptyWords();
+            return TryFindPartialWords() || TryFindEmptyWords(); //order matter
         }
         
         private bool TryFindPartialWords()
