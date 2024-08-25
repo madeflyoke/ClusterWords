@@ -1,4 +1,5 @@
 ﻿using Source.Modules.AudioModule.Scripts;
+using Source.Modules.SignalsModule.Scripts;
 using Source.Modules.StateMachineModule.Scripts;
 using Source.Modules.StateMachineModule.Scripts.Variants;
 using UnityEngine;
@@ -15,12 +16,14 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Settings
                 
         private AudioPlayer _audioPlayer;
         private StateMachine _stateMachine;
+        private SignalBus _signalBus;
         
         [Inject]
-        private void Construct(AudioPlayer audioPlayer, StateMachine stateMachine)
+        private void Construct(AudioPlayer audioPlayer, StateMachine stateMachine, SignalBus signalBus)
         {
             _audioPlayer = audioPlayer;
             _stateMachine = stateMachine;
+            _signalBus = signalBus;
         }
         
         protected override void Start()
@@ -34,6 +37,10 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Settings
                     break;
                 case GameplayState:
                     _toMenuButton.gameObject.SetActive(true);
+                    _toMenuButton.onClick.AddListener(() =>
+                    {
+                        _signalBus.Fire(new MoveToMainMenuSignal());
+                    });
                     break;
             }
             
@@ -77,6 +84,8 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Settings
         {
             base.OnDestroy();
             _soundToggle.onValueChanged.RemoveListener(OnSoundToggleValueChanged);
+            _musicToggle.onValueChanged.RemoveListener(OnMusicToggleValueChanged);
+            _toMenuButton.onClick.RemoveAllListeners();
         }
     } 
 }

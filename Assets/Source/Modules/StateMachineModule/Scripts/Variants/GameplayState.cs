@@ -22,13 +22,13 @@ namespace Source.Modules.StateMachineModule.Scripts.Variants
         public void Enter(StateMachine stateMachine)
         {
             _stateMachine = stateMachine;
-            _signalBus.Subscribe<LevelCompleteSignal>(OnLevelCompleteSignal);
+            _signalBus.Subscribe<MoveToMainMenuSignal>(ToMainMenu);
             _dialogService.ShowSingleDialog<GameplayDialog>();
         }
 
-        private void OnLevelCompleteSignal()
+        private void ToMainMenu()
         {
-            _signalBus.Unsubscribe<LevelCompleteSignal>(OnLevelCompleteSignal);
+            _signalBus.Unsubscribe<MoveToMainMenuSignal>(ToMainMenu);
            _stateMachine.SwitchState<MainMenuState>();
         }
     }
