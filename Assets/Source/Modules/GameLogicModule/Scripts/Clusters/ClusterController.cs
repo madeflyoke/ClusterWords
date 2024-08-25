@@ -29,16 +29,16 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
         private GraphicRaycaster _raycaster;
         private ClusterSpawner _clusterSpawner;
         private WordController _previousWordController;
-        private SoundPlayer _soundPlayer;
+        private AudioPlayer _audioPlayer;
 
         private List<ClusterItemCompositeRoot> _relatedClusterItems;
         private List<RaycastResult> _cachedRaycastResults;
         private RectTransform _startClusterPoint;
       
         [Inject]
-        private void Construct(SoundPlayer soundPlayer)
+        private void Construct(AudioPlayer audioPlayer)
         {
-            _soundPlayer = soundPlayer;
+            _audioPlayer = audioPlayer;
         }
         
         public void Initialize(ClusterModel clusterModel, ClusterSpawner clusterSpawner, Canvas relatedCanvas)
@@ -130,7 +130,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
                 wordCellController.GetCellIndex()));
             _clusterModel.SetParent(_clusterSpawner.DraggedClustersParent);
             _clusterView.SetViewInCell();
-            _soundPlayer.PlaySound(SoundType.SetClusterInCellSound);
+            _audioPlayer.PlaySound(SoundType.SET_CLUSTER_IN_CELL);
             wordCellController.WordController.StopAnimateCells();
         }
 

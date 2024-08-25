@@ -1,3 +1,4 @@
+using Source.Modules.AudioModule.Scripts;
 using Source.Modules.SignalsModule.Scripts;
 using Source.Modules.StateMachineModule.Scripts.Interfaces;
 using UnityEngine;
@@ -10,7 +11,14 @@ namespace Source.Modules.StateMachineModule.Scripts.Variants
     {
         private SignalBus _signalBus;
         private StateMachine _stateMachine;
-        
+        private AudioPlayer _audioPlayer;
+
+        [Inject]
+        private void Construct(AudioPlayer audioPlayer)
+        {
+            _audioPlayer = audioPlayer;
+        }
+
         public BootstrapperState(SignalBus signalBus)
         {
             _signalBus = signalBus;
@@ -29,6 +37,7 @@ namespace Source.Modules.StateMachineModule.Scripts.Variants
 
         private void OnLoadedScene(AsyncOperation obj)
         {
+            _audioPlayer.PlayAsMusic(SoundType.MAIN_MUSIC);
             _stateMachine.SwitchState<MainMenuState>();
         }
     }

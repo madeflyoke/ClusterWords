@@ -1,6 +1,7 @@
 ﻿using Source.Modules.ServiceModule.Scripts;
 using Source.Modules.ServiceModule.Scripts.Dialogs;
 using Source.Modules.ServiceModule.Scripts.Dialogs.Variants;
+using Source.Modules.ServiceModule.Scripts.Dialogs.Variants.MainMenu;
 using Source.Modules.SignalsModule.Scripts;
 using Source.Modules.StateMachineModule.Scripts.Interfaces;
 using UnityEngine;

@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f78abd345128499cb92f14273a1e2b8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _stateMachine: {fileID: 2416553398416272932}
 --- !u!114 &2416553398416272932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,6 +112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4810799251813748502}
   - component: {fileID: 7215877038525930483}
+  - component: {fileID: 8521215117674733695}
   m_Layer: 0
   m_Name: SoundInstaller
   m_TagString: Untagged
@@ -146,8 +148,81 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c49825feb6694ac78e0cd6551c5c4176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _setClusterInCellSound: {fileID: 8300000, guid: 4253a1407181e4a4cbec4784843170b6, type: 3}
   _audioSourcePrefab: {fileID: 5255220627854103879}
+  _audioContainer: {fileID: 8521215117674733695}
+--- !u!114 &8521215117674733695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2084787535254744756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb9ad777ee3d1aa43be9dc00a8635538, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 8300000, guid: 4253a1407181e4a4cbec4784843170b6, type: 3}
+    - {fileID: 8300000, guid: 34109f8081177e94394aea460bf15e16, type: 3}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: _audioClips
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[Source.Modules.AudioModule.Scripts.SoundType,
+        Assembly-CSharp],[UnityEngine.AudioClip, UnityEngine.AudioModule]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Source.Modules.AudioModule.Scripts.SoundType,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 0
+    - Name: $v
+      Entry: 10
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 1
+    - Name: $v
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
 --- !u!1 &2605285594848229534
 GameObject:
   m_ObjectHideFlags: 0

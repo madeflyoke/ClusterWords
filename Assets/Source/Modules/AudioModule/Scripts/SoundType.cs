@@ -2,6 +2,7 @@
 {
     public enum SoundType
     {
-        SetClusterInCellSound = 0,
+        SET_CLUSTER_IN_CELL = 0,
+        MAIN_MUSIC = 1,
     }
 }

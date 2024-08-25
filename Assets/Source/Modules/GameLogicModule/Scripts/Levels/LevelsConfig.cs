@@ -10,15 +10,17 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
     [CreateAssetMenu(fileName = "LevelsConfig", menuName = "Levels/LevelsConfig")]
     public class LevelsConfig : SerializedScriptableObject
     {
+        public int LevelDatasCount => _levelDatas.Count;
+        
         [SerializeField] private List<LevelData> _levelDatas;
 
         public LevelData GetLevelData(int id)
         {
             return _levelDatas.FirstOrDefault(x => x.Id == id);
         }
-        
-#if UNITY_EDITOR
 
+#if UNITY_EDITOR
+        
         private void OnValidate()
         {
             var index = 0;

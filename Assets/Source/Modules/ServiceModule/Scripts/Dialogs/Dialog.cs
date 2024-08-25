@@ -20,7 +20,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs
 
         public virtual void Show()
         {
-           
+           gameObject.SetActive(true);
         }
 
         public virtual void Hide()

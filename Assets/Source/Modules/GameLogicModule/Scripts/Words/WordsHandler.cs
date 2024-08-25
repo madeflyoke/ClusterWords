@@ -36,10 +36,9 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
                 .Select(x => x.WordController).ToList();
             _wordControllers.ForEach(x=>x.WordCreated += OnWordCreated);
             _wordControllers.ForEach(x => x.WordChanged += OnWordChanged);
-           // _validateGame.onClick.AddListener(OnValidateGameClick);
         }
 
-        private void OnValidateGameClick()
+        private void ValidateCompleting()
         {
             if (_guessedWordsControllers.Count != _levelWordsHolder.Words.Count) return;
             
@@ -64,6 +63,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
                 _guessedWords.Add(wordController.GetCurrentWord());
                 _guessedWordsControllers.Add(wordController);
                 wordController.MarkAsCompleted();
+                ValidateCompleting();
             }
         }
         

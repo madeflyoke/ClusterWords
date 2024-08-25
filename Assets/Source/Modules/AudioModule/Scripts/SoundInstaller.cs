@@ -1,24 +1,17 @@
-﻿using System.Collections.Generic;
-using Source.Modules.AudioModule.Scripts;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
-namespace Source.Modules.GameLogicModule.Scripts
+namespace Source.Modules.AudioModule.Scripts
 {
     public class SoundInstaller : MonoInstaller
     {
-        [SerializeField] private AudioClip _setClusterInCellSound;
         [SerializeField] private AudioSource _audioSourcePrefab;
+        [SerializeField] private AudioContainer _audioContainer;
        
         public override void InstallBindings()
         {
-            Dictionary<SoundType, AudioClip> audioClips = new Dictionary<SoundType, AudioClip>()
-            {
-                { SoundType.SetClusterInCellSound, _setClusterInCellSound }
-            };
-            
-            SoundPlayer soundPlayer = new(audioClips, _audioSourcePrefab);
-            Container.Bind<SoundPlayer>().FromInstance(soundPlayer).AsSingle();
+            AudioPlayer audioPlayer = new(_audioContainer.AudioClips, _audioSourcePrefab);
+            Container.Bind<AudioPlayer>().FromInstance(audioPlayer).AsSingle();
         }
     }
 }
