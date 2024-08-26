@@ -27,12 +27,22 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Visual
         
         public void OnPointerDown(PointerEventData eventData)
         {
+            if (!_button.interactable)
+            {
+                return;
+            }
+            
             _tween?.Kill();
             _tween = _button.transform.DOScale(_defaultScale * _punchForce, 0.1f).SetEase(Ease.Linear).SetUpdate(true);
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
+            if (!_button.interactable)
+            {
+                return;
+            }
+            
             _tween?.Kill();
             _tween = _button.transform.DOScale(_defaultScale, 0.1f).OnKill(()=>
             {

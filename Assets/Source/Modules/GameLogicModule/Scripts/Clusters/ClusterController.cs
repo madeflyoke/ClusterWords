@@ -154,14 +154,5 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
 
             return null;
         }
-
-        private void OnDrawGizmos()
-        {
-            if (_startClusterPoint!=null)
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawSphere(_startClusterPoint.position, 20f);
-            }
-        }
     }
 }
