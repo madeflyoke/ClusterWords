@@ -26,7 +26,11 @@ namespace Source.Modules.StateMachineModule.Scripts.Variants
         {
             _stateMachine = stateMachine;
 
-            _dialogService.ShowSingleDialog<MainMenuDialog>();
+            _dialogService.ShowDialog<MainMenuDialog>(false, onComplete: () =>
+            {
+                _dialogService.HideAllExcept<MainMenuDialog>();
+            });
+            
             _signalBus.Subscribe<LevelStartSignal>(OnLevelStartSignal);
         }
         

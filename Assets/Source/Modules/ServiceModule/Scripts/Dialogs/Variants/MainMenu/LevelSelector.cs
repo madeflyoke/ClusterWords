@@ -22,7 +22,6 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.MainMenu
             _signalBus = signalBus;
         }
         
-        [Button]
         public void Initialize()
         {
             var lastOpenedLevel = _progressService.LevelProgressHandler.GetLastCompletedLevel();

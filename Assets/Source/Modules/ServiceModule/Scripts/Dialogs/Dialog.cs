@@ -18,9 +18,10 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs
 
         }
 
-        public virtual void Show()
+        public virtual void Show(Action onComplete = null)
         {
            gameObject.SetActive(true);
+           onComplete?.Invoke();
         }
 
         public virtual void Hide()

@@ -36,9 +36,9 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs
             _closeAreaButton.onClick.RemoveListener(Hide);
         }
 
-        public override void Show()
+        public override void Show(Action onComplete =null)
         {
-            _popupAnimator.PlayShowAnimation(()=>base.Show());
+            _popupAnimator.PlayShowAnimation(()=>base.Show(onComplete));
         }
 
         public override void Hide()

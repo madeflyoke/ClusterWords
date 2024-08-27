@@ -23,7 +23,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Settings
         
         private void OnSettingButtonClick()
         {
-            _dialogService.ShowDialog<SettingsDialog>();
+            _dialogService.ShowDialog<SettingsDialog>(false);
         }
 
         private void OnDestroy()
