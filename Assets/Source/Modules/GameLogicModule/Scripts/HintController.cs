@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using Sirenix.OdinInspector;
 using Source.Modules.GameLogicModule.Scripts.Clusters;
 using Source.Modules.GameLogicModule.Scripts.Levels;
+using Source.Modules.GameLogicModule.Scripts.Utils;
 using Source.Modules.GameLogicModule.Scripts.Words;
+using Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Gameplay;
 using UnityEngine;
-using Zenject;
 
 namespace Source.Modules.GameLogicModule.Scripts
 {
@@ -14,6 +14,8 @@ namespace Source.Modules.GameLogicModule.Scripts
         private List<Word> LeftWords => _levelWordsHolder.Words.Except(_wordsHandler.GuessesWords).ToList();
         
         [SerializeField] private WordsHandler _wordsHandler;
+        [SerializeField] private HintButton _hintButton;
+        
         private LevelWordsHolder _levelWordsHolder;
         private List<ClusterController> _clusterControllers;
         
@@ -21,10 +23,10 @@ namespace Source.Modules.GameLogicModule.Scripts
         {
             _clusterControllers = clusterControllers;
             _levelWordsHolder = levelWordsHolder;
+            _hintButton.Initialize(GameConstants.HINTS_COUNT, ()=>Hint());
         }
         
-        [Button]
-        public bool Hint()
+        private bool Hint()
         {
             return TryFindPartialWords() || TryFindEmptyWords(); //order matter
         }

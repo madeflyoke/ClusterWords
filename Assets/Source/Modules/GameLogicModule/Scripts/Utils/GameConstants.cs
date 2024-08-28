@@ -10,5 +10,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Utils
 
         public const int MAX_WORD_FIELD_SIZE_LETTERS = 22; //count of chars cells to be fit into words area
         public const int MAX_CLUSTERS_FIELD_SIZE_LETTERS = 60; //approx count of chars cells to be fit into clusters area
+
+        public const int HINTS_COUNT = 5;
     }
 }

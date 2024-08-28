@@ -42,5 +42,10 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
 
             return result.ToString();
         }
+        
+        public override int GetHashCode()
+        {
+            return ToString().GetHashCode();
+        }
     }
 }

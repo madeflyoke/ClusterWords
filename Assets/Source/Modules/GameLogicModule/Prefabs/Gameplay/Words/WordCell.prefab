@@ -132,6 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _image: {fileID: 1475287214074965857}
+  _activeColor: {r: 0.5254902, g: 1, b: 0.99607843, a: 1}
 --- !u!114 &-5499101696164713095
 MonoBehaviour:
   m_ObjectHideFlags: 0
