@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Source.Modules.ServiceModule.Scripts.S.Interfaces;
+using Source.Modules.ServiceModule.Scripts.Interfaces;
+using Source.Modules.SignalsModule.Scripts;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 using Object = UnityEngine.Object;
 
@@ -13,16 +15,24 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs
     public class DialogService: IService
     {
         private const string DIALOG_RESOURCES_PATH = "Dialogs";
-        private const string DIALOG_CANVAS_PATH = "Dialogs/DialogCanvas";
         
         private DialogCanvas _dialogCanvas;
         private List<Dialog> _activeDialogs;
-
+        private SignalBus _signalBus;
+        
         public UniTask Initialize(CancellationTokenSource cts)
         {
-            _dialogCanvas = Object.Instantiate(Resources.Load<DialogCanvas>(DIALOG_CANVAS_PATH));
+          //  _dialogCanvas = Object.Instantiate(Resources.Load<DialogCanvas>(DIALOG_CANVAS_PATH));
+            
             _activeDialogs = new List<Dialog>();
             return UniTask.CompletedTask;
+        }
+
+        [Inject]
+        public void Construct(SignalBus signalBus)
+        {
+            _signalBus = signalBus;
+            _signalBus.Subscribe<GameplaySceneLoadedSignal>(OnGameplayLoaded);
         }
         
         public Dialog ShowDialog<T>(bool asSingle=true, Action onComplete = null, bool asFirstChild =false) where T : Dialog
@@ -92,6 +102,12 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs
         private void HideDialogInternal(Dialog dialog)
         {
             dialog.Hide();
+        }
+
+        private void OnGameplayLoaded()
+        {
+            _dialogCanvas = Object.FindObjectOfType<DialogCanvas>();
+            _signalBus.Unsubscribe<GameplaySceneLoadedSignal>(OnGameplayLoaded);
         }
         
         public void Dispose()

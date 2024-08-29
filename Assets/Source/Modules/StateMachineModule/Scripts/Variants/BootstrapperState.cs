@@ -1,4 +1,5 @@
 using Source.Modules.AudioModule.Scripts;
+using Source.Modules.ServiceModule.Scripts.Dialogs;
 using Source.Modules.SignalsModule.Scripts;
 using Source.Modules.StateMachineModule.Scripts.Interfaces;
 using UnityEngine;
@@ -37,6 +38,7 @@ namespace Source.Modules.StateMachineModule.Scripts.Variants
 
         private void OnLoadedScene(AsyncOperation obj)
         {
+            _signalBus.Fire<GameplaySceneLoadedSignal>();
             _audioPlayer.PlayAsMusic(SoundType.MAIN_MUSIC);
             _stateMachine.SwitchState<MainMenuState>();
         }

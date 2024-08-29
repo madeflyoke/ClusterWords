@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Source.Modules.ServiceModule.Scripts.Dialogs;
+using Source.Modules.ServiceModule.Scripts.Interfaces;
 using Source.Modules.ServiceModule.Scripts.Progress.Currency;
-using Source.Modules.ServiceModule.Scripts.S.Interfaces;
 using UnityEngine;
 using Zenject;
 
