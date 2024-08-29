@@ -139,10 +139,11 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
             _cachedRaycastResults.Clear();
             PointerEventData pointerData = new PointerEventData(EventSystem.current)
             {
-                position = _startClusterPoint.position
+                position = _canvas.worldCamera.WorldToScreenPoint(_startClusterPoint.position)
             };
             
             _raycaster.Raycast(pointerData, _cachedRaycastResults);
+            
             if (_cachedRaycastResults.Count>0)
             {
                 var target = _cachedRaycastResults.FirstOrDefault(x => x.gameObject.layer != gameObject.layer).gameObject;
