@@ -69,7 +69,7 @@ namespace Source.Modules.EditorModule
         //HEAVY API OPERATION
         private async UniTask<List<string>> ValidateExisting(List<string> words)
         {
-            Debug.Log("Repeats validating started, be patient...");
+            Debug.Log("Existing validation started, be patient...");
 
             async UniTask<bool> CheckWord(string word, string languageCode)
             {

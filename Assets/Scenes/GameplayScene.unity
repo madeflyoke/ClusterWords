@@ -358,14 +358,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _readonly_wordsValidationDatas:
   - LettersCount: 4
-    WordsCount: 72
+    WordsCount: 115
   - LettersCount: 5
-    WordsCount: 86
+    WordsCount: 161
   - LettersCount: 6
-    WordsCount: 109
+    WordsCount: 168
   - LettersCount: 7
-    WordsCount: 67
-  _readonly_totalWordsCount: 334
+    WordsCount: 120
+  _readonly_totalWordsCount: 564
 --- !u!4 &2012289652
 Transform:
   m_ObjectHideFlags: 0
