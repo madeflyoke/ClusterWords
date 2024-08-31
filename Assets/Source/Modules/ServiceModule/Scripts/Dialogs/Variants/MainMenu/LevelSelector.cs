@@ -1,5 +1,3 @@
-using System;
-using Sirenix.OdinInspector;
 using Source.Modules.GameLogicModule.Scripts.Levels;
 using Source.Modules.ServiceModule.Scripts.Progress.Currency;
 using Source.Modules.SignalsModule.Scripts;
@@ -29,7 +27,10 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.MainMenu
             {
                 var id = i;
                 var button = Instantiate(_levelSelectButtonPrefab, transform);
-                button.Initialize(id+1, i>lastOpenedLevel, ()=>_signalBus.Fire(new LevelStartSignal(id)));
+                button.Initialize(id+1, i>lastOpenedLevel, ()=>
+                {
+                    _signalBus.Fire(new LevelStartSignal(id));
+                });
             }
         }
         

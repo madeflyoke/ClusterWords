@@ -1,13 +1,18 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Source.Modules.ServiceModule.Scripts.Dialogs
 {
     public abstract class Dialog : MonoBehaviour
     {
-        public event Action<Dialog> Hidden; 
+        public event Action<Dialog> Hidden;
+        protected DialogCanvas DialogCanvas;
         
+        public void Initialize(DialogCanvas dialogCanvas)
+        {
+            DialogCanvas = dialogCanvas;
+        }
+
         protected virtual void Start()
         {
           

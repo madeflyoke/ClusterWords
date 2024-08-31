@@ -214,6 +214,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialogCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7375816894694146864, guid: e640b0a05b613fa43bf2707c8b3d20ff, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7375816894694146864, guid: e640b0a05b613fa43bf2707c8b3d20ff, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7375816894694146864, guid: e640b0a05b613fa43bf2707c8b3d20ff, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8165170811713908126, guid: e640b0a05b613fa43bf2707c8b3d20ff, type: 3}
       propertyPath: m_Camera
       value: 

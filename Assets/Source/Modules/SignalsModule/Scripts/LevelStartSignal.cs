@@ -2,11 +2,11 @@
 {
     public struct LevelStartSignal
     {
-        public int LevelIndex;
+        public readonly int LevelId;
 
-        public LevelStartSignal(int levelIndex)
+        public LevelStartSignal(int levelId)
         {
-            LevelIndex = levelIndex;
+            LevelId = levelId;
         }
     }
 }

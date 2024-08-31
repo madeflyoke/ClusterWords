@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Source.Modules.GameLogicModule.Scripts.Levels;
+using Source.Modules.ServiceModule.Scripts;
+using Source.Modules.ServiceModule.Scripts.Progress.Currency;
 using Source.Modules.SignalsModule.Scripts;
 using UnityEngine;
-using UnityEngine.UI;
 using Zenject;
 
 namespace Source.Modules.GameLogicModule.Scripts.Words
@@ -18,14 +19,18 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
         private LevelWordsHolder _levelWordsHolder;
         private List<WordController> _wordControllers;
         private SignalBus _signalBus;
+        private ProgressService _progressService;
+        private LevelContainer _levelContainer;
         
         public IReadOnlyCollection<Word> GuessesWords => _guessedWords.AsReadOnly();
         public IReadOnlyCollection<WordController> WordControllers => _wordControllers.AsReadOnly();
         
         [Inject]
-        private void Construct(SignalBus signalBus)
+        private void Construct(SignalBus signalBus, ServicesHolder servicesHolder, LevelContainer levelContainer)
         {
             _signalBus = signalBus;
+            _progressService = servicesHolder.GetService<ProgressService>();
+            _levelContainer = levelContainer;
         }
         
         public void Initialize(LevelWordsHolder levelWordsHolder)
@@ -42,6 +47,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
         {
             if (_guessedWordsControllers.Count != _levelWordsHolder.Words.Count) return;
             
+            _progressService.LevelProgressHandler.SaveLastCompletedLevel(_levelContainer.CurrentLevelId);
             _signalBus.Fire<LevelCompleteSignal>();
         }
         

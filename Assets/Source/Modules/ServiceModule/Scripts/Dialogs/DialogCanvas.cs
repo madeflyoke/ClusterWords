@@ -1,19 +1,16 @@
+using Source.Modules.ServiceModule.Scripts.Dialogs.Visual;
 using UnityEngine;
 
 namespace Source.Modules.ServiceModule.Scripts.Dialogs
 {
     public class DialogCanvas : MonoBehaviour
     {
-        private static DialogCanvas _instance;
+        [field: SerializeField] public TransitionAnimation TransitionAnimationComponent { get; private set; }
         
-        private void Awake()
+        public void Initialize()
         {
-            if (_instance!=null)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            DontDestroyOnLoad(this);
+            TransitionAnimationComponent.Initialize();
+            TransitionAnimationComponent.InstantOpen();
         }
     }
 }

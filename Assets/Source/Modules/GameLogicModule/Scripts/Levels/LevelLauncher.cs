@@ -4,6 +4,7 @@ using Source.Modules.GameLogicModule.Scripts.Clusters;
 using Source.Modules.GameLogicModule.Scripts.Utils;
 using Source.Modules.GameLogicModule.Scripts.Words;
 using UnityEngine;
+using Zenject;
 
 namespace Source.Modules.GameLogicModule.Scripts.Levels
 {
@@ -15,20 +16,29 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
         [SerializeField] private HintController _hintController;
 
         private LevelWordsHolder _levelWordsHolder;
+        private LevelContainer _levelContainer;
         
-        public async void LaunchLevel(int id)
+        [Inject]
+        public void Construct(LevelContainer levelContainer)
         {
-            var rawWords = new WordsFetcher().GetWords(_levelsConfig.GetLevelData(id).WordsRequests); 
+            _levelContainer = levelContainer;
+        }
+        
+        public async void LaunchLevel()
+        {
+            var rawWords = new WordsFetcher().GetWords(_levelsConfig.GetLevelData(_levelContainer.CurrentLevelId).WordsRequests); 
             _levelWordsHolder = new(CreateWords(rawWords));
             
 #if UNITY_EDITOR
+            Debug.Log("Level started, id: "+_levelContainer.CurrentLevelId);
+            
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append("Spawned words: ");
             foreach (var word in rawWords)
             {
                 stringBuilder.Append(" "+word+" ");
             }
-            Debug.LogWarning(stringBuilder);
+            Debug.Log(stringBuilder);
 #endif
             
             _wordsHandler.Initialize(_levelWordsHolder);

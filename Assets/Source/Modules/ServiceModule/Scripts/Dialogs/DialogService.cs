@@ -6,7 +6,6 @@ using Cysharp.Threading.Tasks;
 using Source.Modules.ServiceModule.Scripts.Interfaces;
 using Source.Modules.SignalsModule.Scripts;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 using Object = UnityEngine.Object;
 
@@ -22,8 +21,6 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs
         
         public UniTask Initialize(CancellationTokenSource cts)
         {
-          //  _dialogCanvas = Object.Instantiate(Resources.Load<DialogCanvas>(DIALOG_CANVAS_PATH));
-            
             _activeDialogs = new List<Dialog>();
             return UniTask.CompletedTask;
         }
@@ -88,6 +85,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs
             {
                 return;
             }
+            dialog.Initialize(_dialogCanvas);
             dialog.Show(onComplete);
             dialog.Hidden += OnDialogHidden;
             _activeDialogs.Add(dialog);
@@ -107,6 +105,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs
         private void OnGameplayLoaded()
         {
             _dialogCanvas = Object.FindObjectOfType<DialogCanvas>();
+            _dialogCanvas.Initialize();
             _signalBus.Unsubscribe<GameplaySceneLoadedSignal>(OnGameplayLoaded);
         }
         

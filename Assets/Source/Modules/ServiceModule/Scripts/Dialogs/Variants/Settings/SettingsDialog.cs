@@ -40,6 +40,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Settings
                     _toMenuButton.onClick.AddListener(() =>
                     {
                         _signalBus.Fire(new MoveToMainMenuSignal());
+                        Hide();
                     });
                     break;
             }

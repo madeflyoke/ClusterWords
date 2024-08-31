@@ -1,6 +1,7 @@
 using System;
 using DG.Tweening;
 using Sirenix.OdinInspector;
+using UniRx;
 using UnityEngine;
 
 namespace Source.Modules.ServiceModule.Scripts.Dialogs.Visual
@@ -49,7 +50,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Visual
         }
         
         [Button]
-        public void Close(Action onComplete)
+        public void Close(Action onComplete=null)
         {
             if (IsClosed)
             {
@@ -58,8 +59,8 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Visual
             }
             
             _seq?.Kill();
+            _fadeParts.blocksRaycasts = true;
             _seq = DOTween.Sequence();
-       //     _fadeParts.alpha = 1f;
             _seq
                 .AppendInterval(0.5f)
                 .Append(_upperPart.DOMoveY(_upperPartDef.y, _curtainDuration).SetEase(Ease.Linear))
@@ -73,7 +74,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Visual
         }
 
         [Button]
-        public void Open(Action onComplete)
+        public void Open(Action onComplete=null)
         {
             if (IsClosed==false)
             {
@@ -83,7 +84,6 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Visual
             
             _seq?.Kill();
             _seq = DOTween.Sequence();
-            
             _seq
                 .AppendInterval(0.5f)
                 .Append(_upperPart.DOMoveY(_upperPoint.position.y, _curtainDuration).SetEase(Ease.Linear))
@@ -92,8 +92,14 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Visual
                 .OnComplete(()=>
                 {
                     IsClosed = false;
+                    _fadeParts.blocksRaycasts = false;
                     onComplete?.Invoke();
-                });
+                }).OnKill(()=> _fadeParts.blocksRaycasts = false);
+        }
+
+        private void OnDisable()
+        {
+            _seq?.Kill();
         }
     }
 }
