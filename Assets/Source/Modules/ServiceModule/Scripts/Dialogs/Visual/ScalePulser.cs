@@ -17,7 +17,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Visual
         {
             _tween?.Kill();
             _tween = transform.DOPunchScale(Vector3.one * 0.05f, 1.5f, 1).SetLoops(-1, LoopType.Restart).SetEase(Ease.InOutSine)
-                .SetUpdate(true).OnKill(()=>transform.localScale=_defaultScale);
+                .SetUpdate(true);
         }
         public void OnDisable()
         {

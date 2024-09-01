@@ -29,6 +29,8 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants
 
         private void OnLevelComplete()
         {
+            _signalBus.Unsubscribe<LevelCompleteSignal>(OnLevelComplete);
+
             Instantiate(_winEffectPrefab, _vfxPivot.position, Quaternion.identity).Play();
             
             if (_levelsConfig.GetLevelData(_levelContainer.CurrentLevelId+1)!=null)
