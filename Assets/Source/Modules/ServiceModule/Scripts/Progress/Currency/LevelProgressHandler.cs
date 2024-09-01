@@ -7,11 +7,12 @@ namespace Source.Modules.ServiceModule.Scripts.Progress.Currency
         public void SaveLastCompletedLevel(int id)
         {
             PlayerPrefs.SetInt(ProgressSaveKeys.SAVED_LEVEL, id);
+            PlayerPrefs.Save();
         }
         
         public int GetLastCompletedLevel()
         {
-            return PlayerPrefs.GetInt(ProgressSaveKeys.SAVED_LEVEL);
+            return PlayerPrefs.HasKey(ProgressSaveKeys.SAVED_LEVEL)? PlayerPrefs.GetInt(ProgressSaveKeys.SAVED_LEVEL) : -1;
         }
 
         public bool IsLevelCompleted(int id)

@@ -195,4 +195,8 @@ MonoBehaviour:
   - Id: 24
     WordsRequests:
     - LettersCount: 4
-      WordsCount: 1
+      WordsCount: 6
+    - LettersCount: 4
+      WordsCount: 6
+    - LettersCount: 4
+      WordsCount: 6

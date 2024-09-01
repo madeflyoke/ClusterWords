@@ -71,26 +71,24 @@ namespace Source.Modules.EditorModule
         {
             Debug.Log("Existing validation started, be patient...");
 
-            async UniTask<bool> CheckWord(string word, string languageCode)
+            async UniTask<bool> CheckWord(string word, string languageCode) //english need to be tested
             {
-                var struckTimerSeconds = TimeSpan.TicksPerSecond * 30;
-                var startTime = DateTime.UtcNow.Ticks;
-                
-                string url =
-                    $"https://{languageCode}.wiktionary.org/w/api.php?action=query&titles={UnityWebRequest.EscapeURL(word)}" +
-                    $"&format=json&prop=extracts&explaintext&exsectionformat=plain";
+                string languageName = languageCode switch
+                {
+                    "ru" => "Русский",
+                    "en" => "English",
+                    _ => string.Empty
+                };
+
+                string url = $"https://{languageCode}.wiktionary.org/w/api.php?action=parse&page={UnityWebRequest.EscapeURL(word)}" +
+                             $"&format=json&prop=sections";
 
                 using (UnityWebRequest request = UnityWebRequest.Get(url))
                 {
                     var operation = request.SendWebRequest();
-                    
-                    while (operation.isDone == false)
+
+                    while (!operation.isDone)
                     {
-                        if (startTime+struckTimerSeconds<=DateTime.UtcNow.Ticks)
-                        {
-                            Debug.LogError($"Timed out at word {word}!");
-                            return false;
-                        }
                         await UniTask.Yield();
                     }
 
@@ -98,19 +96,27 @@ namespace Source.Modules.EditorModule
                         request.result == UnityWebRequest.Result.ProtocolError)
                     {
                         Debug.LogError(request.error);
+                        return false;
                     }
-                    else
-                    {
-                        var json = request.downloadHandler.text;
-                        if (json.Contains("\"-1\""))
-                        {
-                            return false;
-                        }
-                        return true;
-                    }
-                }
 
-                return false;
+                    var json = request.downloadHandler.text;
+
+                    if (json.Contains("\"-1\""))
+                    {
+                        return false;
+                    }
+
+                    var sectionsResponse = JsonUtility.FromJson<SectionsResponse>(json);
+                    foreach (var section in sectionsResponse.parse.sections)
+                    {
+                        if (section.line == languageName)
+                        {
+                            return true;
+                        }
+                    }
+
+                    return false;
+                }
             }
 
             List<string> finalWords = new List<string>(words);
@@ -129,6 +135,24 @@ namespace Source.Modules.EditorModule
             DebugLogWithColor("Repeats validating completed!", Color.green);
 
             return finalWords;
+        }
+        
+        [Serializable]
+        public class SectionsResponse
+        {
+            public Parse parse;
+        }
+
+        [Serializable]
+        public class Parse
+        {
+            public List<Section> sections;
+        }
+
+        [Serializable]
+        public class Section
+        {
+            public string line;
         }
 
         private void SaveProcessedFile(WordsModel wordsModel)

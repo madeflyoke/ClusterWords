@@ -7,7 +7,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Installers
     {
         public override void InstallBindings()
         {
-            Container.Bind<LevelContainer>().FromInstance(new LevelContainer()).AsSingle().NonLazy();
+            Container.Bind<LevelContainer>().AsSingle().NonLazy();
         }
     }
 }

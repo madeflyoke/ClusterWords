@@ -27,7 +27,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.MainMenu
             {
                 var id = i;
                 var button = Instantiate(_levelSelectButtonPrefab, transform);
-                button.Initialize(id+1, i>lastOpenedLevel, ()=>
+                button.Initialize(id+1, i-1>lastOpenedLevel, ()=>
                 {
                     _signalBus.Fire(new LevelStartSignal(id));
                 });
