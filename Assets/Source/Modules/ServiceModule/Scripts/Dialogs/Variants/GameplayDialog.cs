@@ -26,10 +26,23 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants
             _dialogService = servicesHolder.GetService<DialogService>();
             _signalBus.Subscribe<LevelCompleteSignal>(OnLevelComplete);
         }
+        
+        protected override void Start()
+        {
+            base.Start();
+            _nextLevelButton.gameObject.SetActive(false);
+            
+#if UNITY_EDITOR
+            gameObject.name += Guid.NewGuid();
+#endif
+            
+            _levelLauncher.LaunchLevel();
+        }
+
 
         private void OnLevelComplete()
         {
-            _signalBus.Unsubscribe<LevelCompleteSignal>(OnLevelComplete);
+            _signalBus.TryUnsubscribe<LevelCompleteSignal>(OnLevelComplete);
 
             Instantiate(_winEffectPrefab, _vfxPivot.position, Quaternion.identity).Play();
             
@@ -44,19 +57,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants
                 });
             }
         }
-
-        protected override void Start()
-        {
-            base.Start();
-            _nextLevelButton.gameObject.SetActive(false);
-            
-            #if UNITY_EDITOR
-            gameObject.name += Guid.NewGuid();
-            #endif
-            
-            _levelLauncher.LaunchLevel();
-        }
-
+        
         public override void Show(Action onComplete = null)
         {
             DialogCanvas.TransitionAnimationComponent.Open();
@@ -71,6 +72,11 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants
                 _dialogService.HideDialog<GameplayDialog>();
                 _dialogService.ShowDialog<GameplayDialog>(asFirstChild: true, asSingle: true);
             });
+        }
+
+        private void OnDisable()
+        {
+            _signalBus.TryUnsubscribe<LevelCompleteSignal>(OnLevelComplete);
         }
     }
 }
