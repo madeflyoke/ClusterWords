@@ -47,13 +47,14 @@ namespace Source.Modules.GameLogicModule.Scripts
                             index < wordClusters.Count && pc.Equals(wordClusters[index])).All(match => match)
                         && partialWordController.CellsCount==LeftWords[i].CellsCount)
                     {
-                        missingCluster = wordClusters.Except(partialClusters).FirstOrDefault();
+                        missingCluster = wordClusters[partialClusters.Count];
                         break;
                     }
                 }
+                
 
                 ClusterController cluster = _clusterControllers
-                    .FirstOrDefault(x => x.IsAddedToWord==false && x.GetCluster() == missingCluster);
+                    .FirstOrDefault(x => x.IsAddedToWord==false && x.GetCluster().Equals(missingCluster));
 
                 if (cluster!=null)
                 {

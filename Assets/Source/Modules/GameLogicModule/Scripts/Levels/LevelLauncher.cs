@@ -27,6 +27,14 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
         public async void LaunchLevel()
         {
             var rawWords = new WordsFetcher().GetWords(_levelsConfig.GetLevelData(_levelContainer.CurrentLevelId).WordsRequests); 
+            // var rawWords = new List<string>() //EXAMPLE of debugging words
+            // {
+            //     "мама",
+            //     "амма",
+            //     "мага",
+            //     "гама",
+            //     "мамама"
+            // };
             _levelWordsHolder = new(CreateWords(rawWords));
             
 #if UNITY_EDITOR

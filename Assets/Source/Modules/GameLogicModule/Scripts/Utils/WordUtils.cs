@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Source.Modules.GameLogicModule.Scripts.Clusters;
 using UnityEngine;
 
@@ -36,7 +37,16 @@ namespace Source.Modules.GameLogicModule.Scripts.Utils
             
                 if (validClusterSizes.Count > 0)
                 {
-                    int clusterSize = validClusterSizes[Random.Range(0,validClusterSizes.Count)];
+                    int clusterSize = 0;
+                    if (validClusterSizes.Count!=1)
+                    {
+                        clusterSize = Random.Range(0f,1f)>0.35f? validClusterSizes.Min():validClusterSizes[Random.Range(0,validClusterSizes.Count)];
+                    }
+                    else
+                    {
+                        clusterSize = validClusterSizes[0];
+                    }
+                   
 
                     if (remainingLength - clusterSize == 1 && validClusterSizes.Count > 1)
                     {
