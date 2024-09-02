@@ -74,18 +74,18 @@ MonoBehaviour:
     WordsRequests:
     - LettersCount: 7
       WordsCount: 6
-    - LettersCount: 7
-      WordsCount: 2
   - Id: 9
     WordsRequests:
     - LettersCount: 4
       WordsCount: 6
+    - LettersCount: 4
+      WordsCount: 2
   - Id: 10
     WordsRequests:
     - LettersCount: 4
       WordsCount: 6
     - LettersCount: 4
-      WordsCount: 2
+      WordsCount: 4
   - Id: 11
     WordsRequests:
     - LettersCount: 4
@@ -125,7 +125,7 @@ MonoBehaviour:
     - LettersCount: 6
       WordsCount: 2
     - LettersCount: 7
-      WordsCount: 3
+      WordsCount: 4
   - Id: 16
     WordsRequests:
     - LettersCount: 5
@@ -178,16 +178,18 @@ MonoBehaviour:
       WordsCount: 4
   - Id: 22
     WordsRequests:
-    - LettersCount: 7
-      WordsCount: 6
     - LettersCount: 5
       WordsCount: 3
+    - LettersCount: 7
+      WordsCount: 6
   - Id: 23
     WordsRequests:
+    - LettersCount: 7
+      WordsCount: 6
+    - LettersCount: 7
+      WordsCount: 2
     - LettersCount: 4
-      WordsCount: 6
-    - LettersCount: 6
-      WordsCount: 6
+      WordsCount: 1
   - Id: 24
     WordsRequests:
     - LettersCount: 4
