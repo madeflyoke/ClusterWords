@@ -39,5 +39,10 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Visual
                     .SetEase(Ease.Linear))
                 .Join(transform.DOLocalRotate(finalRotation, _durationSec).SetEase(Ease.Linear));
         }
+
+        private void OnDisable()
+        {
+            _seq?.Kill();
+        }
     }
 }
