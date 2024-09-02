@@ -44,10 +44,17 @@ namespace Source.Modules.GameLogicModule.Scripts.Levels
         public List<string> GetWords(List<WordsRequestData> requestDatas)
         {
             var finalList = new List<string>();
+            var mapCopy = _wordsMap.ToDictionary(
+                kvp => kvp.Key, 
+                kvp => kvp.Value.ShuffledCopy()
+            );
+            
             foreach (var data in requestDatas)
             {
-                var shuffledWords = _wordsMap[data.LettersCount].ShuffledCopy();
-                finalList.AddRange(shuffledWords.GetRange(0, data.WordsCount));
+                var shuffledWords = mapCopy[data.LettersCount];
+                var targetPart = shuffledWords.GetRange(0, data.WordsCount);
+                mapCopy[data.LettersCount] = shuffledWords.Except(targetPart).ToList();
+                finalList.AddRange(targetPart);
             }
 
             return finalList;
