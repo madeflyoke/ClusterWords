@@ -25,173 +25,169 @@ MonoBehaviour:
   - Id: 0
     WordsRequests:
     - LettersCount: 5
-      WordsCount: 4
+      WordsCount: 2
+    - LettersCount: 4
+      WordsCount: 2
   - Id: 1
     WordsRequests:
-    - LettersCount: 4
-      WordsCount: 3
     - LettersCount: 5
+      WordsCount: 3
+    - LettersCount: 4
       WordsCount: 3
   - Id: 2
     WordsRequests:
-    - LettersCount: 4
-      WordsCount: 5
     - LettersCount: 5
-      WordsCount: 5
+      WordsCount: 3
+    - LettersCount: 6
+      WordsCount: 2
   - Id: 3
     WordsRequests:
-    - LettersCount: 4
-      WordsCount: 4
     - LettersCount: 5
-      WordsCount: 4
+      WordsCount: 3
     - LettersCount: 6
-      WordsCount: 2
+      WordsCount: 3
   - Id: 4
     WordsRequests:
-    - LettersCount: 4
-      WordsCount: 4
-    - LettersCount: 5
-      WordsCount: 2
-    - LettersCount: 6
-      WordsCount: 4
-  - Id: 5
-    WordsRequests:
-    - LettersCount: 4
-      WordsCount: 6
-    - LettersCount: 6
-      WordsCount: 4
-  - Id: 6
-    WordsRequests:
-    - LettersCount: 4
-      WordsCount: 3
     - LettersCount: 5
       WordsCount: 3
     - LettersCount: 7
+      WordsCount: 2
+  - Id: 5
+    WordsRequests:
+    - LettersCount: 5
+      WordsCount: 3
+    - LettersCount: 7
+      WordsCount: 3
+  - Id: 6
+    WordsRequests:
+    - LettersCount: 5
+      WordsCount: 6
+    - LettersCount: 5
       WordsCount: 2
   - Id: 7
     WordsRequests:
-    - LettersCount: 4
-      WordsCount: 3
-    - LettersCount: 5
-      WordsCount: 3
-    - LettersCount: 7
-      WordsCount: 4
-  - Id: 8
-    WordsRequests:
-    - LettersCount: 5
+    - LettersCount: 6
+      WordsCount: 6
+    - LettersCount: 6
       WordsCount: 2
-    - LettersCount: 6
-      WordsCount: 3
-    - LettersCount: 7
-      WordsCount: 4
-  - Id: 9
-    WordsRequests:
-    - LettersCount: 6
-      WordsCount: 5
-    - LettersCount: 7
-      WordsCount: 4
-  - Id: 10
+  - Id: 8
     WordsRequests:
     - LettersCount: 7
       WordsCount: 6
     - LettersCount: 7
+      WordsCount: 2
+  - Id: 9
+    WordsRequests:
+    - LettersCount: 4
+      WordsCount: 6
+  - Id: 10
+    WordsRequests:
+    - LettersCount: 4
+      WordsCount: 6
+    - LettersCount: 4
       WordsCount: 2
   - Id: 11
     WordsRequests:
     - LettersCount: 4
-      WordsCount: 6
-    - LettersCount: 4
-      WordsCount: 6
+      WordsCount: 3
+    - LettersCount: 5
+      WordsCount: 3
+    - LettersCount: 6
+      WordsCount: 3
   - Id: 12
     WordsRequests:
+    - LettersCount: 4
+      WordsCount: 2
     - LettersCount: 5
-      WordsCount: 6
-    - LettersCount: 5
-      WordsCount: 6
+      WordsCount: 4
+    - LettersCount: 6
+      WordsCount: 4
   - Id: 13
     WordsRequests:
     - LettersCount: 4
-      WordsCount: 5
+      WordsCount: 3
     - LettersCount: 5
-      WordsCount: 5
-    - LettersCount: 4
+      WordsCount: 3
+    - LettersCount: 7
       WordsCount: 3
   - Id: 14
     WordsRequests:
+    - LettersCount: 4
+      WordsCount: 2
     - LettersCount: 5
-      WordsCount: 6
+      WordsCount: 4
     - LettersCount: 7
       WordsCount: 4
   - Id: 15
     WordsRequests:
-    - LettersCount: 4
-      WordsCount: 6
     - LettersCount: 5
-      WordsCount: 2
+      WordsCount: 3
     - LettersCount: 6
       WordsCount: 2
     - LettersCount: 7
-      WordsCount: 2
+      WordsCount: 3
   - Id: 16
     WordsRequests:
-    - LettersCount: 4
-      WordsCount: 6
     - LettersCount: 5
       WordsCount: 4
     - LettersCount: 6
-      WordsCount: 2
+      WordsCount: 3
+    - LettersCount: 7
+      WordsCount: 3
   - Id: 17
     WordsRequests:
     - LettersCount: 4
-      WordsCount: 6
-    - LettersCount: 4
-      WordsCount: 6
+      WordsCount: 2
+    - LettersCount: 5
+      WordsCount: 3
+    - LettersCount: 6
+      WordsCount: 2
     - LettersCount: 7
-      WordsCount: 1
+      WordsCount: 3
   - Id: 18
     WordsRequests:
+    - LettersCount: 4
+      WordsCount: 3
+    - LettersCount: 5
+      WordsCount: 3
     - LettersCount: 6
-      WordsCount: 6
-    - LettersCount: 6
-      WordsCount: 4
+      WordsCount: 3
+    - LettersCount: 7
+      WordsCount: 2
   - Id: 19
     WordsRequests:
     - LettersCount: 4
-      WordsCount: 4
+      WordsCount: 1
+    - LettersCount: 5
+      WordsCount: 1
+    - LettersCount: 6
+      WordsCount: 1
     - LettersCount: 7
       WordsCount: 6
   - Id: 20
     WordsRequests:
-    - LettersCount: 4
+    - LettersCount: 5
       WordsCount: 6
     - LettersCount: 5
-      WordsCount: 2
-    - LettersCount: 6
-      WordsCount: 2
-    - LettersCount: 7
-      WordsCount: 2
+      WordsCount: 6
   - Id: 21
-    WordsRequests:
-    - LettersCount: 4
-      WordsCount: 6
-    - LettersCount: 5
-      WordsCount: 1
-    - LettersCount: 6
-      WordsCount: 2
-    - LettersCount: 7
-      WordsCount: 2
-  - Id: 22
-    WordsRequests:
-    - LettersCount: 7
-      WordsCount: 6
-    - LettersCount: 7
-      WordsCount: 2
-  - Id: 23
     WordsRequests:
     - LettersCount: 6
       WordsCount: 6
     - LettersCount: 6
       WordsCount: 4
+  - Id: 22
+    WordsRequests:
+    - LettersCount: 7
+      WordsCount: 6
+    - LettersCount: 5
+      WordsCount: 3
+  - Id: 23
+    WordsRequests:
+    - LettersCount: 4
+      WordsCount: 6
+    - LettersCount: 6
+      WordsCount: 6
   - Id: 24
     WordsRequests:
     - LettersCount: 4
@@ -199,4 +195,4 @@ MonoBehaviour:
     - LettersCount: 4
       WordsCount: 6
     - LettersCount: 4
-      WordsCount: 6
+      WordsCount: 3
