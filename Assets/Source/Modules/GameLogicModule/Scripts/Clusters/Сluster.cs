@@ -18,7 +18,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
         }
 
         [field: SerializeField]
-        public List<ClusterItem<T>> ClusterItems { get; private set; }
+        public List<ClusterItem<T>> ClusterItems { get; }
 
         public void AddItem(T value)
         {
@@ -41,6 +41,18 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
             }
 
             return true;
+        }
+        
+        public override int GetHashCode()
+        {
+            int hash = 0;
+
+            foreach (var item in ClusterItems)
+            {
+                hash ^= (item.Value?.GetHashCode() ?? 0);
+            }
+
+            return hash;
         }
     }
 }
