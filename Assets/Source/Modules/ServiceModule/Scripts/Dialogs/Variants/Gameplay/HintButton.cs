@@ -1,4 +1,5 @@
 using System;
+using Agava.YandexGames;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,8 +23,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Gameplay
             {
                 if (_currentCount<=0)
                 {
-                    Debug.LogWarning("Call on rewarded");
-                    RewardedCallback();
+                    RewardedAd.Show(onRewardedCallback:RewardedCallback);
                     return;
                 }
                 onClick?.Invoke();
@@ -35,7 +35,6 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Gameplay
         
         private void RewardedCallback()
         {
-            Debug.LogWarning("Reward Completed");
             ResetCount();
         }
         

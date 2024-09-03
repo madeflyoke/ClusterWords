@@ -12,5 +12,6 @@ namespace Source.Modules.GameLogicModule.Scripts.Utils
         public const int MAX_CLUSTERS_FIELD_SIZE_LETTERS = 60; //approx count of chars cells to be fit into clusters area
 
         public const int HINTS_COUNT = 5;
+        public const int INTERSTITIAL_PER_LEVEL = 5;
     }
 }

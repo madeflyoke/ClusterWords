@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using Source.Modules.ServiceModule.Scripts.Dialogs;
 using Source.Modules.ServiceModule.Scripts.Interfaces;
 using Source.Modules.ServiceModule.Scripts.Progress.Currency;
+using Source.Modules.ServiceModule.Scripts.Yandex;
 using UnityEngine;
 using Zenject;
 
@@ -39,7 +40,7 @@ namespace Source.Modules.ServiceModule.Scripts
             _services = new Dictionary<Type, IService>();
             
             //add all services below
-          //  AddService<YandexService>();
+            AddService<YandexService>();
             AddService<ProgressService>();
             AddService<DialogService>();
 

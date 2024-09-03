@@ -1,4 +1,5 @@
 using System;
+using Agava.YandexGames;
 using Source.Modules.GameLogicModule.Scripts.Levels;
 using Source.Modules.SignalsModule.Scripts;
 using UnityEngine;
@@ -52,10 +53,21 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants
                 _nextLevelButton.onClick.AddListener(() =>
                 {
                     _nextLevelButton.onClick.RemoveAllListeners();
-                    _nextLevelButton.gameObject.SetActive(false);
-                    LoadNextLevel();
+                    if ((_levelContainer.CurrentLevelId+1)%5==0)
+                    {
+                        InterstitialAd.Show(onCloseCallback:x=> Invoke(nameof(NextLevelSet), 1f));
+                        return;
+                    }
+
+                    NextLevelSet();
                 });
             }
+        }
+        
+        private void NextLevelSet()
+        {
+            _nextLevelButton.gameObject.SetActive(false);
+            LoadNextLevel();
         }
         
         public override void Show(Action onComplete = null)
