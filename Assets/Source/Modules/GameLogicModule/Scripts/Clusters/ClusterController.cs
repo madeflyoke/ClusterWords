@@ -118,6 +118,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
                 IsAddedToWord = false;
                 _clusterModel.SetParent(_clusterSpawner.GetAvailableClusterParent());
                 _clusterView.EndDrag();
+                _audioPlayer.PlaySound(SoundType.OUT_OF_CELL, .2f);
             }
         }
 

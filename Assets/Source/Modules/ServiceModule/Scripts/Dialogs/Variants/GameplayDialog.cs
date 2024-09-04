@@ -1,6 +1,7 @@
 using System;
 using Agava.YandexGames;
 using Source.Modules.GameLogicModule.Scripts.Levels;
+using Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Gameplay;
 using Source.Modules.SignalsModule.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,9 +13,9 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants
     {
         [SerializeField] private LevelsConfig _levelsConfig;
         [SerializeField] private LevelLauncher _levelLauncher;
-        [SerializeField] private Button _nextLevelButton;
         [SerializeField] private ParticleSystem _winEffectPrefab;
         [SerializeField] private Transform _vfxPivot;
+        [SerializeField] private NextLevelButton _nextLevelButtons;
         private SignalBus _signalBus;
         private DialogService _dialogService;
         private LevelContainer _levelContainer;
@@ -31,7 +32,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants
         protected override void Start()
         {
             base.Start();
-            _nextLevelButton.gameObject.SetActive(false);
+            _nextLevelButtons.HideInstant();
             
 #if UNITY_EDITOR
             gameObject.name += Guid.NewGuid();
@@ -49,10 +50,8 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants
             
             if (_levelsConfig.GetLevelData(_levelContainer.CurrentLevelId+1)!=null)
             {
-                _nextLevelButton.gameObject.SetActive(true);
-                _nextLevelButton.onClick.AddListener(() =>
+                _nextLevelButtons.Activate(() =>
                 {
-                    _nextLevelButton.onClick.RemoveAllListeners();
                     if ((_levelContainer.CurrentLevelId+1)%5==0)
                     {
                         InterstitialAd.Show(onCloseCallback:x=> Invoke(nameof(NextLevelSet), 1f));
@@ -66,7 +65,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants
         
         private void NextLevelSet()
         {
-            _nextLevelButton.gameObject.SetActive(false);
+            _nextLevelButtons.HideInstant();
             LoadNextLevel();
         }
         

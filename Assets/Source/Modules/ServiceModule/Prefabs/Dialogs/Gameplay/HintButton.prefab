@@ -138,6 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _button: {fileID: 3997266355296236817}
   _punchForce: 0.95
+  _withSound: 0
 --- !u!114 &2406251375422136283
 MonoBehaviour:
   m_ObjectHideFlags: 0

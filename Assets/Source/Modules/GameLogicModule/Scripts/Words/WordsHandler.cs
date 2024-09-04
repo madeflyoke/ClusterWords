@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Source.Modules.AudioModule.Scripts;
 using Source.Modules.GameLogicModule.Scripts.Levels;
 using Source.Modules.ServiceModule.Scripts;
 using Source.Modules.ServiceModule.Scripts.Progress.Currency;
@@ -21,16 +22,18 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
         private SignalBus _signalBus;
         private ProgressService _progressService;
         private LevelContainer _levelContainer;
+        private AudioPlayer _audioPlayer;
         
         public IReadOnlyCollection<Word> GuessesWords => _guessedWords.AsReadOnly();
         public IReadOnlyCollection<WordController> WordControllers => _wordControllers.AsReadOnly();
         
         [Inject]
-        private void Construct(SignalBus signalBus, ServicesHolder servicesHolder, LevelContainer levelContainer)
+        private void Construct(SignalBus signalBus, ServicesHolder servicesHolder, LevelContainer levelContainer, AudioPlayer audioPlayer)
         {
             _signalBus = signalBus;
             _progressService = servicesHolder.GetService<ProgressService>();
             _levelContainer = levelContainer;
+            _audioPlayer = audioPlayer;
         }
         
         public void Initialize(LevelWordsHolder levelWordsHolder)
@@ -43,12 +46,16 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
             _wordControllers.ForEach(x => x.WordChanged += OnWordChanged);
         }
 
-        private void ValidateCompleting()
+        private bool ValidateCompleting()
         {
-            if (_guessedWordsControllers.Count != _levelWordsHolder.Words.Count) return;
+            if (_guessedWordsControllers.Count != _levelWordsHolder.Words.Count)
+            {
+                return false;
+            }
             
             _progressService.LevelProgressHandler.SaveLastCompletedLevel(_levelContainer.CurrentLevelId);
             _signalBus.Fire<LevelCompleteSignal>();
+            return true;
         }
         
         private void OnWordChanged(WordController wordController)
@@ -69,7 +76,14 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
                 _guessedWords.Add(wordController.GetCurrentWord());
                 _guessedWordsControllers.Add(wordController);
                 wordController.MarkAsCompleted();
-                ValidateCompleting();
+                if (ValidateCompleting())
+                {
+                    _audioPlayer.PlaySound(SoundType.LEVEL_COMPLETE, 0.8f);
+                }
+                else
+                {
+                    _audioPlayer.PlaySound(SoundType.WORD_COMPLETE, 0.3f);
+                }
             }
         }
         
