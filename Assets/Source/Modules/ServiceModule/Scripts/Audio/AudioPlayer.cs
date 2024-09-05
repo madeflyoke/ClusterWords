@@ -65,21 +65,16 @@ namespace Source.Modules.ServiceModule.Scripts.Audio
 
         public void ActivateSound()
         {
-            Debug.LogWarning("SOUND ON");
-
             SoundActive = true;
         }
 
         public void DeActivateSound()
         {
-            Debug.LogWarning("SOUND OFF");
-
             SoundActive = false;
         }
 
         public void ActivateMusic()
         {
-            Debug.LogWarning("MUSIC ON");
             MusicActive = true;
             if (_currentMusicSource!=null)
             {
@@ -89,8 +84,6 @@ namespace Source.Modules.ServiceModule.Scripts.Audio
 
         public void DeActivateMusic()
         {
-            Debug.LogWarning("MUSIC OFF");
-
             MusicActive = false;
             if (_currentMusicSource!=null)
             {
