@@ -21,23 +21,23 @@ namespace Source.Modules.AudioModule.Scripts
             _audioSourcePrefab = audioSourcePrefab;
         }
 
-        public void ActiveSound()
+        public void ActivateSound()
         {
             SoundActive = true;
         }
 
-        public void DeActiveSound()
+        public void DeActivateSound()
         {
             SoundActive = false;
         }
 
-        public void ActiveMusic()
+        public void ActivateMusic()
         {
             MusicActive = true;
             _currentMusicSource.volume = 1f;
         }
 
-        public void DeActiveMusic()
+        public void DeActivateMusic()
         {
             MusicActive = false;
             _currentMusicSource.volume = 0f;
