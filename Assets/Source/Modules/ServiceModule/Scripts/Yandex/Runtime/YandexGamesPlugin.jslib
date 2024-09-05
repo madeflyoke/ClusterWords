@@ -1,4 +1,4 @@
-const library = {
+const yandexGamesLibrary = {
 
   // Class definition.
 
@@ -24,7 +24,7 @@ const library = {
       yandexGames.isInitializeCalled = true;
 
       const sdkScript = document.createElement('script');
-      sdkScript.src = 'https://yandex.ru/games/sdk/v2';
+      sdkScript.src = '/sdk.js';
       document.head.appendChild(sdkScript);
 
       sdkScript.onload = function () {
@@ -121,7 +121,7 @@ const library = {
       }
     },
 
-    playerAccountStartAuthorizationPolling: function (delay, successCallbackPtr, errorCallbackPtr) {
+    playerAccountStartAuthorizationPolling: function (repeatDelay, successCallbackPtr, errorCallbackPtr) {
       if (yandexGames.isAuthorized) {
         console.error('Already authorized.');
         dynCall('v', errorCallbackPtr, []);
@@ -140,7 +140,7 @@ const library = {
             yandexGames.playerAccount = playerAccount;
             dynCall('v', successCallbackPtr, []);
           } else {
-            setTimeout(authorizationPollingLoop, delay);
+            setTimeout(authorizationPollingLoop, repeatDelay);
           }
         });
       };
@@ -229,7 +229,14 @@ const library = {
     },
 
     playerAccountSetCloudSaveData: function (сloudSaveDataJson, successCallbackPtr, errorCallbackPtr) {
-      var сloudSaveData = JSON.parse(сloudSaveDataJson);
+      var сloudSaveData;
+      try {
+        сloudSaveData = JSON.parse(сloudSaveDataJson);
+      } catch (error) {
+        yandexGames.invokeErrorCallback(error, errorCallbackPtr);
+        return;
+      }
+
       yandexGames.playerAccount.setData(сloudSaveData, true).then(function () {
         dynCall('v', successCallbackPtr, []);
       }).catch(function (error) {
@@ -365,7 +372,25 @@ const library = {
 
     billingGetProductCatalog: function (successCallbackPtr, errorCallbackPtr) {
       yandexGames.billing.getCatalog().then(function (productCatalogResponse) {
-        productCatalogResponse = { products: productCatalogResponse, signature: productCatalogResponse.signature };
+        const products = [];
+
+        for (var catalogIterator = 0; catalogIterator < productCatalogResponse.length; catalogIterator++) {
+          products[catalogIterator] = {
+            description: productCatalogResponse[catalogIterator].description,
+            id: productCatalogResponse[catalogIterator].id,
+            imageURI: productCatalogResponse[catalogIterator].imageURI,
+            price: productCatalogResponse[catalogIterator].price,
+            priceCurrencyCode: productCatalogResponse[catalogIterator].priceCurrencyCode,
+            priceCurrencyImage: "https:" + productCatalogResponse[catalogIterator].getPriceCurrencyImage('medium'),
+            priceValue: productCatalogResponse[catalogIterator].priceValue,
+            title: productCatalogResponse[catalogIterator].title
+          };
+        }
+
+        productCatalogResponse = {
+          products: products,
+          signature: productCatalogResponse.signature
+        };
 
         const productCatalogJson = JSON.stringify(productCatalogResponse);
         const productCatalogJsonUnmanagedStringPtr = yandexGames.allocateUnmanagedString(productCatalogJson);
@@ -614,9 +639,10 @@ const library = {
   },
 
   YandexGamesSdkIsRunningOnYandex: function() {
-    return window.location.hostname.includes('yandex');
+    const hostname = window.location.hostname;
+    return hostname.includes('yandex') || hostname.includes('playhop');
   }
 }
 
-autoAddDeps(library, '$yandexGames');
-mergeInto(LibraryManager.library, library);
+autoAddDeps(yandexGamesLibrary, '$yandexGames');
+mergeInto(LibraryManager.library, yandexGamesLibrary);

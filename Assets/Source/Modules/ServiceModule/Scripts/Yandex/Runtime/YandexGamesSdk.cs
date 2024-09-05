@@ -13,7 +13,7 @@ namespace Agava.YandexGames
         /// <summary>
         /// Enable it to log SDK callbacks in the console.
         /// </summary>
-        public static bool CallbackLogging = true;
+        public static bool CallbackLogging = false;
 
         /// <summary>
         /// SDK is initialized automatically on load.
