@@ -41,7 +41,7 @@ namespace Source.Modules.ServiceModule.Scripts
             _services = new Dictionary<Type, IService>();
             
             //add all services below
-           // AddService<YandexService>();
+            AddService<YandexService>();
             AddService<PlayerDataService>();
             AddService<DialogService>();
             AddService<AudioService>();

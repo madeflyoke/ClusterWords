@@ -15,9 +15,6 @@ namespace Source.Modules.ServiceModule.Scripts.Yandex
             await UniTask.Delay(1000, cancellationToken:cts.Token).SuppressCancellationThrow();
 #else
             await YandexGamesSdk.Initialize().ToUniTask(cancellationToken:cts.Token).SuppressCancellationThrow();
-            
-            //if (PlayerAccount.IsAuthorized == false)
-            // PlayerAccount.StartAuthorizationPolling(1500);
 #endif
             
         }
