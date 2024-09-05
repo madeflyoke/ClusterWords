@@ -1,8 +1,10 @@
 using System;
 using DG.Tweening;
+using Source.Modules.AudioModule.Scripts;
 using Source.Modules.ServiceModule.Scripts.Dialogs.Visual;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Gameplay
 {
@@ -11,7 +13,14 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Gameplay
         [SerializeField] private Button _button;
         [SerializeField] private ScalePulser _scalePulser;
         private Tween _tween;
+        private AudioPlayer _audioPlayer;
 
+        [Inject]
+        public void Construct(AudioPlayer audioPlayer)
+        {
+            _audioPlayer = audioPlayer;
+        }
+        
         public void Activate(Action onClick)
         {
             _tween?.Kill();
@@ -26,6 +35,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Gameplay
                 _scalePulser.StartPulser();
                 _button.onClick.AddListener(()=>
                 {
+                    _audioPlayer.PlaySound(SoundType.BUTTON_CLICK_PRESS, .8f);
                     _button.onClick.RemoveAllListeners();
                     onClick?.Invoke();
                 });

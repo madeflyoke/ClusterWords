@@ -61,11 +61,11 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Settings
         {
             if (isDeactive)
             {
-                _audioPlayer.DeActiveMusic();
+                _audioPlayer.DeActivateMusic();
             }
             else
             {
-                _audioPlayer.ActiveMusic();
+                _audioPlayer.ActivateMusic();
             }
         }
 
@@ -73,11 +73,11 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Settings
         {
             if (isDeactive)
             {
-                _audioPlayer.DeActiveSound();
+                _audioPlayer.DeActivateSound();
             }
             else
             {
-                _audioPlayer.ActiveSound();
+                _audioPlayer.ActivateSound();
             }
         }
 

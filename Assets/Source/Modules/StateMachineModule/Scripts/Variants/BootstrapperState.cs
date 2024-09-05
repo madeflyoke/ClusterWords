@@ -39,7 +39,7 @@ namespace Source.Modules.StateMachineModule.Scripts.Variants
         private void OnLoadedScene(AsyncOperation obj)
         {
             _signalBus.Fire<GameplaySceneLoadedSignal>();
-            _audioPlayer.PlayAsMusic(SoundType.MAIN_MUSIC);
+            _audioPlayer.PlayAsMusic(SoundType.MAIN_MUSIC, .5f);
             _stateMachine.SwitchState<MainMenuState>();
         }
     }
