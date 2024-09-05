@@ -72,6 +72,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Settings
                 _audioPlayer.ActivateMusic();
             }
             
+            _audioPlayer.PlaySound(SoundType.BUTTON_CLICK_PRESS, .1f);
             _settingsHandler.SaveMusicStatus(!isDeactive);
         }
 
@@ -86,6 +87,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Settings
                 _audioPlayer.ActivateSound();
             }
             
+            _audioPlayer.PlaySound(SoundType.BUTTON_CLICK_PRESS, .1f);
             _settingsHandler.SaveSoundStatus(!isDeactive);
         }
 

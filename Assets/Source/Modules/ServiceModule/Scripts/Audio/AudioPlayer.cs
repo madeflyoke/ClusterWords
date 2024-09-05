@@ -51,7 +51,7 @@ namespace Source.Modules.ServiceModule.Scripts.Audio
         private void OnAdShowed()
         {
             RewardedAd.AfterShow += OnAdClosed;
-            InterstitialAd.BeforeShow += OnAdClosed;
+            InterstitialAd.AfterShow += OnAdClosed;
             DeActivateMusic();
             DeActivateSound();
         }
@@ -59,7 +59,7 @@ namespace Source.Modules.ServiceModule.Scripts.Audio
         private void OnAdClosed()
         {
             RewardedAd.AfterShow -= OnAdClosed;
-            InterstitialAd.BeforeShow -= OnAdClosed;
+            InterstitialAd.AfterShow -= OnAdClosed;
             ExtractAudioSettings();
         }
 

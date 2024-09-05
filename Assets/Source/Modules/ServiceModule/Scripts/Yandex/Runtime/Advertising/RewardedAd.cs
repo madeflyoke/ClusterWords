@@ -42,9 +42,8 @@ namespace Agava.YandexGames
             OnOpenCallback();
             OnRewardedCallback();
             OnCloseCallback();
-
 #else
-            if (Application.internetReachability == NetworkReachability.NotReachable)
+            if (Application.internetReachability == NetworkReachability.NotReachable || YandexGamesSdk.IsInitialized==false)
             {
                 OnOpenCallback();
                 OnCloseCallback();
