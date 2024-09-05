@@ -78,11 +78,11 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
                 wordController.MarkAsCompleted();
                 if (ValidateCompleting())
                 {
-                    _audioPlayer.PlaySound(SoundType.LEVEL_COMPLETE, 0.8f);
+                    _audioPlayer.PlaySound(SoundType.LEVEL_COMPLETE, 0.3f);
                 }
                 else
                 {
-                    _audioPlayer.PlaySound(SoundType.WORD_COMPLETE, 0.3f);
+                    _audioPlayer.PlaySound(SoundType.WORD_COMPLETE, 0.15f);
                 }
             }
         }

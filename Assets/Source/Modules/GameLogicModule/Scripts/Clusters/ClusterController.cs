@@ -118,7 +118,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
                 IsAddedToWord = false;
                 _clusterModel.SetParent(_clusterSpawner.GetAvailableClusterParent());
                 _clusterView.EndDrag();
-                _audioPlayer.PlaySound(SoundType.OUT_OF_CELL, .2f);
+                _audioPlayer.PlaySound(SoundType.OUT_OF_CELL, .15f);
             }
         }
 
@@ -131,7 +131,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
                 wordCellController.GetCellIndex()));
             _clusterModel.SetParent(_clusterSpawner.DraggedClustersParent);
             _clusterView.SetViewInCell();
-            _audioPlayer.PlaySound(SoundType.SET_CLUSTER_IN_CELL);
+            _audioPlayer.PlaySound(SoundType.SET_CLUSTER_IN_CELL, .6f);
             wordCellController.WordController.StopAnimateCells();
         }
 
