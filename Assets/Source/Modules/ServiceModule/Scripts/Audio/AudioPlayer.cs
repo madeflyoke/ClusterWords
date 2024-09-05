@@ -1,29 +1,39 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Agava.YandexGames;
 using Source.Modules.ServiceModule.Scripts.Player.Settings;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Source.Modules.ServiceModule.Scripts.Audio
 {
-    public class AudioPlayer
+    public class AudioPlayer : IDisposable
     {
-        public bool SoundActive { get; private set; } //default values
+        public bool SoundActive { get; private set; } 
         public bool MusicActive { get; private set; }
         
         private readonly Dictionary<SoundType, AudioClip> _audioClips;
         private readonly AudioSource _audioSourcePrefab;
         
         private readonly List<AudioSource> _poolAudioSource = new();
+        private readonly SettingsHandler _settingsHandler;
         private AudioSource _currentMusicSource;
-        private SettingsHandler _settingsHandler;
-        
+
         public AudioPlayer(Dictionary<SoundType, AudioClip> audioClips,AudioSource audioSourcePrefab, SettingsHandler settingsHandler)
         {
             _audioClips = audioClips;
             _audioSourcePrefab = audioSourcePrefab;
 
             _settingsHandler = settingsHandler;
+            ExtractAudioSettings();
+            
+            RewardedAd.BeforeShow += OnAdShowed;
+            InterstitialAd.BeforeShow += OnAdShowed;
+        }
+
+        private void ExtractAudioSettings()
+        {
             _settingsHandler.GetAudioStatus(out bool musicActive, out bool soundActive);
             
             if (musicActive)
@@ -35,33 +45,41 @@ namespace Source.Modules.ServiceModule.Scripts.Audio
                 ActivateSound();
             else
                 DeActivateSound();
-            
-            RewardedAd.BeforeRewardShow += OnAdShowed;
         }
 
+        
         private void OnAdShowed()
         {
-            RewardedAd.AfterRewardShow += OnAdClosed;
+            RewardedAd.AfterShow += OnAdClosed;
+            InterstitialAd.BeforeShow += OnAdClosed;
+            DeActivateMusic();
+            DeActivateSound();
         }
 
         private void OnAdClosed()
         {
-            RewardedAd.AfterRewardShow -= OnAdClosed;
-            
+            RewardedAd.AfterShow -= OnAdClosed;
+            InterstitialAd.BeforeShow -= OnAdClosed;
+            ExtractAudioSettings();
         }
 
         public void ActivateSound()
         {
+            Debug.LogWarning("SOUND ON");
+
             SoundActive = true;
         }
 
         public void DeActivateSound()
         {
+            Debug.LogWarning("SOUND OFF");
+
             SoundActive = false;
         }
 
         public void ActivateMusic()
         {
+            Debug.LogWarning("MUSIC ON");
             MusicActive = true;
             if (_currentMusicSource!=null)
             {
@@ -71,6 +89,8 @@ namespace Source.Modules.ServiceModule.Scripts.Audio
 
         public void DeActivateMusic()
         {
+            Debug.LogWarning("MUSIC OFF");
+
             MusicActive = false;
             if (_currentMusicSource!=null)
             {
@@ -124,6 +144,12 @@ namespace Source.Modules.ServiceModule.Scripts.Audio
                 
                 freeAudioSource.Play();
             }
+        }
+
+        public void Dispose()
+        {
+            RewardedAd.BeforeShow -= OnAdShowed;
+            InterstitialAd.BeforeShow -= OnAdShowed;
         }
     }
 }
