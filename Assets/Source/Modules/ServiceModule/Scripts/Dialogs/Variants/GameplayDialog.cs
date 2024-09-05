@@ -1,10 +1,10 @@
 using System;
 using Agava.YandexGames;
 using Source.Modules.GameLogicModule.Scripts.Levels;
+using Source.Modules.GameLogicModule.Scripts.Utils;
 using Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Gameplay;
 using Source.Modules.SignalsModule.Scripts;
 using UnityEngine;
-using UnityEngine.UI;
 using Zenject;
 
 namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants
@@ -52,7 +52,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants
             {
                 _nextLevelButtons.Activate(() =>
                 {
-                    if ((_levelContainer.CurrentLevelId+1)%5==0)
+                    if ((_levelContainer.SessionLevelsCompletedCount)%GameConstants.INTERSTITIAL_PER_LEVEL==0)
                     {
                         InterstitialAd.Show(onCloseCallback:x=> Invoke(nameof(NextLevelSet), 1f));
                         return;
