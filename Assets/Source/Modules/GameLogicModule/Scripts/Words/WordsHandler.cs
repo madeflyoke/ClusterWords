@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using Source.Modules.AudioModule.Scripts;
 using Source.Modules.GameLogicModule.Scripts.Levels;
 using Source.Modules.ServiceModule.Scripts;
-using Source.Modules.ServiceModule.Scripts.Progress.Currency;
+using Source.Modules.ServiceModule.Scripts.Audio;
+using Source.Modules.ServiceModule.Scripts.Player;
 using Source.Modules.SignalsModule.Scripts;
 using UnityEngine;
 using Zenject;
@@ -20,7 +20,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
         private LevelWordsHolder _levelWordsHolder;
         private List<WordController> _wordControllers;
         private SignalBus _signalBus;
-        private ProgressService _progressService;
+        private PlayerDataService _playerDataService;
         private LevelContainer _levelContainer;
         private AudioPlayer _audioPlayer;
         
@@ -28,12 +28,12 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
         public IReadOnlyCollection<WordController> WordControllers => _wordControllers.AsReadOnly();
         
         [Inject]
-        private void Construct(SignalBus signalBus, ServicesHolder servicesHolder, LevelContainer levelContainer, AudioPlayer audioPlayer)
+        private void Construct(SignalBus signalBus, ServicesHolder servicesHolder, LevelContainer levelContainer)
         {
             _signalBus = signalBus;
-            _progressService = servicesHolder.GetService<ProgressService>();
+            _playerDataService = servicesHolder.GetService<PlayerDataService>();
             _levelContainer = levelContainer;
-            _audioPlayer = audioPlayer;
+            _audioPlayer = servicesHolder.GetService<AudioService>().AudioPlayer;
         }
         
         public void Initialize(LevelWordsHolder levelWordsHolder)
@@ -53,7 +53,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
                 return false;
             }
             
-            _progressService.LevelProgressHandler.SaveLastCompletedLevel(_levelContainer.CurrentLevelId);
+            _playerDataService.LevelProgressHandler.SaveLastCompletedLevel(_levelContainer.CurrentLevelId);
             _signalBus.Fire<LevelCompleteSignal>();
             return true;
         }

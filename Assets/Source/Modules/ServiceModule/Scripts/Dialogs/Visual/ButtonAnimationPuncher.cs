@@ -1,6 +1,5 @@
-using System;
 using DG.Tweening;
-using Source.Modules.AudioModule.Scripts;
+using Source.Modules.ServiceModule.Scripts.Audio;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -24,9 +23,9 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Visual
         }
 
         [Inject]
-        public void Construct(AudioPlayer audioPlayer)
+        private void Construct(ServicesHolder servicesHolder)
         {
-            _audioPlayer ??= audioPlayer;
+            _audioPlayer ??= servicesHolder.GetService<AudioService>().AudioPlayer;
         }
         
         private void OnDisable()

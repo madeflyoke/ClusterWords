@@ -2,9 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Source.Modules.ServiceModule.Scripts.Audio;
 using Source.Modules.ServiceModule.Scripts.Dialogs;
 using Source.Modules.ServiceModule.Scripts.Interfaces;
-using Source.Modules.ServiceModule.Scripts.Progress.Currency;
+using Source.Modules.ServiceModule.Scripts.Player;
 using Source.Modules.ServiceModule.Scripts.Yandex;
 using UnityEngine;
 using Zenject;
@@ -41,8 +42,9 @@ namespace Source.Modules.ServiceModule.Scripts
             
             //add all services below
             AddService<YandexService>();
-            AddService<ProgressService>();
+            AddService<PlayerDataService>();
             AddService<DialogService>();
+            AddService<AudioService>();
 
             _cts = new CancellationTokenSource();
 

@@ -1,24 +1,53 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Agava.YandexGames;
+using Source.Modules.ServiceModule.Scripts.Player.Settings;
 using UnityEngine;
 
-namespace Source.Modules.AudioModule.Scripts
+namespace Source.Modules.ServiceModule.Scripts.Audio
 {
     public class AudioPlayer
     {
-        public bool SoundActive { get; private set; } = true; //default values
-        public bool MusicActive { get; private set; } = true;
+        public bool SoundActive { get; private set; } //default values
+        public bool MusicActive { get; private set; }
         
         private readonly Dictionary<SoundType, AudioClip> _audioClips;
         private readonly AudioSource _audioSourcePrefab;
         
         private readonly List<AudioSource> _poolAudioSource = new();
         private AudioSource _currentMusicSource;
+        private SettingsHandler _settingsHandler;
         
-        public AudioPlayer(Dictionary<SoundType, AudioClip> audioClips,AudioSource audioSourcePrefab)
+        public AudioPlayer(Dictionary<SoundType, AudioClip> audioClips,AudioSource audioSourcePrefab, SettingsHandler settingsHandler)
         {
             _audioClips = audioClips;
             _audioSourcePrefab = audioSourcePrefab;
+
+            _settingsHandler = settingsHandler;
+            _settingsHandler.GetAudioStatus(out bool musicActive, out bool soundActive);
+            
+            if (musicActive)
+                ActivateMusic();
+            else
+                DeActivateMusic();
+
+            if (soundActive)
+                ActivateSound();
+            else
+                DeActivateSound();
+            
+            RewardedAd.BeforeRewardShow += OnAdShowed;
+        }
+
+        private void OnAdShowed()
+        {
+            RewardedAd.AfterRewardShow += OnAdClosed;
+        }
+
+        private void OnAdClosed()
+        {
+            RewardedAd.AfterRewardShow -= OnAdClosed;
+            
         }
 
         public void ActivateSound()
@@ -34,13 +63,19 @@ namespace Source.Modules.AudioModule.Scripts
         public void ActivateMusic()
         {
             MusicActive = true;
-            _currentMusicSource.volume = 1f;
+            if (_currentMusicSource!=null)
+            {
+                _currentMusicSource.mute = false;
+            }
         }
 
         public void DeActivateMusic()
         {
             MusicActive = false;
-            _currentMusicSource.volume = 0f;
+            if (_currentMusicSource!=null)
+            {
+                _currentMusicSource.mute = true;
+            }
         }
 
         public void PlaySound(SoundType soundType,float volume = 1f)
@@ -56,7 +91,13 @@ namespace Source.Modules.AudioModule.Scripts
             {
                 _currentMusicSource.Stop();
             }
+
             PlayFreeAudioSource(soundType, true, volume);
+            
+            if (_currentMusicSource != null)
+            {
+                _currentMusicSource.mute = !MusicActive;
+            }
         }
 
         private void PlayFreeAudioSource(SoundType soundType, bool isMusic = false, float volume = 1f)

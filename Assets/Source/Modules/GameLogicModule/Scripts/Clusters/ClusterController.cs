@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Source.Modules.AudioModule.Scripts;
 using Source.Modules.GameLogicModule.Scripts.Clusters.ClusterItem;
 using Source.Modules.GameLogicModule.Scripts.Words;
 using Source.Modules.GameLogicModule.Scripts.Words.WordCells;
+using Source.Modules.ServiceModule.Scripts;
+using Source.Modules.ServiceModule.Scripts.Audio;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -36,9 +37,9 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
         private RectTransform _startClusterPoint;
       
         [Inject]
-        private void Construct(AudioPlayer audioPlayer)
+        private void Construct(ServicesHolder servicesHolder)
         {
-            _audioPlayer = audioPlayer;
+            _audioPlayer = servicesHolder.GetService<AudioService>().AudioPlayer;
         }
         
         public void Initialize(ClusterModel clusterModel, ClusterSpawner clusterSpawner, Canvas relatedCanvas)

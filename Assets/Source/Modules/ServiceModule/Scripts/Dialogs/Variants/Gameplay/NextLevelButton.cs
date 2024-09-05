@@ -1,6 +1,6 @@
 using System;
 using DG.Tweening;
-using Source.Modules.AudioModule.Scripts;
+using Source.Modules.ServiceModule.Scripts.Audio;
 using Source.Modules.ServiceModule.Scripts.Dialogs.Visual;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,9 +16,9 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Gameplay
         private AudioPlayer _audioPlayer;
 
         [Inject]
-        public void Construct(AudioPlayer audioPlayer)
+        private void Construct(ServicesHolder servicesHolder)
         {
-            _audioPlayer = audioPlayer;
+            _audioPlayer = servicesHolder.GetService<AudioService>().AudioPlayer;
         }
         
         public void Activate(Action onClick)

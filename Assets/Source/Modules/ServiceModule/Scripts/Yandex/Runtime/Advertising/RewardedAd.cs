@@ -10,6 +10,9 @@ namespace Agava.YandexGames
     /// </summary>
     public static class RewardedAd
     {
+        public static Action BeforeRewardShow;
+        public static Action AfterRewardShow;
+        
         // More statics to the god of statics.
         private static Action s_onOpenCallback;
         private static Action s_onRewardedCallback;
@@ -44,11 +47,12 @@ namespace Agava.YandexGames
             if (Application.internetReachability == NetworkReachability.NotReachable)
             {
                 OnOpenCallback();
-                OnCloseCallback(true);
+                OnCloseCallback();
                 return;
             }
 
             VideoAdShow(OnOpenCallback, OnRewardedCallback, OnCloseCallback, OnErrorCallback);
+            BeforeRewardShow?.Invoke();
 #endif
 
         }
@@ -87,6 +91,8 @@ namespace Agava.YandexGames
         [MonoPInvokeCallback(typeof(Action))]
         private static void OnCloseCallback()
         {
+            AfterRewardShow?.Invoke();
+
             if (!s_isVideoAdOpen)
             {
                 if (YandexGamesSdk.CallbackLogging)
@@ -106,6 +112,8 @@ namespace Agava.YandexGames
         [MonoPInvokeCallback(typeof(Action<string>))]
         private static void OnErrorCallback(string errorMessage)
         {
+            AfterRewardShow?.Invoke();
+            
             if (YandexGamesSdk.CallbackLogging)
                 Debug.Log($"{nameof(RewardedAd)}.{nameof(OnErrorCallback)} invoked, {nameof(errorMessage)} = {errorMessage}");
 

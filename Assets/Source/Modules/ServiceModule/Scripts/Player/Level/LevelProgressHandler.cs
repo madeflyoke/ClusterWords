@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Source.Modules.ServiceModule.Scripts.Progress.Currency
+namespace Source.Modules.ServiceModule.Scripts.Player.Level
 {
     public class LevelProgressHandler
     {

@@ -1,4 +1,6 @@
-﻿using Source.Modules.AudioModule.Scripts;
+﻿using Source.Modules.ServiceModule.Scripts.Audio;
+using Source.Modules.ServiceModule.Scripts.Player;
+using Source.Modules.ServiceModule.Scripts.Player.Settings;
 using Source.Modules.SignalsModule.Scripts;
 using Source.Modules.StateMachineModule.Scripts;
 using Source.Modules.StateMachineModule.Scripts.Variants;
@@ -17,13 +19,15 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Settings
         private AudioPlayer _audioPlayer;
         private StateMachine _stateMachine;
         private SignalBus _signalBus;
+        private SettingsHandler _settingsHandler;
         
         [Inject]
-        private void Construct(AudioPlayer audioPlayer, StateMachine stateMachine, SignalBus signalBus)
+        private void Construct(StateMachine stateMachine, SignalBus signalBus, ServicesHolder servicesHolder)
         {
-            _audioPlayer = audioPlayer;
             _stateMachine = stateMachine;
             _signalBus = signalBus;
+            _audioPlayer = servicesHolder.GetService<AudioService>().AudioPlayer;
+            _settingsHandler = servicesHolder.GetService<PlayerDataService>().SettingsHandler;
         }
         
         protected override void Start()
@@ -67,6 +71,8 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Settings
             {
                 _audioPlayer.ActivateMusic();
             }
+            
+            _settingsHandler.SaveMusicStatus(!isDeactive);
         }
 
         private void OnSoundToggleValueChanged(bool isDeactive)
@@ -79,6 +85,8 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Settings
             {
                 _audioPlayer.ActivateSound();
             }
+            
+            _settingsHandler.SaveSoundStatus(!isDeactive);
         }
 
         protected override void OnDestroy()

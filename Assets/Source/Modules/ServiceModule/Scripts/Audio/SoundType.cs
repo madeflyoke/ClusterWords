@@ -1,4 +1,4 @@
-﻿namespace Source.Modules.AudioModule.Scripts
+﻿namespace Source.Modules.ServiceModule.Scripts.Audio
 {
     public enum SoundType
     {
