@@ -45,7 +45,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Visual
             _tween = _button.transform.DOScale(_defaultScale * _punchForce, 0.1f).SetEase(Ease.Linear).SetUpdate(true);
             if (_withSound)
             {
-                _audioPlayer.PlaySound(SoundType.BUTTON_CLICK_PRESS, .8f);
+                _audioPlayer.PlaySound(SoundType.BUTTON_CLICK_PRESS, .1f);
             }
         }
 

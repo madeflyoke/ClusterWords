@@ -35,7 +35,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Gameplay
                 _scalePulser.StartPulser();
                 _button.onClick.AddListener(()=>
                 {
-                    _audioPlayer.PlaySound(SoundType.BUTTON_CLICK_PRESS, .8f);
+                    _audioPlayer.PlaySound(SoundType.BUTTON_CLICK_PRESS, .1f);
                     _button.onClick.RemoveAllListeners();
                     onClick?.Invoke();
                 });
