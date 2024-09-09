@@ -4,6 +4,7 @@ using Source.Modules.GameLogicModule.Scripts.Levels;
 using Source.Modules.GameLogicModule.Scripts.Utils;
 using Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Gameplay;
 using Source.Modules.SignalsModule.Scripts;
+using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -16,6 +17,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants
         [SerializeField] private ParticleSystem _winEffectPrefab;
         [SerializeField] private Transform _vfxPivot;
         [SerializeField] private NextLevelButton _nextLevelButtons;
+        [SerializeField] private TMP_Text _levelIdText;
         private SignalBus _signalBus;
         private DialogService _dialogService;
         private LevelContainer _levelContainer;
@@ -73,6 +75,8 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants
         {
             DialogCanvas.TransitionAnimationComponent.Open();
             base.Show(onComplete);
+            _levelIdText.text = "Уровень " + (_levelContainer.CurrentLevelId+1);
+            _levelIdText.gameObject.SetActive(true);
         }
 
         private void LoadNextLevel()
