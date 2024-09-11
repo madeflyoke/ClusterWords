@@ -7,10 +7,11 @@ namespace Source.Modules.GameLogicModule.Scripts.Utils
     public class YandexServiceMonoBehaviourHelper : MonoBehaviour
     {
         private bool _isInitialized;
+        private bool _gameplayActiveWhileFocused;
         
         public void Initialize()
         {
-            RewardedAd.S_isVideoAdOpen.ObserveEveryValueChanged(x => x.Value)
+            RewardedAd.S_isVideoAdOpen.ObserveEveryValueChanged(x => x.Value).Skip(1)
                 .Subscribe(isOpened =>
             {
                 if (isOpened)
@@ -23,7 +24,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Utils
                 }
             }).AddTo(this);
             
-            InterstitialAd.S_isVideoAdOpen.ObserveEveryValueChanged(x => x.Value)
+            InterstitialAd.S_isVideoAdOpen.ObserveEveryValueChanged(x => x.Value).Skip(1)
                 .Subscribe(isOpened =>
                 {
                     if (isOpened)
@@ -44,14 +45,14 @@ namespace Source.Modules.GameLogicModule.Scripts.Utils
             {
                 if (hasFocus)
                 {
-                    if (InterstitialAd.S_isVideoAdOpen.Value || RewardedAd.S_isVideoAdOpen.Value)
+                    if (_gameplayActiveWhileFocused)
                     {
-                        return;
+                        YandexGamesSdk.GameplayStart();
                     }
-                    YandexGamesSdk.GameplayStart();
                 }
                 else
                 {
+                    _gameplayActiveWhileFocused = YandexGamesSdk.IsGameplayStopped==false;
                     YandexGamesSdk.GameplayStop();
                 }
             }

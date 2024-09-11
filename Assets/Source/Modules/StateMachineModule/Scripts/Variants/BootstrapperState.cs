@@ -30,9 +30,9 @@ namespace Source.Modules.StateMachineModule.Scripts.Variants
 
         private void OnLoadedScene(AsyncOperation obj)
         {
+            YandexGamesSdk.GameReady();
             _signalBus.Fire<GameplaySceneLoadedSignal>();
             _stateMachine.SwitchState<MainMenuState>();
-            YandexGamesSdk.GameReady();
         }
     }
 }

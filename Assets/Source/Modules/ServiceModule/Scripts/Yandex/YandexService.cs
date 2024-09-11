@@ -1,7 +1,5 @@
 using System.Threading;
-#if !UNITY_EDITOR
 using Agava.YandexGames;
-#endif
 using Cysharp.Threading.Tasks;
 using Source.Modules.GameLogicModule.Scripts.Utils;
 using Source.Modules.ServiceModule.Scripts.Interfaces;
@@ -37,6 +35,7 @@ namespace Source.Modules.ServiceModule.Scripts.Yandex
         private void OnGameplayStarted()
         {
             _signalBus.TryUnsubscribe<GameplaySceneLoadedSignal>(OnGameplayStarted);
+            YandexGamesSdk.GameplayStop(true);
             Object.Instantiate(Resources.Load<YandexServiceMonoBehaviourHelper>(HELPER_RESOURCE_PATH)).Initialize();
         }
         

@@ -46,6 +46,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants
 
         private void OnLevelComplete()
         {
+            YandexGamesSdk.GameplayStop();
             _signalBus.TryUnsubscribe<LevelCompleteSignal>(OnLevelComplete);
 
             Instantiate(_winEffectPrefab, _vfxPivot.position, Quaternion.identity).Play();
@@ -73,8 +74,11 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants
         
         public override void Show(Action onComplete = null)
         {
-            DialogCanvas.TransitionAnimationComponent.Open();
-            base.Show(onComplete);
+            DialogCanvas.TransitionAnimationComponent.Open(YandexGamesSdk.GameplayStart);
+            base.Show(()=>
+            {
+                onComplete?.Invoke();
+            });
             _levelIdText.text = "Уровень " + (_levelContainer.CurrentLevelId+1);
             _levelIdText.gameObject.SetActive(true);
         }

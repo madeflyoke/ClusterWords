@@ -32,7 +32,6 @@ namespace Source.Modules.StateMachineModule.Scripts.Variants
         { 
             _signalBus.Unsubscribe<MoveToMainMenuSignal>(ToMainMenu);
            _stateMachine.SwitchState<MainMenuState>();
-           YandexGamesSdk.GameplayStop();
         }
     }
 }

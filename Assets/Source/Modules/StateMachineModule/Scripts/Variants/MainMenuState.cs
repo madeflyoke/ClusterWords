@@ -1,11 +1,9 @@
-﻿using Source.Modules.ServiceModule.Scripts;
+﻿using Agava.YandexGames;
+using Source.Modules.ServiceModule.Scripts;
 using Source.Modules.ServiceModule.Scripts.Dialogs;
-using Source.Modules.ServiceModule.Scripts.Dialogs.Variants;
 using Source.Modules.ServiceModule.Scripts.Dialogs.Variants.MainMenu;
 using Source.Modules.SignalsModule.Scripts;
 using Source.Modules.StateMachineModule.Scripts.Interfaces;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Source.Modules.StateMachineModule.Scripts.Variants
@@ -24,6 +22,7 @@ namespace Source.Modules.StateMachineModule.Scripts.Variants
 
         public void Enter(StateMachine stateMachine)
         {
+            YandexGamesSdk.GameplayStop();
             _stateMachine = stateMachine;
 
             _dialogService.ShowDialog<MainMenuDialog>(false, onComplete: () =>
