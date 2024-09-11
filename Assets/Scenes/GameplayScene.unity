@@ -405,8 +405,8 @@ MonoBehaviour:
   m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
-  m_SubmitButton: 
-  m_CancelButton: 
+  m_SubmitButton: Debug Next
+  m_CancelButton: Debug Next
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
