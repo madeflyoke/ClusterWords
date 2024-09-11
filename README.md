@@ -1,20 +1,19 @@
-# 3D Side Platformer
-
-> :warning: **Game Jam prototype!**
+# 2D Words Puzzle
 
 ## Details
-* Title: "Isfet Journey"
-* Genre(s): Platformer, Puzzle 
+* Title: "Words From Blocks"
+* Genre(s): Puzzle 
 * Platform(s): PC
 * Engine: Unity
-* Release: Mar 28, 2024
+* Release: Sep 11, 2024
+* Languages: Russian
 
 ## Features
-* Smoke-like character with dimensional movement
-* Avoiding mirrored sun-rays of different directions
-* Creative idea fitting in Game Jam theme ("Mirror and Smoke")
+* Create words from blocks with letters
+* Hint mechanic
+* Customizable levels
 * Music and SFX
-* Beautiful visuals (particles, post-processing, setting of Egypt desert and some mythology)
+* Words data validator (extended for new languages)
 
 ## Screenshots
 
