@@ -1,4 +1,7 @@
 using System.Threading;
+#if !UNITY_EDITOR
+using Agava.YandexGames;
+#endif
 using Cysharp.Threading.Tasks;
 using Source.Modules.GameLogicModule.Scripts.Utils;
 using Source.Modules.ServiceModule.Scripts.Interfaces;
