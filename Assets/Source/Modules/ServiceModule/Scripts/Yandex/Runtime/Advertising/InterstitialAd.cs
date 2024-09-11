@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 using AOT;
+using UniRx;
 using UnityEngine;
 
 namespace Agava.YandexGames
@@ -18,6 +19,8 @@ namespace Agava.YandexGames
         private static Action<bool> s_onCloseCallback;
         private static Action<string> s_onErrorCallback;
 
+        public static ReactiveProperty<bool> S_isVideoAdOpen {get; }= new();
+        
         /// <summary>
         /// Shows the fullscreen ad banner.
         /// </summary>
@@ -67,11 +70,14 @@ namespace Agava.YandexGames
                 Debug.Log($"{nameof(InterstitialAd)}.{nameof(OnOpenCallback)} invoked");
 
             s_onOpenCallback?.Invoke();
+            S_isVideoAdOpen.Value = true;
         }
 
         [MonoPInvokeCallback(typeof(Action<bool>))]
         private static void OnCloseCallback(bool wasShown)
         {
+            S_isVideoAdOpen.Value = false;
+            
             AfterShow?.Invoke();
             
             if (YandexGamesSdk.CallbackLogging)
@@ -84,6 +90,7 @@ namespace Agava.YandexGames
         private static void OnErrorCallback(string errorMessage)
         {
             AfterShow?.Invoke();
+            S_isVideoAdOpen.Value = false;
 
             if (YandexGamesSdk.CallbackLogging)
                 Debug.Log($"{nameof(InterstitialAd)}.{nameof(OnErrorCallback)} invoked, {nameof(errorMessage)} = {errorMessage}");
@@ -95,6 +102,7 @@ namespace Agava.YandexGames
         private static void OnOfflineCallback()
         {
             AfterShow?.Invoke();
+            S_isVideoAdOpen.Value = false;
 
             if (YandexGamesSdk.CallbackLogging)
                 Debug.Log($"{nameof(InterstitialAd)}.{nameof(OnOfflineCallback)} invoked");

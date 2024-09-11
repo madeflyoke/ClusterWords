@@ -1,5 +1,4 @@
-using Source.Modules.ServiceModule.Scripts;
-using Source.Modules.ServiceModule.Scripts.Audio;
+using Agava.YandexGames;
 using Source.Modules.SignalsModule.Scripts;
 using Source.Modules.StateMachineModule.Scripts.Interfaces;
 using UnityEngine;
@@ -33,6 +32,7 @@ namespace Source.Modules.StateMachineModule.Scripts.Variants
         {
             _signalBus.Fire<GameplaySceneLoadedSignal>();
             _stateMachine.SwitchState<MainMenuState>();
+            YandexGamesSdk.GameReady();
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 using AOT;
+using UniRx;
 using UnityEngine;
 
 namespace Agava.YandexGames
@@ -19,8 +20,8 @@ namespace Agava.YandexGames
         private static Action s_onCloseCallback;
         private static Action<string> s_onErrorCallback;
 
-        private static bool s_isVideoAdOpen = false;
-
+        public static ReactiveProperty<bool> S_isVideoAdOpen {get;}= new();
+        
         /// <summary>
         /// Shows the rewarded video ad.
         /// </summary>
@@ -65,7 +66,7 @@ namespace Agava.YandexGames
             if (YandexGamesSdk.CallbackLogging)
                 Debug.Log($"{nameof(RewardedAd)}.{nameof(OnOpenCallback)} invoked");
 
-            s_isVideoAdOpen = true;
+            S_isVideoAdOpen.Value = true;
 
             s_onOpenCallback?.Invoke();
         }
@@ -73,10 +74,10 @@ namespace Agava.YandexGames
         [MonoPInvokeCallback(typeof(Action))]
         private static void OnRewardedCallback()
         {
-            if (!s_isVideoAdOpen)
+            if (!S_isVideoAdOpen.Value)
             {
                 if (YandexGamesSdk.CallbackLogging)
-                    Debug.Log($"Ignoring {nameof(RewardedAd)}.{nameof(OnRewardedCallback)} because {nameof(s_isVideoAdOpen)} is {s_isVideoAdOpen}");
+                    Debug.Log($"Ignoring {nameof(RewardedAd)}.{nameof(OnRewardedCallback)} because {nameof(S_isVideoAdOpen)} is {S_isVideoAdOpen}");
 
                 return;
             }
@@ -92,10 +93,10 @@ namespace Agava.YandexGames
         {
             AfterShow?.Invoke();
 
-            if (!s_isVideoAdOpen)
+            if (!S_isVideoAdOpen.Value)
             {
                 if (YandexGamesSdk.CallbackLogging)
-                    Debug.Log($"Ignoring {nameof(RewardedAd)}.{nameof(OnCloseCallback)} because {nameof(s_isVideoAdOpen)} is {s_isVideoAdOpen}");
+                    Debug.Log($"Ignoring {nameof(RewardedAd)}.{nameof(OnCloseCallback)} because {nameof(S_isVideoAdOpen)} is {S_isVideoAdOpen}");
 
                 return;
             }
@@ -103,7 +104,7 @@ namespace Agava.YandexGames
             if (YandexGamesSdk.CallbackLogging)
                 Debug.Log($"{nameof(RewardedAd)}.{nameof(OnCloseCallback)} invoked");
 
-            s_isVideoAdOpen = false;
+            S_isVideoAdOpen.Value = false;
 
             s_onCloseCallback?.Invoke();
         }
@@ -112,6 +113,7 @@ namespace Agava.YandexGames
         private static void OnErrorCallback(string errorMessage)
         {
             AfterShow?.Invoke();
+            S_isVideoAdOpen.Value = false;
             
             if (YandexGamesSdk.CallbackLogging)
                 Debug.Log($"{nameof(RewardedAd)}.{nameof(OnErrorCallback)} invoked, {nameof(errorMessage)} = {errorMessage}");

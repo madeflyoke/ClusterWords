@@ -13,7 +13,7 @@ namespace Agava.YandexGames
         /// <summary>
         /// Enable it to log SDK callbacks in the console.
         /// </summary>
-        public static bool CallbackLogging = false;
+        public static bool CallbackLogging = true;
 
         /// <summary>
         /// SDK is initialized automatically on load.
@@ -36,6 +36,9 @@ namespace Agava.YandexGames
 #endif
             }
         }
+
+        private static bool _isGameReadySet;
+        private static bool _isGameplayStopped = true;
 
         [DllImport("__Internal")]
         private static extern bool GetYandexGamesSdkIsInitialized();
@@ -81,14 +84,57 @@ namespace Agava.YandexGames
 
         public static void GameReady()
         {
+            if (_isGameReadySet)
+            {
+                return;
+            }
             if (CallbackLogging)
                 Debug.Log($"{nameof(YandexGamesSdk)}.{nameof(GameReady)} invoked");
 
+#if !UNITY_EDITOR
             YandexGamesSdkGameReady();
+#endif
+            _isGameReadySet = true;
+        }
+
+        public static void GameplayStart()
+        {
+            if (_isGameplayStopped)
+            {
+                if (CallbackLogging)
+                    Debug.Log($"{nameof(YandexGamesSdk)}.{nameof(GameplayStart)} invoked");
+            
+#if !UNITY_EDITOR
+                YandexGamesSdkGameplayStart();
+#endif
+                _isGameplayStopped = false;
+            }
+        }
+        
+        public static void GameplayStop()
+        {
+            if (_isGameplayStopped)
+            {
+                return;
+            }
+            
+            if (CallbackLogging)
+                Debug.Log($"{nameof(YandexGamesSdk)}.{nameof(GameplayStop)} invoked");
+            
+#if !UNITY_EDITOR
+            YandexGamesSdkGameplayStop();
+#endif
+            _isGameplayStopped = true;
         }
 
         [DllImport("__Internal")]
         private static extern void YandexGamesSdkGameReady();
+        
+        [DllImport("__Internal")]
+        private static extern void YandexGamesSdkGameplayStart();
+        
+        [DllImport("__Internal")]
+        private static extern void YandexGamesSdkGameplayStop();
 
         [DllImport("__Internal")]
         private static extern bool YandexGamesSdkIsRunningOnYandex();

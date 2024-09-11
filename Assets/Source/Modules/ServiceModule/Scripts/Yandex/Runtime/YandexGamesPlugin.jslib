@@ -66,7 +66,15 @@ const yandexGamesLibrary = {
     gameReady: function() {
       yandexGames.sdk.features.LoadingAPI.ready();
     },
+    
+    gamePlayStart: function() {
+          yandexGames.sdk.features.GameplayAPI.start();
+        },
 
+    gamePlayStop: function() {
+      yandexGames.sdk.features.GameplayAPI.stop();
+    },
+    
     invokeErrorCallback: function (error, errorCallbackPtr) {
       var errorMessage;
       if (error instanceof Error) {
@@ -636,6 +644,18 @@ const yandexGamesLibrary = {
     yandexGames.throwIfSdkNotInitialized();
 
     yandexGames.gameReady();
+  },
+  
+  YandexGamesSdkGameplayStart: function() {
+      yandexGames.throwIfSdkNotInitialized();
+  
+      yandexGames.gamePlayStart();
+    },
+
+  YandexGamesSdkGameplayStop: function() {
+    yandexGames.throwIfSdkNotInitialized();
+
+    yandexGames.gamePlayStop();
   },
 
   YandexGamesSdkIsRunningOnYandex: function() {
