@@ -15,10 +15,12 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
 
         public bool IsEmpty => _clusters.Keys.Count == 0;
         public int CellsCount => _wordCellControllers.Count;
-        
+
+        public Transform ClustersParent => _clusterParent;
         private readonly Dictionary<ClusterController, List<int>> _clusters = new();
         
         [SerializeField] private WordView _wordView;
+        [SerializeField] private Transform _clusterParent;
         private List<WordCellController> _wordCellControllers;
         private WordModel _wordModel;
         
@@ -30,6 +32,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Words
             {
                 _wordCellControllers[i].SetCellIndex(i);
             }
+            _clusterParent.SetAsLastSibling();
         }
 
         public List<Cluster<char>> GetCurrentClusters()

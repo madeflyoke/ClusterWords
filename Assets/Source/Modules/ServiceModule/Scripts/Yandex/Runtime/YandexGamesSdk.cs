@@ -112,9 +112,9 @@ namespace Agava.YandexGames
             }
         }
         
-        public static void GameplayStop(bool force=false)
+        public static void GameplayStop()
         {
-            if (IsGameplayStopped && force==false)
+            if (IsGameplayStopped)
             {
                 return;
             }

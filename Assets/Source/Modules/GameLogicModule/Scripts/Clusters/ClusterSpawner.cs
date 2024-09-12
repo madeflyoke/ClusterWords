@@ -10,10 +10,8 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
     public class ClusterSpawner : MonoBehaviour
     {
         [SerializeField] private ClusterArea _clusterArea;
-        [SerializeField] private Transform _dragParent;
         [SerializeField] private ClusterCompositeRoot _clusterCompositeRootPrefab;
 
-        public Transform DraggedClustersParent => _dragParent;
         private Canvas _relatedCanvas;
 
         private void Awake()

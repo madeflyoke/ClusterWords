@@ -130,7 +130,7 @@ namespace Source.Modules.GameLogicModule.Scripts.Clusters
             
             _clusterModel.UpdatePosition(wordCellController.WordController.GetAveragePositionBetweenCells(_clusterModel.Cluster,
                 wordCellController.GetCellIndex()));
-            _clusterModel.SetParent(_clusterSpawner.DraggedClustersParent);
+            _clusterModel.SetParent(wordCellController.WordController.ClustersParent);
             _clusterView.SetViewInCell();
             _audioPlayer.PlaySound(SoundType.SET_CLUSTER_IN_CELL, .6f);
             wordCellController.WordController.StopAnimateCells();
