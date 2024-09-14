@@ -50,9 +50,13 @@ namespace Source.Modules.ServiceModule.Scripts
 
             foreach (var service in _services)
             {
+#if UNITY_EDITOR
                 Debug.Log($"Service {service.Value} started initialization...");
+#endif
                 await service.Value.Initialize(_cts);
+#if UNITY_EDITOR
                 Debug.Log($"Service {service.Value} initialized");
+#endif
             }
             
             onInitialized?.Invoke();
