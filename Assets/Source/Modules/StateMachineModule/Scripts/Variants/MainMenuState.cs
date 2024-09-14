@@ -22,7 +22,6 @@ namespace Source.Modules.StateMachineModule.Scripts.Variants
 
         public void Enter(StateMachine stateMachine)
         {
-            YandexGamesSdk.GameplayStop();
             _stateMachine = stateMachine;
 
             _dialogService.ShowDialog<MainMenuDialog>(false, onComplete: () =>

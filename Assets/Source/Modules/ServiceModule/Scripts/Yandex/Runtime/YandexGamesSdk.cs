@@ -37,7 +37,7 @@ namespace Agava.YandexGames
             }
         }
         
-        public static bool IsGameplayStopped { get; private set; }= true;
+        public static bool IsGameplayStopped { get; private set; }
 
         private static bool _isGameReadySet;
 

@@ -25,7 +25,6 @@ namespace Source.Modules.StateMachineModule.Scripts.Variants
             _stateMachine = stateMachine;
             _signalBus.Subscribe<MoveToMainMenuSignal>(ToMainMenu);
             _dialogService.ShowDialog<GameplayDialog>(asFirstChild:true);
-            YandexGamesSdk.GameplayStart();
         }
 
         private void ToMainMenu()

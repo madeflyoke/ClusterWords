@@ -36,6 +36,7 @@ namespace Source.Modules.ServiceModule.Scripts.Yandex
         {
             _signalBus.TryUnsubscribe<MainMenuInitializedSignal>(OnGameplayStarted);
             YandexGamesSdk.GameReady();
+            YandexGamesSdk.GameplayStop();
             Object.Instantiate(Resources.Load<YandexServiceMonoBehaviourHelper>(HELPER_RESOURCE_PATH)).Initialize();
         }
         
