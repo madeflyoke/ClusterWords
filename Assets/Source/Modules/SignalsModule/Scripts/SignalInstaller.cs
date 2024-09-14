@@ -11,6 +11,7 @@ namespace Source.Modules.SignalsModule.Scripts
             Container.DeclareSignal<LevelStartSignal>();
             Container.DeclareSignal<BootstrapperInitializedSignal>();
             Container.DeclareSignal<GameplaySceneLoadedSignal>();
+            Container.DeclareSignal<MainMenuInitializedSignal>();
             SignalBusInstaller.Install(Container);
         }
     }

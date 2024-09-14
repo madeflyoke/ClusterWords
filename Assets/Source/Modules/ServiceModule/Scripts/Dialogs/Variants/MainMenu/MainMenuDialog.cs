@@ -1,5 +1,6 @@
 ﻿using System;
 using Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Settings;
+using Source.Modules.SignalsModule.Scripts;
 using UnityEngine;
 using Zenject;
 
@@ -28,6 +29,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.MainMenu
             {
                 _levelSelector.gameObject.SetActive(true);
                 _settingsButton.gameObject.SetActive(true);
+                _signalBus.Fire<MainMenuInitializedSignal>();
                 onComplete?.Invoke();
             });
         }

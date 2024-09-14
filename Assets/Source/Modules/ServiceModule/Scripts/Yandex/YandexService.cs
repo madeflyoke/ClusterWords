@@ -29,14 +29,13 @@ namespace Source.Modules.ServiceModule.Scripts.Yandex
             await YandexGamesSdk.Initialize().ToUniTask(cancellationToken:cts.Token).SuppressCancellationThrow();
             
 #endif
-            _signalBus.Subscribe<GameplaySceneLoadedSignal>(OnGameplayStarted);
+            _signalBus.Subscribe<MainMenuInitializedSignal>(OnGameplayStarted);
         }
 
         private void OnGameplayStarted()
         {
-            _signalBus.TryUnsubscribe<GameplaySceneLoadedSignal>(OnGameplayStarted);
-            YandexGamesSdk.GameplayStart();
-            YandexGamesSdk.GameplayStop();
+            _signalBus.TryUnsubscribe<MainMenuInitializedSignal>(OnGameplayStarted);
+            YandexGamesSdk.GameReady();
             Object.Instantiate(Resources.Load<YandexServiceMonoBehaviourHelper>(HELPER_RESOURCE_PATH)).Initialize();
         }
         
