@@ -33,6 +33,7 @@ namespace Source.Modules.ServiceModule.Scripts.Yandex
         {
             _signalBus.TryUnsubscribe<MainMenuInitializedSignal>(OnGameplayStarted);
             YandexGamesSdk.GameReady();
+            InterstitialAd.Show();
         }
         
         public void Dispose()
