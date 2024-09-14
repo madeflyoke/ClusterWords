@@ -1,17 +1,14 @@
 using System.Threading;
 using Agava.YandexGames;
 using Cysharp.Threading.Tasks;
-using Source.Modules.GameLogicModule.Scripts.Utils;
 using Source.Modules.ServiceModule.Scripts.Interfaces;
 using Source.Modules.SignalsModule.Scripts;
-using UnityEngine;
 using Zenject;
 
 namespace Source.Modules.ServiceModule.Scripts.Yandex
 {
     public class YandexService : IService
     {
-        private const string HELPER_RESOURCE_PATH = "Services/Yandex/YandexServiceMonoBehaviourHelper";
         private SignalBus _signalBus;
 
         [Inject]
@@ -36,8 +33,6 @@ namespace Source.Modules.ServiceModule.Scripts.Yandex
         {
             _signalBus.TryUnsubscribe<MainMenuInitializedSignal>(OnGameplayStarted);
             YandexGamesSdk.GameReady();
-            YandexGamesSdk.GameplayStop();
-            Object.Instantiate(Resources.Load<YandexServiceMonoBehaviourHelper>(HELPER_RESOURCE_PATH)).Initialize();
         }
         
         public void Dispose()

@@ -37,8 +37,6 @@ namespace Agava.YandexGames
             }
         }
         
-        public static bool IsGameplayStopped { get; private set; }
-
         private static bool _isGameReadySet;
 
         [DllImport("__Internal")]
@@ -98,45 +96,9 @@ namespace Agava.YandexGames
             _isGameReadySet = true;
         }
 
-        public static void GameplayStart()
-        {
-            if (IsGameplayStopped)
-            {
-                if (CallbackLogging)
-                    Debug.Log($"{nameof(YandexGamesSdk)}.{nameof(GameplayStart)} invoked");
-            
-#if !UNITY_EDITOR
-                YandexGamesSdkGameplayStart();
-#endif
-                IsGameplayStopped = false;
-            }
-        }
-        
-        public static void GameplayStop()
-        {
-            if (IsGameplayStopped)
-            {
-                return;
-            }
-            
-            if (CallbackLogging)
-                Debug.Log($"{nameof(YandexGamesSdk)}.{nameof(GameplayStop)} invoked");
-            
-#if !UNITY_EDITOR
-            YandexGamesSdkGameplayStop();
-#endif
-            IsGameplayStopped = true;
-        }
-
         [DllImport("__Internal")]
         private static extern void YandexGamesSdkGameReady();
         
-        [DllImport("__Internal")]
-        private static extern void YandexGamesSdkGameplayStart();
-        
-        [DllImport("__Internal")]
-        private static extern void YandexGamesSdkGameplayStop();
-
         [DllImport("__Internal")]
         private static extern bool YandexGamesSdkIsRunningOnYandex();
     }

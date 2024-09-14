@@ -22,7 +22,6 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Settings
         private StateMachine _stateMachine;
         private SignalBus _signalBus;
         private SettingsHandler _settingsHandler;
-        private Action _onHideInternal;
         
         [Inject]
         private void Construct(StateMachine stateMachine, SignalBus signalBus, ServicesHolder servicesHolder)
@@ -43,18 +42,10 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Settings
                     _toMenuButton.gameObject.SetActive(false);
                     break;
                 case GameplayState:
-                    if (YandexGamesSdk.IsGameplayStopped==false)
-                    {
-                        _onHideInternal += YandexGamesSdk.GameplayStart;
-                    }
-                    
-                    YandexGamesSdk.GameplayStop();
-
                     _toMenuButton.gameObject.SetActive(true);
                     _toMenuButton.onClick.AddListener(() =>
                     {
                         _signalBus.Fire(new MoveToMainMenuSignal());
-                        _onHideInternal = null;
                         Hide();
                     });
                     break;
@@ -66,12 +57,6 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Settings
             _musicToggle.onValueChanged.AddListener(OnMusicToggleValueChanged);
         }
         
-        public override void Hide()
-        {
-            _onHideInternal?.Invoke();
-            base.Hide();
-        }
-
         private void RefreshView()
         {
             _soundToggle.isOn = !_audioPlayer.SoundActive;
