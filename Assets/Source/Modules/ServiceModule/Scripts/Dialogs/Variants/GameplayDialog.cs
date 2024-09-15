@@ -52,16 +52,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants
             
             if (_levelsConfig.GetLevelData(_levelContainer.CurrentLevelId+1)!=null)
             {
-                _nextLevelButtons.Activate(() =>
-                {
-                    if ((_levelContainer.SessionLevelsCompletedCount)%GameConstants.INTERSTITIAL_PER_LEVEL==0)
-                    {
-                        InterstitialAd.Show(onCloseCallback:x=> Invoke(nameof(NextLevelSet), 1f));
-                        return;
-                    }
-
-                    NextLevelSet();
-                });
+                _nextLevelButtons.Activate(NextLevelSet);
             }
         }
         

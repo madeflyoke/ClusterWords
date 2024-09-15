@@ -10,7 +10,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Gameplay
     {
         [SerializeField] private Button _button;
         [SerializeField] private TMP_Text _countText;
-        [SerializeField] private Image _adImage;
+        //[SerializeField] private Image _adImage;
         private int _maxCount;
         private int _currentCount;
         
@@ -23,7 +23,6 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Gameplay
             {
                 if (_currentCount<=0)
                 {
-                    RewardedAd.Show(onRewardedCallback:RewardedCallback);
                     return;
                 }
                 onClick?.Invoke();
@@ -46,9 +45,9 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants.Gameplay
 
         private void RefreshView()
         {
-            var countInvalid = _currentCount <= 0;
-            _adImage.gameObject.SetActive(countInvalid);
-            _countText.gameObject.SetActive(!countInvalid);
+          //  var countInvalid = _currentCount <= 0;
+           // _adImage.gameObject.SetActive(countInvalid);
+           // _countText.gameObject.SetActive(!countInvalid);
             
             _countText.text = _currentCount.ToString();
         }
