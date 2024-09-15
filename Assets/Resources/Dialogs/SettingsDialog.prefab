@@ -293,6 +293,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _button: {fileID: 1523114975184597238}
   _punchForce: 0.95
+  _withSound: 1
 --- !u!1 &6343771287689113537
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,7 +423,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0412 \u041C\u0415\u041D\u042E"
+  m_text: TO MENU
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a71931fed245d15408a73ed500a88595, type: 2}
   m_sharedMaterial: {fileID: 5608857792110435821, guid: a71931fed245d15408a73ed500a88595, type: 2}

@@ -107,14 +107,16 @@ namespace Source.Modules.EditorModule
                     }
 
                     var sectionsResponse = JsonUtility.FromJson<SectionsResponse>(json);
-                    foreach (var section in sectionsResponse.parse.sections)
+                    if (sectionsResponse!=null && sectionsResponse.parse.sections!=null)
                     {
-                        if (section.line == languageName)
+                        foreach (var section in sectionsResponse.parse.sections)
                         {
-                            return true;
+                            if (section.line == languageName)
+                            {
+                                return true;
+                            }
                         }
                     }
-
                     return false;
                 }
             }
@@ -124,7 +126,7 @@ namespace Source.Modules.EditorModule
             foreach (var word in words)
             {
                 Debug.Log($"Checking the word: {word}...");
-                bool result = await CheckWord(word, "ru");
+                bool result = await CheckWord(word, "en");
                 if (result==false)
                 {
                     finalWords.Remove(word);

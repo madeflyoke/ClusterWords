@@ -69,7 +69,7 @@ namespace Source.Modules.ServiceModule.Scripts.Dialogs.Variants
             {
                 onComplete?.Invoke();
             });
-            _levelIdText.text = "Уровень " + (_levelContainer.CurrentLevelId+1);
+            _levelIdText.text = "Level " + (_levelContainer.CurrentLevelId+1);
             _levelIdText.gameObject.SetActive(true);
         }
 
